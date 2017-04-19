@@ -1,0 +1,1 @@
+An Eclipse/Maven project that fulfils the requirements in your project.
