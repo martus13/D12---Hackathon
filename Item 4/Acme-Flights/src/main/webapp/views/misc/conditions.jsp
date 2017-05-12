@@ -20,4 +20,4 @@
 <p><spring:message code="legal.term-8" /></p>
 <p><spring:message code="legal.term-9" /></p>
 <p><spring:message code="legal.term-10" /></p>
-<p><spring:message code="legal.term-11" /><a href="http://politicadecookies.com" target="_blank"><spring:message code="legal.cookies.moreInfo" /></a></p>
+<p><spring:message code="legal.term-11" />&nbsp;<a href="http://politicadecookies.com" target="_blank"><spring:message code="legal.cookies.moreInfo" /></a></p>
