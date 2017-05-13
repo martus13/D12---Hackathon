@@ -51,7 +51,7 @@ public class Airline extends Offertable {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "")
+	@Pattern(regexp = "(\\+\\d{1,3} )?(\\(\\d{1,3}\\) )?(\\w{4,})")
 	public String getContactPhone() {
 		return this.contactPhone;
 	}

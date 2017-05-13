@@ -89,7 +89,6 @@ public class Book extends DomainEntity {
 		this.comment = comment;
 	}
 
-	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")

@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,8 +27,8 @@ public class Flight extends Offertable {
 
 	// Attributes -------------------------------------------------------------
 
-	private Date	creationMoment;
-	private Date	departureMoment;
+	private Date	departureDate;
+	private Date	arrivalDate;
 	private Double	businessPrice;
 	private Double	economyPrice;
 	public Integer	businessSeats;
@@ -40,26 +39,25 @@ public class Flight extends Offertable {
 
 
 	@NotNull
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	public Date getCreationMoment() {
-		return this.creationMoment;
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getDepartureMoment() {
+		return this.departureDate;
 	}
 
-	public void setCreationMoment(final Date creationMoment) {
-		this.creationMoment = creationMoment;
+	public void setDepartureMoment(final Date departureMoment) {
+		this.departureDate = departureMoment;
 	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getDepartureMoment() {
-		return this.departureMoment;
+	public Date getArrivalDate() {
+		return this.arrivalDate;
 	}
 
-	public void setDepartureMoment(final Date departureMoment) {
-		this.departureMoment = departureMoment;
+	public void setArrivalDate(final Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
 
 	@NotNull

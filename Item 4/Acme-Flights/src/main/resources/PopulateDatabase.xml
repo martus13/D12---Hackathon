@@ -31,18 +31,42 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="USER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-
+	
 	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="user3" />
+		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="super" />
 		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
 		<property name="authorities">
@@ -51,12 +75,249 @@
 					<property name="authority" value="ADMIN" />
 				</bean>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="USER" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 	
 	<!-- Other domain beans come here -->	
+	
+	<!-- Admin -->
+	
+	<!-- Configuration -->
+	
+	<!-- ExchangeRate -->
+	
+	<!-- Airport -->
+	
+	<bean id="airport1" class="domain.Airport">
+		<property name="country" value="España" />
+		<property name="state" value="Cataluña" />
+		<property name="province" value="Barcelona" />
+		<property name="city" value="El Prat de Llobregat" />
+		<property name="airportName" value="Aeropuerto de Barcelona-El Prat" />
+		<property name="iataCode" value="BCN" />
+		<property name="rate" value="8,76" />
+	</bean>
+	
+	<bean id="airport2" class="domain.Airport">
+		<property name="country" value="Italia" />
+		<property name="state" value="Véneto" />
+		<property name="city" value="Treviso" />
+		<property name="airportName" value="Aeropuerto de Sant'Angelo Treviso" />
+		<property name="iataCode" value="TSF" />
+		<property name="rate" value="5.20" />
+	</bean>
+	
+	<bean id="airport3" class="domain.Airport">
+		<property name="country" value="Noruega" />
+		<property name="city" value="Gardermoen" />
+		<property name="airportName" value="Aeropuerto de Oslo-Gardermoen" />
+		<property name="iataCode" value="OSL" />
+		<property name="rate" value="9.90" />
+	</bean>
+	
+	<bean id="airport4" class="domain.Airport">
+		<property name="country" value="España" />
+		<property name="city" value="Sevilla" />
+		<property name="airportName" value="Aeropuerto de Sevilla" />
+		<property name="iataCode" value="SVQ" />
+		<property name="rate" value="4.25" />
+	</bean>
+	
+	<bean id="airport5" class="domain.Airport">
+		<property name="country" value="Paises Bajos" />
+		<property name="city" value="Amsterdam" />
+		<property name="airportName" value="Aeropuerto de Schiphol" />
+		<property name="iataCode" value="AMS" />
+		<property name="rate" value="3.99" />
+	</bean>
+	
+	<!-- Airline -->
+	
+	<bean id="airline1" class="domain.Airline">
+		<property name="name" value="Vueling Airlines" />
+		<property name="picture" value="http://blog.studentsville.it/wp-content/uploads/2013/05/Vueling_logo.jpg" />
+		<property name="contactPhone" value="+34 902808005" />
+		<property name="email" value="clientes@vueling.com" />
+		<property name="rating" value="0" />
+		<property name="deleted" value="false" />
+	</bean>
+	
+	<bean id="airline2" class="domain.Airline">
+		<property name="name" value="Ryanair" />
+		<property name="picture" value="https://www.ryanair.com/etc/designs/ryanair/favicon/logo.png" />
+		<property name="contactPhone" value="(44) 8712460002" />
+		<property name="email" value="clientes@ryanair.com" />
+		<property name="rating" value="0" />
+		<property name="deleted" value="false" />
+	</bean>
+	
+	<bean id="airline3" class="domain.Airline">
+		<property name="name" value="Transavia airlines" />
+		<property name="picture" value="https://www.aeropuertoinfo.com/wp-content/uploads/Logo-Transavia.jpg" />
+		<property name="contactPhone" value="+34 901111500" />
+		<property name="email" value="clientes@transavia.com" />
+		<property name="rating" value="0" />
+		<property name="deleted" value="false" />
+	</bean>
+	
+	<bean id="airline3" class="domain.Airline">
+		<property name="name" value="Transavia airlines" />
+		<property name="picture" value="https://www.aeropuertoinfo.com/wp-content/uploads/Logo-Transavia.jpg" />
+		<property name="contactPhone" value="+34 901111500" />
+		<property name="email" value="clientes@transavia.com" />
+		<property name="rating" value="0" />
+		<property name="deleted" value="false" />
+	</bean>
+	
+	<!-- AirlineConfiguration -->
+	
+	<!-- Season -->
+	
+	<!-- Flight -->
+	
+	<bean id="flight1" class="domain.Flight">
+		<property name="departureDate" value="31/05/2017 11:55" />
+		<property name="arrivalDate" value="31/05/2017 15:30" />
+		<property name="businessPrice" value="50.6" />
+		<property name="economyPrice" value="12.97" />
+		<property name="businessSeats" value="10" />
+		<property name="economySeats" value="100" />
+		<property name="availableBusinessSeats" value="10" />
+		<property name="availableEconomySeats" value="100" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline1" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport3" />
+	</bean>
+	
+	<bean id="flight2" class="domain.Flight">
+		<property name="departureDate" value="05/06/2017 16:15" />
+		<property name="arrivalDate" value="31/05/2017 19:40" />
+		<property name="businessPrice" value="54.6" />
+		<property name="economyPrice" value="16.05" />
+		<property name="businessSeats" value="10" />
+		<property name="economySeats" value="100" />
+		<property name="availableBusinessSeats" value="10" />
+		<property name="availableEconomySeats" value="100" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline1" />
+		<property name="departure" ref="airport3" />
+		<property name="destination" ref="airport1" />
+	</bean>
+	
+	<bean id="flight3" class="domain.Flight">
+		<property name="departureDate" value="15/06/2017 20:05" />
+		<property name="arrivalDate" value="15/06/2017 23:00" />
+		<property name="businessPrice" value="92.8" />
+		<property name="economyPrice" value="49.5" />
+		<property name="businessSeats" value="40" />
+		<property name="economySeats" value="149" />
+		<property name="availableBusinessSeats" value="40" />
+		<property name="availableEconomySeats" value="149" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline3" />
+		<property name="departure" ref="airport4" />
+		<property name="destination" ref="airport5" />
+	</bean>
+	
+	<bean id="flight4" class="domain.Flight">
+		<property name="departureDate" value="18/06/2017 06:40" />
+		<property name="arrivalDate" value="18/06/2017 09:35" />
+		<property name="businessPrice" value="100.7" />
+		<property name="economyPrice" value="49.75" />
+		<property name="businessSeats" value="30" />
+		<property name="economySeats" value="175" />
+		<property name="availableBusinessSeats" value="30" />
+		<property name="availableEconomySeats" value="175" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline3" />
+		<property name="departure" ref="airport5" />
+		<property name="destination" ref="airport4" />
+	</bean>
+	
+	<bean id="flight6" class="domain.Flight">
+		<property name="departureDate" value="26/05/2017 11:35" />
+		<property name="arrivalDate" value="26/05/2017 13:35" />
+		<property name="businessPrice" value="70.0" />
+		<property name="economyPrice" value="30.5" />
+		<property name="businessSeats" value="20" />
+		<property name="economySeats" value="120" />
+		<property name="availableBusinessSeats" value="10" />
+		<property name="availableEconomySeats" value="100" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline2" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport2" />
+	</bean>
+	
+	<bean id="flight7" class="domain.Flight">
+		<property name="departureDate" value="29/05/2017 22:35" />
+		<property name="arrivalDate" value="30/05/2017 0:30" />
+		<property name="businessPrice" value="69.9" />
+		<property name="economyPrice" value="24.98" />
+		<property name="businessSeats" value="20" />
+		<property name="economySeats" value="130" />
+		<property name="availableBusinessSeats" value="10" />
+		<property name="availableEconomySeats" value="100" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline2" />
+		<property name="departure" ref="airport2" />
+		<property name="destination" ref="airport1" />
+	</bean>
+	
+	<!-- Offer -->
+	
+	<!-- Manager -->
+	
+	<!-- Campaign -->
+	
+	<!-- Banner -->
+	
+	<!-- MonthlyBill -->
+	
+	<!-- User -->
+	
+	<bean id="user1" class="domain.User">
+		<property name="name" value="User 1" />
+		<property name="surname" value="Surname 1" />
+		<property name="contactPhone" value="1234" />
+		<property name="email" value="user1@gmail.com" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+	
+	<bean id="user2" class="domain.User">
+		<property name="name" value="User 2" />
+		<property name="surname" value="Surname 2" />
+		<property name="contactPhone" value="+34 (955) 555555" />
+		<property name="email" value="user2@gmail.com" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+	
+	<bean id="user3" class="domain.User">
+		<property name="name" value="User 3" />
+		<property name="surname" value="Surname 3" />
+		<property name="contactPhone" value="5678" />
+		<property name="email" value="user3@gmail.com" />
+		<property name="userAccount" ref="userAccount4" />
+	</bean>
+	
+	<!-- CreditCard -->
+	
+	<!-- Finder -->
+	
+	<!-- PointsCard -->
+	
+	<!-- Book -->
+	
+	<!-- Invoice -->
+	
+	<!-- Comments -->
+	
 	
 </beans>

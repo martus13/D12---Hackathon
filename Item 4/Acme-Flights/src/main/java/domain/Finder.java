@@ -30,20 +30,32 @@ public class Finder extends DomainEntity {
 	//Attributes-----------------------------------
 
 	private Date	departureDate;
+	private Date	returnDate;
 	private Boolean	isBusiness;
 	private Integer	passengersNumber;
-	private Boolean	returnFlight;
 	private Integer	childrenNumber;
+	private Boolean	returnFlight;
 
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}
 
 	public void setDepartureDate(final Date departureDate) {
 		this.departureDate = departureDate;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	public Date getReturnDate() {
+		return this.returnDate;
+	}
+
+	public void setReturnDate(final Date returnDate) {
+		this.returnDate = returnDate;
 	}
 
 	public Boolean getIsBusiness() {
@@ -63,15 +75,6 @@ public class Finder extends DomainEntity {
 		this.passengersNumber = passengersNumber;
 	}
 
-	@NotNull
-	public Boolean getReturnFlight() {
-		return this.returnFlight;
-	}
-
-	public void setReturnFlight(final Boolean returnFlight) {
-		this.returnFlight = returnFlight;
-	}
-
 	@Min(0)
 	public Integer getChildrenNumber() {
 		return this.childrenNumber;
@@ -79,6 +82,15 @@ public class Finder extends DomainEntity {
 
 	public void setChildrenNumber(final Integer childrenNumber) {
 		this.childrenNumber = childrenNumber;
+	}
+
+	@NotNull
+	public Boolean getReturnFlight() {
+		return this.returnFlight;
+	}
+
+	public void setReturnFlight(final Boolean returnFlight) {
+		this.returnFlight = returnFlight;
 	}
 
 

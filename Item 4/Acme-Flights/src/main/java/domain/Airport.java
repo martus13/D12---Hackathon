@@ -25,7 +25,7 @@ public class Airport extends DomainEntity {
 	private String	state;
 	private String	province;
 	private String	city;
-	private String	airport;
+	private String	airportName;
 	private String	iataCode;
 	private Double	rate;
 
@@ -65,12 +65,12 @@ public class Airport extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getAirport() {
-		return this.airport;
+	public String getAirportName() {
+		return this.airportName;
 	}
 
-	public void setAirport(final String airport) {
-		this.airport = airport;
+	public void setAirportName(final String airportName) {
+		this.airportName = airportName;
 	}
 
 	@NotBlank
