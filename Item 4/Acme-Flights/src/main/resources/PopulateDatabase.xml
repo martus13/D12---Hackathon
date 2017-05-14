@@ -213,7 +213,7 @@
 		<property name="endDay" value="01" />
 		<property name="endMonth" value="03" />
 		<property name="type" value="discount" />
-		<property name="pricePercentage" value="80" />
+		<property name="pricePercentage" value="80.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline3" />
 	</bean>
@@ -225,7 +225,7 @@
 		<property name="endDay" value="01" />
 		<property name="endMonth" value="04" />
 		<property name="type" value="increase" />
-		<property name="pricePercentage" value="25" />
+		<property name="pricePercentage" value="25.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline1" />
 	</bean>
@@ -237,7 +237,7 @@
 		<property name="endDay" value="01" />
 		<property name="endMonth" value="05" />
 		<property name="type" value="discount" />
-		<property name="pricePercentage" value="10" />
+		<property name="pricePercentage" value="10.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline1" />
 	</bean>
@@ -249,7 +249,7 @@
 		<property name="endDay" value="30" />
 		<property name="endMonth" value="06" />
 		<property name="type" value="increase" />
-		<property name="pricePercentage" value="5" />
+		<property name="pricePercentage" value="5.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline3" />
 	</bean>
@@ -261,7 +261,7 @@
 		<property name="endDay" value="01" />
 		<property name="endMonth" value="09" />
 		<property name="type" value="increase" />
-		<property name="pricePercentage" value="60" />
+		<property name="pricePercentage" value="60.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline1" />
 	</bean>
@@ -273,7 +273,7 @@
 		<property name="endDay" value="30" />
 		<property name="endMonth" value="11" />
 		<property name="type" value="discount" />
-		<property name="pricePercentage" value="79" />
+		<property name="pricePercentage" value="79.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline3" />
 	</bean>
@@ -285,7 +285,7 @@
 		<property name="endDay" value="01" />
 		<property name="endMonth" value="03" />
 		<property name="type" value="discount" />
-		<property name="pricePercentage" value="80" />
+		<property name="pricePercentage" value="80.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline1" />
 	</bean>
@@ -297,7 +297,7 @@
 		<property name="endDay" value="30" />
 		<property name="endMonth" value="06" />
 		<property name="type" value="increase" />
-		<property name="pricePercentage" value="5" />
+		<property name="pricePercentage" value="5.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline1" />
 	</bean>
@@ -309,7 +309,7 @@
 		<property name="endDay" value="30" />
 		<property name="endMonth" value="11" />
 		<property name="type" value="discount" />
-		<property name="pricePercentage" value="79" />
+		<property name="pricePercentage" value="79.0" />
 		<property name="inactive" value="false" />
 		<property name="airline" ref="airline1" />
 	</bean>

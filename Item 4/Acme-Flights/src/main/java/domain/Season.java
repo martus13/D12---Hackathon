@@ -29,7 +29,7 @@ public class Season extends DomainEntity {
 	private Integer	endDay;
 	private Integer	endMonth;
 	private String	type;
-	private Integer	pricePercentage;
+	private Double	pricePercentage;
 	private Boolean	inactive;
 
 
@@ -93,11 +93,11 @@ public class Season extends DomainEntity {
 
 	@NotNull
 	@Range(min = 0, max = 100)
-	public Integer getPricePercentage() {
+	public Double getPricePercentage() {
 		return this.pricePercentage;
 	}
 
-	public void setPricePercentage(final Integer pricePercentage) {
+	public void setPricePercentage(final Double pricePercentage) {
 		this.pricePercentage = pricePercentage;
 	}
 
