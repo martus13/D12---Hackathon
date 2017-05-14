@@ -35,6 +35,7 @@ public class Book extends DomainEntity {
 	private Integer	passengersNumber;
 	private Integer	childrenNumber;
 	private Boolean	isBusiness;
+	private Double	totalFee;
 	private String	comment;
 	private Date	cancelationMoment;
 	private Integer	usedPoints;
@@ -81,6 +82,16 @@ public class Book extends DomainEntity {
 		this.isBusiness = isBusiness;
 	}
 
+	@NotNull
+	@Min(0)
+	public Double getTotalFee() {
+		return this.totalFee;
+	}
+
+	public void setTotalFee(final Double totalFee) {
+		this.totalFee = totalFee;
+	}
+
 	public String getComment() {
 		return this.comment;
 	}
@@ -89,7 +100,6 @@ public class Book extends DomainEntity {
 		this.comment = comment;
 	}
 
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getCancelationMoment() {

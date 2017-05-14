@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Offertable extends DomainEntity {
+public class Administrator extends Actor {
 
 	// Constructors -----------------------------------------------------------
-	public Offertable() {
+	public Administrator() {
 		super();
 	}
 

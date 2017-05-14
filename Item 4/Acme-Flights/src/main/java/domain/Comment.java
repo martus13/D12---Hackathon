@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -17,85 +18,84 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Comment extends DomainEntity{
-	
+public class Comment extends DomainEntity {
+
 	// Constructors -----------------------------------------------------------
-		public Comment() {
-			super();
-		}
+	public Comment() {
+		super();
+	}
 
 
 	// Attributes -------------------------------------------------------------
-		
-		private Date creationMoment;
-		private String type;
-		private String coment;
-		private Rating rating;
-		
-		@NotNull
-		@Past
-		@Temporal(TemporalType.TIMESTAMP)
-		@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-		public Date getCreationMoment() {
-			return creationMoment;
-		}
-		public void setCreationMoment(Date creationMoment) {
-			this.creationMoment = creationMoment;
-		}
-		
-		@NotBlank
-		public String getType() {
-			return type;
-		}
-		public void setType(String type) {
-			this.type = type;
-		}
-		
-		
-		public String getComent() {
-			return coment;
-		}
-		public void setComent(String coment) {
-			this.coment = coment;
-		}
-		
-		@Valid
-		@NotNull
-		public Rating getRating() {
-			return rating;
-		}
-		public void setRating(Rating rating) {
-			this.rating = rating;
-		}
-		
-		
+
+	private Date	creationMoment;
+	private String	type;
+	private String	comment;
+	private Rating	rating;
+
+
+	@NotNull
+	@Past
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	public Date getCreationMoment() {
+		return this.creationMoment;
+	}
+	public void setCreationMoment(final Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
+
+	@NotBlank
+	public String getType() {
+		return this.type;
+	}
+	public void setType(final String type) {
+		this.type = type;
+	}
+
+	public String getComment() {
+		return this.comment;
+	}
+	public void setComment(final String comment) {
+		this.comment = comment;
+	}
+
+	@Valid
+	@NotNull
+	public Rating getRating() {
+		return this.rating;
+	}
+	public void setRating(final Rating rating) {
+		this.rating = rating;
+	}
+
+
 	// Relationships ----------------------------------------------------------
-		
-		private User	user;
-		private Airline	airline;
+
+	private User	user;
+	private Airline	airline;
 
 
-		@NotNull
-		@Valid
-		@ManyToOne(optional = false)
-		public User getUser() {
-			return this.user;
-		}
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public User getUser() {
+		return this.user;
+	}
 
-		public void setUser(final User user) {
-			this.user = user;
-		}
+	public void setUser(final User user) {
+		this.user = user;
+	}
 
-		@NotNull
-		@Valid
-		@ManyToOne(optional = false)
-		public Airline getAirline() {
-			return this.airline;
-		}
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Airline getAirline() {
+		return this.airline;
+	}
 
-		public void setAirline(final Airline airline) {
-			this.airline = airline;
-		}
-		
-		
+	public void setAirline(final Airline airline) {
+		this.airline = airline;
+	}
+
 }

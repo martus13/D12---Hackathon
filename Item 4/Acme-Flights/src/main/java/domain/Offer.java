@@ -1,12 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -66,18 +67,18 @@ public class Offer extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Offertable	offertable;
+	private Collection<Offertable>	offertables;
 
 
 	@NotNull
 	@Valid
-	@OneToOne(optional = false)
-	public Offertable getOffertable() {
-		return this.offertable;
+	@ManyToMany()
+	public Collection<Offertable> getOffertables() {
+		return this.offertables;
 	}
 
-	public void setOffertable(final Offertable offertable) {
-		this.offertable = offertable;
+	public void setOffertables(final Collection<Offertable> offertables) {
+		this.offertables = offertables;
 	}
 
 }

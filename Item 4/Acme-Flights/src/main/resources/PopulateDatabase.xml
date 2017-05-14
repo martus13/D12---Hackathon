@@ -92,6 +92,42 @@
 	
 	<!-- ExchangeRate -->
 	
+	<bean id="exchangeRate1" class="domain.ExchangeRate">
+		<property name="currency" value="USD" />
+		<property name="description" value="US Dollar" />
+		<property name="value1EUR" value="1.09302" />
+	</bean>
+	
+	<bean id="exchangeRate2" class="domain.ExchangeRate">
+		<property name="currency" value="GBP" />
+		<property name="description" value="British Pound" />
+		<property name="value1EUR" value="0.848191" />
+	</bean>
+	
+	<bean id="exchangeRate3" class="domain.ExchangeRate">
+		<property name="currency" value="NOK" />
+		<property name="description" value="Norwegian Krone" />
+		<property name="value1EUR" value="9.35647" />
+	</bean>
+	
+	<bean id="exchangeRate4" class="domain.ExchangeRate">
+		<property name="currency" value="RUB" />
+		<property name="description" value="Russian Ruble" />
+		<property name="value1EUR" value="62.4186" />
+	</bean>
+	
+	<bean id="exchangeRate5" class="domain.ExchangeRate">
+		<property name="currency" value="JPY" />
+		<property name="description" value="Japanese Yen" />
+		<property name="value1EUR" value="123.874" />
+	</bean>
+	
+	<bean id="exchangeRate6" class="domain.ExchangeRate">
+		<property name="currency" value="CHY" />
+		<property name="description" value="Chinese Yuan Renminbi" />
+		<property name="value1EUR" value="7.54086" />
+	</bean>
+	
 	<!-- Airport -->
 	
 	<bean id="airport1" class="domain.Airport">
@@ -101,7 +137,7 @@
 		<property name="city" value="El Prat de Llobregat" />
 		<property name="airportName" value="Aeropuerto de Barcelona-El Prat" />
 		<property name="iataCode" value="BCN" />
-		<property name="rate" value="8,76" />
+		<property name="rate" value="8.76" />
 	</bean>
 	
 	<bean id="airport2" class="domain.Airport">
@@ -166,30 +202,130 @@
 		<property name="deleted" value="false" />
 	</bean>
 	
-	<bean id="airline3" class="domain.Airline">
-		<property name="name" value="Transavia airlines" />
-		<property name="picture" value="https://www.aeropuertoinfo.com/wp-content/uploads/Logo-Transavia.jpg" />
-		<property name="contactPhone" value="+34 901111500" />
-		<property name="email" value="clientes@transavia.com" />
-		<property name="rating" value="0" />
-		<property name="deleted" value="false" />
-	</bean>
-	
 	<!-- AirlineConfiguration -->
 	
 	<!-- Season -->
 	
+	<bean id="season1" class="domain.Season">
+		<property name="title" value="Season 1" />
+		<property name="startDay" value="10" />
+		<property name="startMonth" value="01" />
+		<property name="endDay" value="01" />
+		<property name="endMonth" value="03" />
+		<property name="type" value="discount" />
+		<property name="pricePercentage" value="80" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline3" />
+	</bean>
+	
+	<bean id="season2" class="domain.Season">
+		<property name="title" value="Season 2" />
+		<property name="startDay" value="02" />
+		<property name="startMonth" value="03" />
+		<property name="endDay" value="01" />
+		<property name="endMonth" value="04" />
+		<property name="type" value="increase" />
+		<property name="pricePercentage" value="25" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="season3" class="domain.Season">
+		<property name="title" value="Season 3" />
+		<property name="startDay" value="02" />
+		<property name="startMonth" value="04" />
+		<property name="endDay" value="01" />
+		<property name="endMonth" value="05" />
+		<property name="type" value="discount" />
+		<property name="pricePercentage" value="10" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="season4" class="domain.Season">
+		<property name="title" value="Season 4" />
+		<property name="startDay" value="02" />
+		<property name="startMonth" value="05" />
+		<property name="endDay" value="30" />
+		<property name="endMonth" value="06" />
+		<property name="type" value="increase" />
+		<property name="pricePercentage" value="5" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline3" />
+	</bean>
+	
+	<bean id="season5" class="domain.Season">
+		<property name="title" value="Season 5" />
+		<property name="startDay" value="01" />
+		<property name="startMonth" value="07" />
+		<property name="endDay" value="01" />
+		<property name="endMonth" value="09" />
+		<property name="type" value="increase" />
+		<property name="pricePercentage" value="60" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="season6" class="domain.Season">
+		<property name="title" value="Season 6" />
+		<property name="startDay" value="22" />
+		<property name="startMonth" value="09" />
+		<property name="endDay" value="30" />
+		<property name="endMonth" value="11" />
+		<property name="type" value="discount" />
+		<property name="pricePercentage" value="79" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline3" />
+	</bean>
+	
+	<bean id="season7" class="domain.Season">
+		<property name="title" value="Season 1" />
+		<property name="startDay" value="10" />
+		<property name="startMonth" value="01" />
+		<property name="endDay" value="01" />
+		<property name="endMonth" value="03" />
+		<property name="type" value="discount" />
+		<property name="pricePercentage" value="80" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="season8" class="domain.Season">
+		<property name="title" value="Season 4" />
+		<property name="startDay" value="02" />
+		<property name="startMonth" value="05" />
+		<property name="endDay" value="30" />
+		<property name="endMonth" value="06" />
+		<property name="type" value="increase" />
+		<property name="pricePercentage" value="5" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="season9" class="domain.Season">
+		<property name="title" value="Season 6" />
+		<property name="startDay" value="22" />
+		<property name="startMonth" value="09" />
+		<property name="endDay" value="30" />
+		<property name="endMonth" value="11" />
+		<property name="type" value="discount" />
+		<property name="pricePercentage" value="79" />
+		<property name="inactive" value="false" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
 	<!-- Flight -->
 	
 	<bean id="flight1" class="domain.Flight">
-		<property name="departureDate" value="31/05/2017 11:55" />
-		<property name="arrivalDate" value="31/05/2017 15:30" />
-		<property name="businessPrice" value="50.6" />
-		<property name="economyPrice" value="12.97" />
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="05/28/2017 11:55" />
+		<property name="arrivalDate" value="05/31/2017 15:30" />
+		<property name="businessPrice" value="60.6" />
+		<property name="economyPrice" value="32.97" />
 		<property name="businessSeats" value="10" />
 		<property name="economySeats" value="100" />
 		<property name="availableBusinessSeats" value="10" />
-		<property name="availableEconomySeats" value="100" />
+		<property name="availableEconomySeats" value="97" />
 		<property name="cancelled" value="false" />
 		<property name="airline" ref="airline1" />
 		<property name="departure" ref="airport1" />
@@ -197,14 +333,15 @@
 	</bean>
 	
 	<bean id="flight2" class="domain.Flight">
-		<property name="departureDate" value="05/06/2017 16:15" />
-		<property name="arrivalDate" value="31/05/2017 19:40" />
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="06/05/2017 16:15" />
+		<property name="arrivalDate" value="06/05/2017 19:40" />
 		<property name="businessPrice" value="54.6" />
-		<property name="economyPrice" value="16.05" />
+		<property name="economyPrice" value="26.05" />
 		<property name="businessSeats" value="10" />
 		<property name="economySeats" value="100" />
 		<property name="availableBusinessSeats" value="10" />
-		<property name="availableEconomySeats" value="100" />
+		<property name="availableEconomySeats" value="97" />
 		<property name="cancelled" value="false" />
 		<property name="airline" ref="airline1" />
 		<property name="departure" ref="airport3" />
@@ -212,8 +349,9 @@
 	</bean>
 	
 	<bean id="flight3" class="domain.Flight">
-		<property name="departureDate" value="15/06/2017 20:05" />
-		<property name="arrivalDate" value="15/06/2017 23:00" />
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="06/15/2017 20:05" />
+		<property name="arrivalDate" value="06/15/2017 23:00" />
 		<property name="businessPrice" value="92.8" />
 		<property name="economyPrice" value="49.5" />
 		<property name="businessSeats" value="40" />
@@ -227,10 +365,11 @@
 	</bean>
 	
 	<bean id="flight4" class="domain.Flight">
-		<property name="departureDate" value="18/06/2017 06:40" />
-		<property name="arrivalDate" value="18/06/2017 09:35" />
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="06/18/2017 06:40" />
+		<property name="arrivalDate" value="06/18/2017 09:35" />
 		<property name="businessPrice" value="100.7" />
-		<property name="economyPrice" value="49.75" />
+		<property name="economyPrice" value="44.75" />
 		<property name="businessSeats" value="30" />
 		<property name="economySeats" value="175" />
 		<property name="availableBusinessSeats" value="30" />
@@ -241,34 +380,68 @@
 		<property name="destination" ref="airport4" />
 	</bean>
 	
-	<bean id="flight6" class="domain.Flight">
-		<property name="departureDate" value="26/05/2017 11:35" />
-		<property name="arrivalDate" value="26/05/2017 13:35" />
+	<bean id="flight5" class="domain.Flight">
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="05/26/2017 11:35" />
+		<property name="arrivalDate" value="05/26/2017 13:35" />
 		<property name="businessPrice" value="70.0" />
-		<property name="economyPrice" value="30.5" />
+		<property name="economyPrice" value="20.5" />
 		<property name="businessSeats" value="20" />
 		<property name="economySeats" value="120" />
 		<property name="availableBusinessSeats" value="10" />
-		<property name="availableEconomySeats" value="100" />
+		<property name="availableEconomySeats" value="98" />
 		<property name="cancelled" value="false" />
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport2" />
 	</bean>
 	
-	<bean id="flight7" class="domain.Flight">
-		<property name="departureDate" value="29/05/2017 22:35" />
-		<property name="arrivalDate" value="30/05/2017 0:30" />
+	<bean id="flight6" class="domain.Flight">
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="05/29/2017 22:35" />
+		<property name="arrivalDate" value="05/30/2017 0:30" />
 		<property name="businessPrice" value="69.9" />
-		<property name="economyPrice" value="24.98" />
+		<property name="economyPrice" value="44.98" />
 		<property name="businessSeats" value="20" />
 		<property name="economySeats" value="130" />
 		<property name="availableBusinessSeats" value="10" />
-		<property name="availableEconomySeats" value="100" />
+		<property name="availableEconomySeats" value="98" />
 		<property name="cancelled" value="false" />
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport2" />
 		<property name="destination" ref="airport1" />
+	</bean>
+	
+	<bean id="flight7" class="domain.Flight">
+		<property name="creationMoment" value="05/01/2016 22:15" />
+		<property name="departureDate" value="03/28/2017 6:35" />
+		<property name="arrivalDate" value="03/28/2017 8:15" />
+		<property name="businessPrice" value="70.0" />
+		<property name="economyPrice" value="42.18" />
+		<property name="businessSeats" value="20" />
+		<property name="economySeats" value="120" />
+		<property name="availableBusinessSeats" value="20" />
+		<property name="availableEconomySeats" value="117" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline2" />
+		<property name="departure" ref="airport4" />
+		<property name="destination" ref="airport1" />
+	</bean>
+	
+	<bean id="flight8" class="domain.Flight">
+		<property name="creationMoment" value="05/01/2016 22:15" />
+		<property name="departureDate" value="04/01/2017 22:35" />
+		<property name="arrivalDate" value="04/01/2017 23:40" />
+		<property name="businessPrice" value="69.9" />
+		<property name="economyPrice" value="36.19" />
+		<property name="businessSeats" value="20" />
+		<property name="economySeats" value="130" />
+		<property name="availableBusinessSeats" value="20" />
+		<property name="availableEconomySeats" value="127" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline2" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport4" />
 	</bean>
 	
 	<!-- Offer -->
@@ -313,7 +486,130 @@
 	
 	<!-- PointsCard -->
 	
+	<bean id="pointsCard1" class="domain.PointsCard">
+		<property name="expirationMoment" value="10/31/2017 12:30:00" />
+		<property name="points" value="2" />
+		<property name="user" ref="user1" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="pointsCard2" class="domain.PointsCard">
+		<property name="expirationMoment" value="07/10/2017 15:30:01" />
+		<property name="points" value="0" />
+		<property name="user" ref="user1" />
+		<property name="airline" ref="airline2" />
+	</bean>
+	
+	<bean id="pointsCard3" class="domain.PointsCard">
+		<property name="expirationMoment" value="02/14/2017 14:02:17" />
+		<property name="points" value="0" />
+		<property name="user" ref="user1" />
+		<property name="airline" ref="airline3" />
+	</bean>
+	
+	<bean id="pointsCard4" class="domain.PointsCard">
+		<property name="expirationMoment" value="10/31/2017 12:30:00" />
+		<property name="points" value="1" />
+		<property name="user" ref="user2" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
+	<bean id="pointsCard5" class="domain.PointsCard">
+		<property name="expirationMoment" value="07/10/2017 15:30:01" />
+		<property name="points" value="1" />
+		<property name="user" ref="user2" />
+		<property name="airline" ref="airline2" />
+	</bean>
+	
+	<bean id="pointsCard6" class="domain.PointsCard">
+		<property name="expirationMoment" value="10/31/2017 12:30:00" />
+		<property name="points" value="0" />
+		<property name="user" ref="user3" />
+		<property name="airline" ref="airline1" />
+	</bean>
+	
 	<!-- Book -->
+	
+	<bean id="book1" class="domain.Book">
+		<property name="creationMoment" value="04/11/2017 12:30:00" />
+		<property name="passengersNumber" value="2" />
+		<property name="childrenNumber" value="0" />
+		<property name="isBusiness" value="false" />
+		<property name="totalFee" value="215.23" />
+		<property name="usedPoints" value="0" />
+		<property name="user" ref="user1" />
+		<property name="flights">
+			<list>
+				<ref bean="flight5" /> 
+				<ref bean="flight6" /> 
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="book2" class="domain.Book">
+		<property name="creationMoment" value="07/02/2016 10:34:00" />
+		<property name="passengersNumber" value="2" />
+		<property name="childrenNumber" value="1" />
+		<property name="isBusiness" value="true" />
+		<property name="totalFee" value="305.82" />
+		<property name="usedPoints" value="0" />
+		<property name="user" ref="user1" />
+		<property name="flights">
+			<list>
+				<ref bean="flight7" /> 
+				<ref bean="flight8" /> 
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="book3" class="domain.Book">
+		<property name="creationMoment" value="01/02/2017 10:34:00" />
+		<property name="passengersNumber" value="3" />
+		<property name="childrenNumber" value="0" />
+		<property name="isBusiness" value="false" />
+		<property name="totalFee" value="244.69" />
+		<property name="usedPoints" value="0" />
+		<property name="user" ref="user2" />
+		<property name="flights">
+			<list>
+				<ref bean="flight1" /> 
+				<ref bean="flight2" /> 
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="book4" class="domain.Book">
+		<property name="creationMoment" value="07/02/2016 10:34:00" />
+		<property name="passengersNumber" value="3" />
+		<property name="childrenNumber" value="0" />
+		<property name="isBusiness" value="false" />
+		<property name="totalFee" value="274.14" />
+		<property name="usedPoints" value="0" />
+		<property name="cancelationMoment" value="08/02/2016 10:34:00" />
+		<property name="user" ref="user2" />
+		<property name="flights">
+			<list>
+				<ref bean="flight7" /> 
+				<ref bean="flight8" /> 
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="book5" class="domain.Book">
+		<property name="creationMoment" value="03/02/2017 22:34:10" />
+		<property name="passengersNumber" value="4" />
+		<property name="childrenNumber" value="0" />
+		<property name="isBusiness" value="false" />
+		<property name="totalFee" value="175.27" />
+		<property name="usedPoints" value="0" />
+		<property name="user" ref="user2" />
+		<property name="flights">
+			<list>
+				<ref bean="flight3" /> 
+			</list>
+		</property>
+	</bean>
+	
 	
 	<!-- Invoice -->
 	

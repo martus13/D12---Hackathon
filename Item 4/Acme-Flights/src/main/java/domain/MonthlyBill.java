@@ -10,7 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,6 +37,7 @@ public class MonthlyBill extends DomainEntity {
 
 
 	@NotNull
+	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getCreationMoment() {
@@ -64,6 +67,8 @@ public class MonthlyBill extends DomainEntity {
 		this.description = description;
 	}
 
+	@NotBlank
+	@Min(0)
 	public Double getTotalFee() {
 		return this.totalFee;
 	}
@@ -75,8 +80,8 @@ public class MonthlyBill extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Airline	airline;
-	private Finder	finder;
+	private Airline		airline;
+	private Campaign	campaign;
 
 
 	@NotNull
@@ -93,12 +98,12 @@ public class MonthlyBill extends DomainEntity {
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
-	public Finder getFinder() {
-		return this.finder;
+	public Campaign getCampaign() {
+		return this.campaign;
 	}
 
-	public void setFinder(final Finder finder) {
-		this.finder = finder;
+	public void setCampaign(final Campaign campaign) {
+		this.campaign = campaign;
 	}
 
 }

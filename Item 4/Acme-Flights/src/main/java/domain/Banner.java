@@ -29,6 +29,7 @@ public class Banner extends DomainEntity {
 	private String	picture;
 
 
+	@NotNull
 	@Min(0)
 	public Integer getNumDisplayed() {
 		return this.numDisplayed;

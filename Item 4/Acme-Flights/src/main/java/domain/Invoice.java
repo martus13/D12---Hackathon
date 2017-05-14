@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -9,17 +10,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 @Access(AccessType.PROPERTY)
-public class Invoice extends DomainEntity{
+public class Invoice extends DomainEntity {
 
-	
 	// Constructors -----------------------------------------------------------
 	public Invoice() {
 		super();
@@ -27,53 +27,55 @@ public class Invoice extends DomainEntity{
 
 
 	// Attributes -------------------------------------------------------------
-	
-	private Date creationMoment;
-	private Date paidMoment;
-	private Double totalFee;
-	
+
+	private Date	creationMoment;
+	private Date	paidMoment;
+	private Double	totalFee;
+
+
 	@NotNull
 	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getCreationMoment() {
-		return creationMoment;
+		return this.creationMoment;
 	}
-	public void setCreationMoment(Date creationMoment) {
+	public void setCreationMoment(final Date creationMoment) {
 		this.creationMoment = creationMoment;
 	}
-	
-	
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getPaidMoment() {
-		return paidMoment;
+		return this.paidMoment;
 	}
-	public void setPaidMoment(Date paidMoment) {
+	public void setPaidMoment(final Date paidMoment) {
 		this.paidMoment = paidMoment;
 	}
-	
+
 	@NotNull
+	@Min(0)
 	public Double getTotalFee() {
-		return totalFee;
+		return this.totalFee;
 	}
-	public void setTotalFee(Double totalFee) {
+	public void setTotalFee(final Double totalFee) {
 		this.totalFee = totalFee;
 	}
-	
-	
-	
+
+
 	// Relationships ----------------------------------------------------------
-	
-	private Book book;
+
+	private Book	book;
+
 
 	@NotNull
 	@Valid
-	@OneToOne(optional=false)
+	@OneToOne(optional = false)
 	public Book getBook() {
-		return book;
+		return this.book;
 	}
-	public void setBook(Book book) {
+	public void setBook(final Book book) {
 		this.book = book;
 	}
-	
-	
+
 }

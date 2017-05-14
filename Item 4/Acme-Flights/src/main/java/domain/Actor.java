@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -16,67 +17,69 @@ import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Actor extends DomainEntity{
-	
+public class Actor extends DomainEntity {
+
 	// Constructors -----------------------------------------------------------
-		public Actor() {
-			super();
-		}
+	public Actor() {
+		super();
+	}
 
 
 	// Attributes -------------------------------------------------------------
-		private String name;
-		private String surname;
-		private String contactPhone;
-		private String email;
-		
-		
-		@NotBlank
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-		
-		@NotBlank
-		public String getSurname() {
-			return surname;
-		}
-		public void setSurname(String surname) {
-			this.surname = surname;
-		}
-		
-		@NotBlank
-		@Pattern(regexp = "(\\+\\d{1,3} )?(\\(\\d{1,3}\\) )?(\\w{4,})")
-		public String getContactPhone() {
-			return contactPhone;
-		}
-		public void setContactPhone(String contactPhone) {
-			this.contactPhone = contactPhone;
-		}
-		
-		@NotBlank
-		@Email
-		public String getEmail() {
-			return email;
-		}
-		public void setEmail(String email) {
-			this.email = email;
-		}
-		
-		// Relationships ----------------------------------------------------------
+	private String	name;
+	private String	surname;
+	private String	contactPhone;
+	private String	email;
 
-		private UserAccount	userAccount;
-		
-		@NotNull
-		@Valid
-		@OneToOne(cascade = CascadeType.ALL, optional = false)
-		public UserAccount getUserAccount() {
-			return this.userAccount;
-		}
-		public void setUserAccount(final UserAccount userAccount) {
-			this.userAccount = userAccount;
-		}
+
+	@NotBlank
+	public String getName() {
+		return this.name;
+	}
+	public void setName(final String name) {
+		this.name = name;
+	}
+
+	@NotBlank
+	public String getSurname() {
+		return this.surname;
+	}
+	public void setSurname(final String surname) {
+		this.surname = surname;
+	}
+
+	@NotBlank
+	@Pattern(regexp = "(\\+\\d{1,3} )?(\\(\\d{1,3}\\) )?(\\w{4,})")
+	public String getContactPhone() {
+		return this.contactPhone;
+	}
+	public void setContactPhone(final String contactPhone) {
+		this.contactPhone = contactPhone;
+	}
+
+	@NotBlank
+	@Email
+	public String getEmail() {
+		return this.email;
+	}
+	public void setEmail(final String email) {
+		this.email = email;
+	}
+
+
+	// Relationships ----------------------------------------------------------
+
+	private UserAccount	userAccount;
+
+
+	@NotNull
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	public UserAccount getUserAccount() {
+		return this.userAccount;
+	}
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
+	}
 
 }

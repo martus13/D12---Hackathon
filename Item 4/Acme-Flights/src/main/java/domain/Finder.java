@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -8,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -66,6 +68,7 @@ public class Finder extends DomainEntity {
 		this.isBusiness = isBusiness;
 	}
 
+	@NotNull
 	@Min(1)
 	public Integer getPassengersNumber() {
 		return this.passengersNumber;
@@ -75,6 +78,7 @@ public class Finder extends DomainEntity {
 		this.passengersNumber = passengersNumber;
 	}
 
+	@NotNull
 	@Min(0)
 	public Integer getChildrenNumber() {
 		return this.childrenNumber;
@@ -95,21 +99,11 @@ public class Finder extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Airline	airline;
-	private Airport	departure;
-	private Airport	destination;
-	private User	user;
+	private Airport				departure;
+	private Airport				destination;
+	private User				user;
+	private Collection<Flight>	results;
 
-
-	@Valid
-	@ManyToMany()
-	public Airline getAirline() {
-		return this.airline;
-	}
-
-	public void setAirline(final Airline airline) {
-		this.airline = airline;
-	}
 
 	@NotNull
 	@Valid
@@ -135,13 +129,24 @@ public class Finder extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@OneToOne(optional = false)
 	public User getUser() {
 		return this.user;
 	}
 
 	public void setUser(final User user) {
 		this.user = user;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToMany()
+	public Collection<Flight> getResults() {
+		return this.results;
+	}
+
+	public void setResults(final Collection<Flight> results) {
+		this.results = results;
 	}
 
 }

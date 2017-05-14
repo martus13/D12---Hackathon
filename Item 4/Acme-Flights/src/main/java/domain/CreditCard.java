@@ -105,22 +105,4 @@ public class CreditCard extends DomainEntity {
 		this.user = user;
 	}
 
-	//	public static String maskNumber(final String number) {
-	//		String result;
-	//		int start;
-	//		int end;
-	//		String stringFill;
-	//
-	//		start = 4;
-	//		end = number.length() - 4;
-	//
-	//		stringFill = "";
-	//		for (int i = 0; i < end - start; i++)
-	//			stringFill += "*";
-	//
-	//		result = StringUtils.overlay(number, stringFill, start, end);
-	//
-	//		return result;
-	//	}
-
 }

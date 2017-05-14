@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -14,51 +15,49 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Configuration extends DomainEntity{
-	
+public class Configuration extends DomainEntity {
+
 	// Constructors -----------------------------------------------------------
 	public Configuration() {
 		super();
 	}
-	
+
+
 	// Attributes -------------------------------------------------------------
-	
-	private Date cochedTime;
-	private double fee;
-	private double campaingFee;
+
+	private Date	cochedTime;
+	private Double	fee;
+	private Double	campaingFee;
+
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "HH:mm:ss")
 	public Date getCochedTime() {
-		return cochedTime;
+		return this.cochedTime;
 	}
-	public void setCochedTime(Date cochedTime) {
+	public void setCochedTime(final Date cochedTime) {
 		this.cochedTime = cochedTime;
 	}
-	
+
 	@NotNull
 	@Min(0)
-	public double getFee() {
-		return fee;
+	public Double getFee() {
+		return this.fee;
 	}
-	public void setFee(double fee) {
+	public void setFee(final Double fee) {
 		this.fee = fee;
 	}
-	
+
 	@NotNull
 	@Min(0)
-	public double getCampaingFee() {
-		return campaingFee;
+	public Double getCampaingFee() {
+		return this.campaingFee;
 	}
-	public void setCampaingFee(double campaingFee) {
+	public void setCampaingFee(final Double campaingFee) {
 		this.campaingFee = campaingFee;
 	}
-	
-	
-	
-	
+
 	// Relationships ----------------------------------------------------------
-	
 
 }

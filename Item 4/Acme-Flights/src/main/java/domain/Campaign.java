@@ -55,6 +55,7 @@ public class Campaign extends DomainEntity {
 		this.endDate = endDate;
 	}
 
+	@NotNull
 	@Min(0)
 	public Integer getMaxDisplayed() {
 		return this.maxDisplayed;
