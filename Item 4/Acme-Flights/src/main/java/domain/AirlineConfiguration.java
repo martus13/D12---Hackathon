@@ -24,7 +24,7 @@ public class AirlineConfiguration extends DomainEntity {
 	private Integer	maxCancellationDays;
 	private Integer	maxChildrenAge;
 	private Double	childrenDiscount;
-	private Double	maxBagWieght;
+	private Double	maxBagWeight;
 	private Double	overweightBagPrice;
 
 
@@ -57,11 +57,11 @@ public class AirlineConfiguration extends DomainEntity {
 
 	@NotNull
 	@Min(0)
-	public Double getMaxBagWieght() {
-		return this.maxBagWieght;
+	public Double getMaxBagWeight() {
+		return this.maxBagWeight;
 	}
-	public void setMaxBagWieght(final Double maxBagWieght) {
-		this.maxBagWieght = maxBagWieght;
+	public void setMaxBagWeight(final Double maxBagWeight) {
+		this.maxBagWeight = maxBagWeight;
 	}
 
 	@NotNull
@@ -76,18 +76,18 @@ public class AirlineConfiguration extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Airline	airline;
+	private Airline	controlledBy;
 
 
 	@NotNull
 	@Valid
 	@OneToOne(optional = false)
-	public Airline getAirline() {
-		return this.airline;
+	public Airline getControlledBy() {
+		return this.controlledBy;
 	}
 
-	public void setAirline(final Airline airline) {
-		this.airline = airline;
+	public void setControlledBy(final Airline controlledBy) {
+		this.controlledBy = controlledBy;
 	}
 
 }

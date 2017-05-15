@@ -88,7 +88,23 @@
 	
 	<!-- Admin -->
 	
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Admin 1"/>
+		<property name="surname" value="Surname Admin 1"/>
+		<property name="email" value="admin1@gmail.com"/>
+		<property name="contactPhone" value="+34 (954) 596093"/>
+		
+		<property name="userAccount" ref="userAccount1"/>
+	</bean>
+	
 	<!-- Configuration -->
+	
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="cachedTime" value="01/01/2017 12:00:00" />
+		<property name="campaingFee" value="1.00" />
+		<property name="fee" value="1.00" />
+	</bean>
+	
 	
 	<!-- ExchangeRate -->
 	
@@ -203,6 +219,33 @@
 	</bean>
 	
 	<!-- AirlineConfiguration -->
+	
+	<bean id="airlineConfig1" class="domain.AirlineConfiguration">
+		<property name="maxCancellationDays" value="7"/>
+		<property name="maxChildrenAge" value="13"/>
+		<property name="childrenDiscount" value="10.0"/>
+		<property name="maxBagWeight" value="15.5"/>
+		<property name="overweightBagPrice" value="30.0"/>
+		<property name="controlledBy" ref="airline1"/>
+	</bean>
+	
+	<bean id="airlineConfig2" class="domain.AirlineConfiguration">
+		<property name="maxCancellationDays" value="14"/>
+		<property name="maxChildrenAge" value="16"/>
+		<property name="childrenDiscount" value="12.0"/>
+		<property name="maxBagWeight" value="20.0"/>
+		<property name="overweightBagPrice" value="25.0"/>
+		<property name="controlledBy" ref="airline2"/>
+	</bean>
+	
+	<bean id="airlineConfig3" class="domain.AirlineConfiguration">
+		<property name="maxCancellationDays" value="30"/>
+		<property name="maxChildrenAge" value="15"/>
+		<property name="childrenDiscount" value="9.5"/>
+		<property name="maxBagWeight" value="15.5"/>
+		<property name="overweightBagPrice" value="20.0"/>
+		<property name="controlledBy" ref="airline3"/>
+	</bean>
 	
 	<!-- Season -->
 	
@@ -613,7 +656,102 @@
 	
 	<!-- Invoice -->
 	
+	<bean id="invoice1" class="domain.Invoice">
+		<property name="creationMoment" value="04/02/2017 23:40"/>
+		<property name="paidMoment" value="04/04/2017 12:40"/>
+		<property name="totalFee" value="305.82"/>
+		<property name="book" ref="book2"/>
+	</bean>
+	
+	<bean id="invoice2" class="domain.Invoice">
+		<property name="creationMoment" value="04/02/2017 23:40"/>
+		<property name="paidMoment" value="04/03/2017 11:28"/>
+		<property name="totalFee" value="274.14"/>
+		<property name="book" ref="book4"/>
+	</bean>
+	
 	<!-- Comments -->
 	
+	<bean id="comment1" class="domain.Comment">
+		<property name="creationMoment" value="04/04/2017 13:47"/>
+		<property name="type" value="positive"/>
+		<property name="comment" value="Muy cómodo y muy buen servicio. Un placer volar con ellos."/>
+		<property name="rating" ref="rating1"/>
+		<property name="airline" ref="airline2"/>
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="comment2" class="domain.Comment">
+		<property name="creationMoment" value="04/03/2017 12:40"/>
+		<property name="type" value="negative"/>
+		<property name="comment" value="Me perdieron la maleta"/>
+		<property name="rating" ref="rating2"/>
+		<property name="airline" ref="airline2"/>
+		<property name="user" ref="user2"/>
+	</bean>
+	
+	<bean id="comment3" class="domain.Comment">
+		<property name="creationMoment" value="03/27/2017 10:40"/>
+		<property name="type" value="neutral"/>
+		<property name="comment" value="He volado mucho con esta compañía y no tengo muchas quejas aunque las hay mejores"/>
+		<property name="rating" ref="rating3"/>
+		<property name="airline" ref="airline1"/>
+		<property name="user" ref="user3"/>
+	</bean>
+	
+	<bean id="comment4" class="domain.Comment">
+		<property name="creationMoment" value="03/29/2017 15:58"/>
+		<property name="type" value="positive"/>
+		<property name="comment" value="Todo muy bien, aunque mejoraría la comida que ofrecen en los viajes largos"/>
+		<property name="rating" ref="rating4"/>
+		<property name="airline" ref="airline3"/>
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="comment5" class="domain.Comment">
+		<property name="creationMoment" value="04/21/2017 21:36"/>
+		<property name="type" value="neutral"/>
+		<property name="comment" value="Tuvieron un poco de retraso en la salida pero luego el servicio fue bastante bueno en general"/>
+		<property name="rating" ref="rating5"/>
+		<property name="airline" ref="airline3"/>
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<!-- Ratings -->
+	
+	<bean id="rating1" class="domain.Rating">
+		<property name="flight" value="5"/>
+		<property name="airline" value="5"/>
+		<property name="service" value="5"/>
+		<property name="comfort" value="4"/>
+	</bean>
+	
+	<bean id="rating2" class="domain.Rating">
+		<property name="flight" value="4"/>
+		<property name="airline" value="0"/>
+		<property name="service" value="1"/>
+		<property name="comfort" value="4"/>
+	</bean>
+	
+	<bean id="rating3" class="domain.Rating">
+		<property name="flight" value="4"/>
+		<property name="airline" value="4"/>
+		<property name="service" value="2"/>
+		<property name="comfort" value="3"/>
+	</bean>
+	
+	<bean id="rating4" class="domain.Rating">
+		<property name="flight" value="4"/>
+		<property name="airline" value="4"/>
+		<property name="service" value="4"/>
+		<property name="comfort" value="4"/>
+	</bean>
+	
+	<bean id="rating5" class="domain.Rating">
+		<property name="flight" value="2"/>
+		<property name="airline" value="3"/>
+		<property name="service" value="4"/>
+		<property name="comfort" value="4"/>
+	</bean>
 	
 </beans>

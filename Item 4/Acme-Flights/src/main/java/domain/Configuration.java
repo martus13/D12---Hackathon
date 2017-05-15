@@ -25,7 +25,7 @@ public class Configuration extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	private Date	cochedTime;
+	private Date	cachedTime;
 	private Double	fee;
 	private Double	campaingFee;
 
@@ -33,11 +33,11 @@ public class Configuration extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "HH:mm:ss")
-	public Date getCochedTime() {
-		return this.cochedTime;
+	public Date getCachedTime() {
+		return this.cachedTime;
 	}
-	public void setCochedTime(final Date cochedTime) {
-		this.cochedTime = cochedTime;
+	public void setCachedTime(final Date cachedTime) {
+		this.cachedTime = cachedTime;
 	}
 
 	@NotNull

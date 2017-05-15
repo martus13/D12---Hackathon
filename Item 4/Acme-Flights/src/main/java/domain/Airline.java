@@ -28,7 +28,7 @@ public class Airline extends Offertable {
 	private String	picture;
 	private String	contactPhone;
 	private String	email;
-	private Integer	rating;
+	private Double	rating;
 	private Boolean	deleted;
 
 
@@ -72,11 +72,11 @@ public class Airline extends Offertable {
 
 	@NotNull
 	@Min(0)
-	public Integer getRating() {
+	public Double getRating() {
 		return this.rating;
 	}
 
-	public void setRating(final Integer rating) {
+	public void setRating(final Double rating) {
 		this.rating = rating;
 	}
 
