@@ -66,6 +66,42 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="manager1" />
+		<property name="password" value="c240642ddef994358c96da82c0361a58" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="manager2" />
+		<property name="password" value="8df5127cd164b5bc2d2b78410a7eea0c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="manager3" />
+		<property name="password" value="2d3a5db4a2a9717b43698520a8de57d0" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="userAccount8" class="security.UserAccount">
 		<property name="username" value="super" />
 		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
@@ -488,14 +524,137 @@
 	</bean>
 	
 	<!-- Offer -->
+	<bean id="offer1" class="domain.Offer">
+		<property name="startMoment" value="05/01/2017 00:01"/>
+		<property name="endMoment" value="09/01/2017 23:59"/>
+		<property name="discount" value="2.5"/>
+		<property name="offertables">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="offer2" class="domain.Offer">
+		<property name="startMoment" value="12/06/2017 00:01"/>
+		<property name="endMoment" value="12/20/2017 23:59"/>
+		<property name="discount" value="5.0"/>
+		<property name="offertables">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="offer3" class="domain.Offer">
+		<property name="startMoment" value="03/01/2017 00:01"/>
+		<property name="endMoment" value="03/31/2017 23:59"/>
+		<property name="discount" value="1.0"/>
+		<property name="offertables">
+			<list>
+			</list>
+		</property>
+	</bean>
 	
 	<!-- Manager -->
 	
+	<bean id="manager1" class="domain.Manager">
+		<property name="name" value="Rogelio"/>
+		<property name="surname" value="Rosa Retorcido"/>
+		<property name="email" value="rorore@gmail.com"/>
+		<property name="contactPhone" value="+34 (954) 15948"/>
+		<property name="userAccount" ref="userAccount5"/>
+		<property name="airline" ref="airline1"/>
+	</bean>
+	
+	<bean id="manager2" class="domain.Manager">
+		<property name="name" value="Jorge"/>
+		<property name="surname" value="Martínez León"/>
+		<property name="email" value="jormarle@gmail.com"/>
+		<property name="contactPhone" value="+34 (954) 98514"/>
+		<property name="userAccount" ref="userAccount6"/>
+		<property name="airline" ref="airline2"/>
+	</bean>
+	
+	<bean id="manager3" class="domain.Manager">
+		<property name="name" value="Manager 3"/>
+		<property name="surname" value="Surname Manager 3"/>
+		<property name="email" value="manager3@gmail.com"/>
+		<property name="contactPhone" value="+34 (954) 32615"/>
+		<property name="userAccount" ref="userAccount7"/>
+		<property name="airline" ref="airline3"/>
+	</bean>
+	
+	
 	<!-- Campaign -->
+	
+	<bean id="campaign1" class="domain.Campaign">
+		<property name="startDate" value="03/01/2017 00:00:01" />
+		<property name="endDate" value="03/31/2017 23:59:59" />
+		<property name="maxDisplayed" value="1"/>
+		<property name="airline" ref="airline1"/>
+	</bean>
+	
+	<bean id="campaign2" class="domain.Campaign">
+		<property name="startDate" value="06/01/2017 00:00:01" />
+		<property name="endDate" value="08/30/2017 23:59:59" />
+		<property name="maxDisplayed" value="4"/>
+		<property name="airline" ref="airline2"/>
+	</bean>
+	
+	<bean id="campaign3" class="domain.Campaign">
+		<property name="startDate" value="12/01/2017 00:00:01" />
+		<property name="endDate" value="12/20/2017 23:59:59" />
+		<property name="maxDisplayed" value="2"/>
+		<property name="airline" ref="airline3"/>
+	</bean>
 	
 	<!-- Banner -->
 	
+	<bean id="banner1" class="domain.Banner">
+		<property name="numDisplayed" value="2" />
+		<property name="picture" value="https://pbs.twimg.com/media/C8Pj_l8XcAAOyjG.jpg" />
+		<property name="campaign" ref="campaign1"/>
+	</bean>
+	
+	<bean id="banner2" class="domain.Banner">
+		<property name="numDisplayed" value="0" />
+		<property name="picture" value="https://pbs.twimg.com/media/C8PjXs6XsAI1qoi.png" />
+		<property name="campaign" ref="campaign2"/>
+	</bean>
+	
+	<bean id="banner3" class="domain.Banner">
+		<property name="numDisplayed" value="3" />
+		<property name="picture" value="https://pbs.twimg.com/media/C8PjEe9XoAAeJC6.jpg" />
+		<property name="campaign" ref="campaign3"/>
+	</bean>
+	
 	<!-- MonthlyBill -->
+	
+	<bean id="monthlyBill1" class="domain.MonthlyBill">
+		<property name="creationMoment" value="03/02/2017 22:30:23" />
+		<property name="paidMoment" value="03/02/2017 22:30:56" />
+		<property name="description" value="description monthlyBill 1" />
+		<property name="totalFee" value="18.76" />
+		<property name="airline" ref="airline1" />
+		<property name="campaign" ref="campaign1" />
+	</bean>
+	
+	<bean id="monthlyBill2" class="domain.MonthlyBill">
+		<property name="creationMoment" value="03/06/2017 12:20:43" />
+		<property name="paidMoment" value="03/06/2017 12:21:56" />
+		<property name="description" value="description monthlyBill 2" />
+		<property name="totalFee" value="26.97" />
+		<property name="airline" ref="airline2" />
+		<property name="campaign" ref="campaign1" />
+	</bean>
+	
+	<bean id="monthlyBill3" class="domain.MonthlyBill">
+		<property name="creationMoment" value="12/02/2017 22:30:23" />
+		<property name="paidMoment" value="12/02/2017 22:30:56" />
+		<property name="description" value="description monthlyBill 1" />
+		<property name="totalFee" value="4.25" />
+		<property name="airline" ref="airline1" />
+		<property name="campaign" ref="campaign3" />
+	</bean>
 	
 	<!-- User -->
 	
@@ -525,8 +684,87 @@
 	
 	<!-- CreditCard -->
 	
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="Gloria Bustos Cuéllar" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4015224727093842" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2015" />
+		<property name="cvv" value="290" />
+		<property name="user" ref="user1" />
+	</bean>
+		
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="Rafael Raimundo Rana" />
+		<property name="brandName" value="MASTERCARD" />
+		<property name="number" value="4810100212629307" />
+		<property name="expirationMonth" value="11" />
+		<property name="expirationYear" value="2018" />
+		<property name="cvv" value="270" />
+		<property name="user" ref="user2" />
+	</bean>
+	
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holderName" value="Silvia Sánchez Casal" />
+		<property name="brandName" value="DISCOVER" />
+		<property name="number" value="6011179219437494" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2020" />
+		<property name="cvv" value="270" />
+		<property name="user" ref="user3" />
+	</bean>
+	
+	
+	
 	<!-- Finder -->
 	
+	<bean id="finder1" class="domain.Finder">
+		<property name="departureDate" value="02/01/2017" />
+		<property name="isBusiness" value="false" />
+		<property name="passengersNumber" value="1" />
+		<property name="childrenNumber" value="0" />
+		<property name="returnFlight" value="false" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport3" />
+		<property name="user" ref="user1" />
+		<property name="results" >
+			<list>
+				<ref bean="flight1"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="finder2" class="domain.Finder">
+		<property name="departureDate" value="09/01/2017" />
+		<property name="isBusiness" value="false" />
+		<property name="passengersNumber" value="1" />
+		<property name="childrenNumber" value="0" />
+		<property name="returnFlight" value="false" />
+		<property name="departure" ref="airport3" />
+		<property name="destination" ref="airport1" />
+		<property name="user" ref="user2" />
+		<property name="results" >
+			<list>
+				<ref bean="flight2"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="finder3" class="domain.Finder">
+		<property name="departureDate" value="04/01/2017" />
+		<property name="isBusiness" value="false" />
+		<property name="passengersNumber" value="1" />
+		<property name="childrenNumber" value="0" />
+		<property name="returnFlight" value="false" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport4" />
+		<property name="user" ref="user1" />
+		<property name="results" >
+			<list>
+				<ref bean="flight8"/>
+			</list>
+		</property>
+	</bean>
 	<!-- PointsCard -->
 	
 	<bean id="pointsCard1" class="domain.PointsCard">
