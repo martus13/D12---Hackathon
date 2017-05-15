@@ -67,7 +67,7 @@ public class MonthlyBill extends DomainEntity {
 		this.description = description;
 	}
 
-	@NotBlank
+	@NotNull
 	@Min(0)
 	public Double getTotalFee() {
 		return this.totalFee;
