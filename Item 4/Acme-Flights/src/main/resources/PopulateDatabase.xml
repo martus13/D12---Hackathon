@@ -289,12 +289,12 @@
 		<property name="title" value="Season 1" />
 		<property name="startDay" value="10" />
 		<property name="startMonth" value="01" />
-		<property name="endDay" value="01" />
+		<property name="endDay" value="31" />
 		<property name="endMonth" value="03" />
 		<property name="type" value="discount" />
 		<property name="pricePercentage" value="80.0" />
 		<property name="inactive" value="false" />
-		<property name="airline" ref="airline3" />
+		<property name="airline" ref="airline2" />
 	</bean>
 	
 	<bean id="season2" class="domain.Season">
@@ -359,14 +359,14 @@
 	
 	<bean id="season7" class="domain.Season">
 		<property name="title" value="Season 1" />
-		<property name="startDay" value="10" />
-		<property name="startMonth" value="01" />
-		<property name="endDay" value="01" />
-		<property name="endMonth" value="03" />
-		<property name="type" value="discount" />
+		<property name="startDay" value="27" />
+		<property name="startMonth" value="4" />
+		<property name="endDay" value="27" />
+		<property name="endMonth" value="5" />
+		<property name="type" value="increase" />
 		<property name="pricePercentage" value="80.0" />
 		<property name="inactive" value="false" />
-		<property name="airline" ref="airline1" />
+		<property name="airline" ref="airline2" />
 	</bean>
 	
 	<bean id="season8" class="domain.Season">
