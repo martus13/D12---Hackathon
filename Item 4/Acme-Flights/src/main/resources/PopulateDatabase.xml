@@ -234,6 +234,15 @@
 		<property name="email" value="clientes@vueling.com" />
 		<property name="rating" value="0" />
 		<property name="deleted" value="false" />
+		<property name="seasons">
+			<list>
+				<ref bean="season2" />
+				<ref bean="season3" />
+				<ref bean="season5" />
+				<ref bean="season8" />
+				<ref bean="season9" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="airline2" class="domain.Airline">
@@ -243,6 +252,12 @@
 		<property name="email" value="clientes@ryanair.com" />
 		<property name="rating" value="0" />
 		<property name="deleted" value="false" />
+		<property name="seasons">
+			<list>
+				<ref bean="season1" />
+				<ref bean="season7" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="airline3" class="domain.Airline">
@@ -252,6 +267,12 @@
 		<property name="email" value="clientes@transavia.com" />
 		<property name="rating" value="0" />
 		<property name="deleted" value="false" />
+		<property name="seasons">
+			<list>
+				<ref bean="season4" />
+				<ref bean="season6" />
+			</list>
+		</property>
 	</bean>
 	
 	<!-- AirlineConfiguration -->
@@ -960,7 +981,7 @@
 		<property name="flight" value="5"/>
 		<property name="airline" value="5"/>
 		<property name="service" value="5"/>
-		<property name="comfort" value="4"/>
+		<property name="comfort" value="0"/>
 	</bean>
 	
 	<bean id="rating2" class="domain.Rating">
@@ -981,14 +1002,14 @@
 		<property name="flight" value="4"/>
 		<property name="airline" value="4"/>
 		<property name="service" value="4"/>
-		<property name="comfort" value="4"/>
+		<property name="comfort" value="1"/>
 	</bean>
 	
 	<bean id="rating5" class="domain.Rating">
 		<property name="flight" value="2"/>
 		<property name="airline" value="3"/>
 		<property name="service" value="4"/>
-		<property name="comfort" value="4"/>
+		<property name="comfort" value="3"/>
 	</bean>
 	
 </beans>
