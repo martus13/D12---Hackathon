@@ -190,6 +190,14 @@
 		<property name="airportName" value="Aeropuerto de Barcelona-El Prat" />
 		<property name="iataCode" value="BCN" />
 		<property name="rate" value="8.76" />
+		<property name="deleted" value="false" />
+		<property name="outgoings">
+			<list>
+				<ref bean="flight1" />
+				<ref bean="flight5" />
+				<ref bean="flight8" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="airport2" class="domain.Airport">
@@ -199,6 +207,12 @@
 		<property name="airportName" value="Aeropuerto de Sant'Angelo Treviso" />
 		<property name="iataCode" value="TSF" />
 		<property name="rate" value="5.20" />
+		<property name="deleted" value="false" />
+		<property name="outgoings">
+			<list>
+				<ref bean="flight6" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="airport3" class="domain.Airport">
@@ -207,6 +221,12 @@
 		<property name="airportName" value="Aeropuerto de Oslo-Gardermoen" />
 		<property name="iataCode" value="OSL" />
 		<property name="rate" value="9.90" />
+		<property name="deleted" value="false" />
+		<property name="outgoings">
+			<list>
+				<ref bean="flight2" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="airport4" class="domain.Airport">
@@ -215,6 +235,13 @@
 		<property name="airportName" value="Aeropuerto de Sevilla" />
 		<property name="iataCode" value="SVQ" />
 		<property name="rate" value="4.25" />
+		<property name="deleted" value="false" />
+		<property name="outgoings">
+			<list>
+				<ref bean="flight3" />
+				<ref bean="flight7" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="airport5" class="domain.Airport">
@@ -223,6 +250,12 @@
 		<property name="airportName" value="Aeropuerto de Schiphol" />
 		<property name="iataCode" value="AMS" />
 		<property name="rate" value="3.99" />
+		<property name="deleted" value="false" />
+		<property name="outgoings">
+			<list>
+				<ref bean="flight4" />
+			</list>
+		</property>
 	</bean>
 	
 	<!-- Airline -->

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.UserRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.User;
@@ -47,6 +48,41 @@ public class UserService {
 		result = this.userRepository.findAll();
 
 		return result;
+	}
+
+	public User create() {
+		User result;
+		UserAccount userAccount;
+		Authority authority;
+
+		result = new User();
+
+		userAccount = new UserAccount();
+		authority = new Authority();
+
+		authority.setAuthority("USER");
+		userAccount.getAuthorities().add(authority);
+
+		result.setUserAccount(userAccount);
+
+		return result;
+	}
+
+	public User save(User user) {
+		Assert.notNull(user);
+
+		if (user.getId() != 0) {
+			User principal;
+
+			principal = this.findByPrincipal();
+			Assert.notNull(principal);
+			Assert.isTrue(user.getId() == principal.getId());
+
+		}
+
+		user = this.userRepository.save(user);
+
+		return user;
 	}
 
 	// Other business methods -------------------------------------------------

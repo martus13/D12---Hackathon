@@ -1,9 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,6 +32,7 @@ public class Airport extends DomainEntity {
 	private String	airportName;
 	private String	iataCode;
 	private Double	rate;
+	private Boolean	deleted;
 
 
 	@NotBlank
@@ -92,6 +97,30 @@ public class Airport extends DomainEntity {
 		this.rate = rate;
 	}
 
+	@NotNull
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+
+	public void setDeleted(final Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
 	// Relationships ----------------------------------------------------------
+
+	private Collection<Flight>	outgoings;
+
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "departure")
+	public Collection<Flight> getOutgoings() {
+		return this.outgoings;
+	}
+
+	public void setOutgoings(final Collection<Flight> outgoings) {
+		this.outgoings = outgoings;
+	}
 
 }

@@ -10,7 +10,7 @@ import domain.CreditCard;
 @Repository
 public interface CreditCardRepository extends JpaRepository<CreditCard, Integer> {
 
-	@Query("select c from CreditCard c where c.actor.id=?1")
+	@Query("select c from CreditCard c where c.user.id=?1")
 	CreditCard findByUser(int userId);
 
 }
