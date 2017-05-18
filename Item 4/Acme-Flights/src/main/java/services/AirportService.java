@@ -26,6 +26,9 @@ public class AirportService {
 	@Autowired
 	private AdministratorService	administratorService;
 
+	@Autowired
+	private FlightService			flightService;
+
 
 	// Constructors -----------------------------------------------------------
 	public AirportService() {
@@ -85,8 +88,10 @@ public class AirportService {
 
 		administrator = this.administratorService.findByPrincipal();
 		Assert.notNull(administrator);
+		Assert.isTrue(this.flightService.findNotCancelledNotPassedByAirportId(airport.getId()).isEmpty());
 
-		this.airportRepository.delete(airport); // TODO: en verdad habria que marcarlo como eliminado, no eliminarlo del todo
+		airport.setDeleted(true);
+		this.airportRepository.save(airport);
 
 	}
 	// Other business methods -------------------------------------------------

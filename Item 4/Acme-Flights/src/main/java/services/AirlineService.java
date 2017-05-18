@@ -26,6 +26,9 @@ public class AirlineService {
 	@Autowired
 	private AdministratorService	administratorService;
 
+	@Autowired
+	private FlightService			flightService;
+
 
 	// Constructors -----------------------------------------------------------
 	public AirlineService() {
@@ -49,7 +52,6 @@ public class AirlineService {
 		result = this.airlineRepository.findAll();
 
 		return result;
-
 	}
 
 	public Airline create() {
@@ -87,8 +89,7 @@ public class AirlineService {
 
 		administrator = this.administratorService.findByPrincipal();
 		Assert.notNull(administrator);
-
-		// TODO: se marca como eliminado, y no se puede eliminar si tiene vuelos con reservas que aun no ha salido
+		Assert.isTrue(this.flightService.findNotCancelledNotPassedWithBooksByAirlineId(airline.getId()).isEmpty());
 
 		airline.setDeleted(true);
 		airline = this.airlineRepository.save(airline);

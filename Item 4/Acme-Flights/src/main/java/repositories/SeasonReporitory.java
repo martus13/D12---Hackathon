@@ -17,5 +17,5 @@ public interface SeasonReporitory extends JpaRepository<Season, Integer> {
 	Collection<Season> findActiveByAirlineId(int airlineId);
 
 	@Query("select s from Season s where s.airline.id=?1 and inactive=false and ?2 >= DATE_FORMAT(CONCAT(YEAR(?2),'/', s.startMonth, '/', s.startDay), '%Y-%m-%d') and ?2<= DATE_FORMAT(CONCAT(YEAR(?2),'/', s.endMonth, '/', s.endDay), '%Y-%m-%d')")
-	Season findActiveByFlight(int airlineId, Date departureDate);
+	Season findActiveByDateAndAirlineId(int airlineId, Date departureDate);
 }

@@ -79,4 +79,13 @@ public class FinderService {
 
 	// Other business methods -------------------------------------------------
 
+	public Finder findByUserId(final int userId) {
+		Assert.isTrue(userId != 0);
+
+		Finder result;
+
+		result = this.finderRepository.findByUserId(userId);
+
+		return result;
+	}
 }

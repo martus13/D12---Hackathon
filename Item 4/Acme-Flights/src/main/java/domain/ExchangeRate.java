@@ -3,9 +3,11 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -21,10 +23,21 @@ public class ExchangeRate extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
+	private String	isoCode;
 	private String	currency;
-	private String	description;
 	private Double	value1EUR;
 
+
+	@NotBlank
+	@Column(unique = true)
+	@Size(max = 3)
+	public String getIsoCode() {
+		return this.isoCode;
+	}
+
+	public void setIsoCode(final String isoCode) {
+		this.isoCode = isoCode;
+	}
 
 	@NotBlank
 	public String getCurrency() {
@@ -33,15 +46,6 @@ public class ExchangeRate extends DomainEntity {
 
 	public void setCurrency(final String currency) {
 		this.currency = currency;
-	}
-
-	@NotBlank
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(final String description) {
-		this.description = description;
 	}
 
 	@NotNull

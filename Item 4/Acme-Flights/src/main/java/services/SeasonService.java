@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,10 +117,18 @@ public class SeasonService {
 		return result;
 	}
 
+	public Season findActiveByDateAndAirlineId(final int airlineId, final Date date) {
+		Season result;
+
+		result = this.seasonReporitory.findActiveByDateAndAirlineId(airlineId, date);
+
+		return result;
+	}
+
 	public Season findActiveByFlight(final Flight flight) {
 		Season result;
 
-		result = this.seasonReporitory.findActiveByFlight(flight.getAirline().getId(), flight.getDepartureDate());
+		result = this.seasonReporitory.findActiveByDateAndAirlineId(flight.getAirline().getId(), flight.getDepartureDate());
 
 		return result;
 	}

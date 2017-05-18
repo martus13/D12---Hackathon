@@ -36,6 +36,7 @@ public class Book extends DomainEntity {
 	private Integer	childrenNumber;
 	private Boolean	isBusiness;
 	private Double	totalFee;
+	private Double	originalPrice;
 	private String	comment;
 	private Date	cancelationMoment;
 	private Integer	usedPoints;
@@ -92,6 +93,16 @@ public class Book extends DomainEntity {
 		this.totalFee = totalFee;
 	}
 
+	@NotNull
+	@Min(0)
+	public Double getOriginalPrice() {
+		return this.originalPrice;
+	}
+
+	public void setOriginalPrice(final Double originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+
 	public String getComment() {
 		return this.comment;
 	}
@@ -125,7 +136,8 @@ public class Book extends DomainEntity {
 
 	private User				user;
 	private Collection<Flight>	flights;
-	private Offer				offer;
+	private Collection<Offer>	offers;
+	private Collection<Season>	seasons;
 
 
 	@NotNull
@@ -150,14 +162,26 @@ public class Book extends DomainEntity {
 		this.flights = flights;
 	}
 
+	@NotNull
 	@Valid
-	@ManyToOne(optional = true)
-	public Offer getOffer() {
-		return this.offer;
+	@ManyToMany()
+	public Collection<Offer> getOffers() {
+		return this.offers;
 	}
 
-	public void setOffer(final Offer offer) {
-		this.offer = offer;
+	public void setOffers(final Collection<Offer> offers) {
+		this.offers = offers;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToMany()
+	public Collection<Season> getSeasons() {
+		return this.seasons;
+	}
+
+	public void setSeasons(final Collection<Season> seasons) {
+		this.seasons = seasons;
 	}
 
 }

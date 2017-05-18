@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
@@ -80,6 +81,7 @@ public class Airport extends DomainEntity {
 
 	@NotBlank
 	@Size(max = 3)
+	@Column(unique = true)
 	public String getIataCode() {
 		return this.iataCode;
 	}

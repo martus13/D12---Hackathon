@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,4 +73,14 @@ public class OfferService {
 
 	// Other business methods -------------------------------------------------
 
+	public Offer findByDateAndOffertableId(final int offertableId, final Date date) {
+		Assert.isTrue(offertableId != 0);
+		Assert.notNull(date);
+
+		Offer result;
+
+		result = this.offerRepository.findByDateAndOffertableId(offertableId, date);
+
+		return result;
+	}
 }
