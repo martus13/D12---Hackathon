@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.SeasonReporitory;
+import repositories.SeasonRepository;
 import domain.Book;
 import domain.Flight;
 import domain.Manager;
@@ -21,7 +21,7 @@ public class SeasonService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private SeasonReporitory	seasonReporitory;
+	private SeasonRepository	seasonReporitory;
 
 	// Supporting services ----------------------------------------------------
 

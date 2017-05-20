@@ -12,10 +12,12 @@ import org.springframework.util.Assert;
 
 import repositories.BookRepository;
 import domain.AirlineConfiguration;
+import domain.Applies;
 import domain.Book;
 import domain.Finder;
 import domain.Flight;
 import domain.Offer;
+import domain.PointsCard;
 import domain.Season;
 import domain.User;
 
@@ -42,6 +44,9 @@ public class BookService {
 
 	@Autowired
 	private SeasonService				seasonService;
+
+	@Autowired
+	private PointsCardService			pointsCardService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -73,14 +78,14 @@ public class BookService {
 		Finder finder;
 		Calendar calendar;
 		Collection<Flight> flights;
-		final Collection<Season> seasons;
+		Collection<Season> seasons;
 		Collection<Offer> offers;
 		Double originalPrice;
 		Double totalFee;
 		Offer offer1;
 		Offer offer2;
 		Season season1;
-		final Season season2;
+		Season season2;
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
@@ -91,78 +96,57 @@ public class BookService {
 		finder = this.finderService.findByUserId(user.getId());
 		Assert.notNull(finder);
 		if (finder.getIsBusiness())
-			Assert.isTrue(departure.getAvailableBusinessSeats() >= finder.getChildrenNumber() + finder.getPassengersNumber());
+			Assert.isTrue(departure.getAvailableBusinessSeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()) && destination.getAvailableBusinessSeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
 		else
-			Assert.isTrue(departure.getAvailableEconomySeats() >= finder.getChildrenNumber() + finder.getPassengersNumber());
-
-		// Calculamos el precio a pagar:
-		originalPrice = this.getOriginPrice(finder.getIsBusiness(), finder.getPassengersNumber(), finder.getChildrenNumber(), departure, destination);
-		totalFee = originalPrice;
+			Assert.isTrue(departure.getAvailableEconomySeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()) && destination.getAvailableEconomySeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
 
 		Assert.notNull(departure);
 		flights = new ArrayList<Flight>();
 		flights.add(departure);
 		if (finder.getReturnFlight())
 			flights.add(destination);
+		// Calculamos el precio a pagar:
+		originalPrice = this.getOriginPriceBook(finder.getIsBusiness(), finder.getPassengersNumber(), finder.getChildrenNumber(), flights, null);
 
 		offers = new ArrayList<Offer>();
 		// Buscamos las ofertas de los vuelos
 		offer1 = this.offerService.findByDateAndOffertableId(departure.getId(), calendar.getTime());
-		if (offer1 != null) {
+		if (offer1 != null)
 			offers.add(offer1);
-			totalFee -= totalFee * (offer1.getDiscount() / 100);
-		}
 
 		if (finder.getReturnFlight()) {
 			offer2 = this.offerService.findByDateAndOffertableId(destination.getId(), calendar.getTime());
-			if (offer2 != null) {
+			if (offer2 != null)
 				offers.add(offer2);
-				totalFee -= totalFee * (offer2.getDiscount() / 100);
-			}
 		}
 		// Si los vuelos no tienen oferta buscamos las ofertas de las aerolineas
 		if (offers.isEmpty()) {
 			offer1 = this.offerService.findByDateAndOffertableId(departure.getAirline().getId(), calendar.getTime());
-			if (offer1 != null) {
+			if (offer1 != null)
 				offers.add(offer1);
-				totalFee -= totalFee * (offer1.getDiscount() / 100);
-			}
 
 			if (finder.getReturnFlight()) {
 				offer2 = this.offerService.findByDateAndOffertableId(destination.getAirline().getId(), calendar.getTime());
-				if (offer2 != null) {
+				if (offer2 != null)
 					offers.add(offer2);
-					totalFee -= totalFee * (offer2.getDiscount() / 100);
-				}
 			}
 		}
 		// Comprobacion temporadas
 		seasons = new ArrayList<Season>();
 		season1 = this.seasonService.findActiveByDateAndAirlineId(departure.getAirline().getId(), calendar.getTime());
-		if (season1 != null) {
+		if (season1 != null)
 			seasons.add(season1);
-			totalFee -= totalFee * (season1.getPricePercentage() / 100);
-			if (season1.getType() == "increase")
-				totalFee += totalFee * (season1.getPricePercentage() / 100);
-			else if (season1.getType() == "discount")
-				totalFee -= totalFee * (season1.getPricePercentage() / 100);
-		}
 
 		if (finder.getReturnFlight()) {
 			season2 = this.seasonService.findActiveByDateAndAirlineId(departure.getAirline().getId(), calendar.getTime());
-			if (season2 != null) {
+			if (season2 != null)
 				seasons.add(season2);
-				if (season2.getType() == "increase")
-					totalFee += totalFee * (season2.getPricePercentage() / 100);
-				else if (season2.getType() == "discount")
-					totalFee -= totalFee * (season2.getPricePercentage() / 100);
-			}
 		}
+		totalFee = this.getTotalFeeBook(originalPrice, offers, seasons);
 
 		result = new Book();
 		result.setUser(user);
 		result.setCreationMoment(calendar.getTime());
-		result.setUsedPoints(0);
 		result.setCancelationMoment(null);
 		result.setFlights(flights);
 		result.setSeasons(seasons);
@@ -171,6 +155,7 @@ public class BookService {
 		result.setChildrenNumber(finder.getChildrenNumber());
 		result.setIsBusiness(finder.getIsBusiness());
 		result.setOriginalPrice(originalPrice);
+		result.setTotalFee(totalFee);
 
 		return result;
 	}
@@ -183,12 +168,24 @@ public class BookService {
 		Assert.isTrue(book.getUser().equals(user));
 
 		if (book.getId() == 0)
-			// comprobamos que hay suficiente espacio para los vuelos que se quieren comprar
-			for (final Flight f : book.getFlights())
+			for (final Flight f : book.getFlights()) {
+				PointsCard pointsCard;
+
 				if (book.getIsBusiness())
-					Assert.isTrue(f.getAvailableBusinessSeats() >= book.getChildrenNumber() + book.getPassengersNumber());
+					Assert.isTrue(f.getAvailableBusinessSeats() >= (book.getChildrenNumber() + book.getPassengersNumber()));
 				else
-					Assert.isTrue(f.getAvailableEconomySeats() >= book.getChildrenNumber() + book.getPassengersNumber());
+					Assert.isTrue(f.getAvailableEconomySeats() >= (book.getChildrenNumber() + book.getPassengersNumber()));
+
+				pointsCard = this.pointsCardService.findByUserAndAirlineId(user.getId(), f.getAirline().getId());
+
+				if (pointsCard == null) {
+					// Aqui creamos una tarjeta de puntos nueva
+					pointsCard = this.pointsCardService.create(user, f.getAirline());
+					pointsCard.setPoints(1);
+				} else
+					pointsCard.setPoints(pointsCard.getPoints() + 1);
+				this.pointsCardService.save(pointsCard);
+			}
 
 		book = this.bookRepository.save(book);
 
@@ -214,37 +211,51 @@ public class BookService {
 
 	// Other business methods -------------------------------------------------
 
-	public Double getOriginPrice(final Boolean isBusiness, final Integer passengersNumber, final Integer childrenNumber, final Flight departure, final Flight destination) {
+	public Double getOriginPriceBook(final Boolean isBusiness, final Integer passengersNumber, final Integer childrenNumber, final Collection<Flight> flights, final Collection<Applies> applies) {
 		Double result;
+		Double flightPrice;
 		AirlineConfiguration airlineConfiguration;
 
-		if (isBusiness) {
-			result = departure.getBusinessPrice() * passengersNumber;
+		flightPrice = 0.0;
+		result = 0.0;
 
-			airlineConfiguration = this.airlineConfigurationService.findByAirlineId(departure.getAirline().getId());
-			result += childrenNumber * (departure.getBusinessPrice() - (departure.getBusinessPrice() * airlineConfiguration.getChildrenDiscount() / 100));
-		} else {
-			result = departure.getEconomyPrice() * passengersNumber;
+		for (final Flight f : flights) {
+			for (final Applies a : applies)
+				if (a.getFlight().equals(f))
+					flightPrice += a.getUsedPoints();
 
-			airlineConfiguration = this.airlineConfigurationService.findByAirlineId(departure.getAirline().getId());
-			result += childrenNumber * (departure.getEconomyPrice() - (departure.getEconomyPrice() * airlineConfiguration.getChildrenDiscount() / 100));
-		}
-		result += departure.getDeparture().getRate() * (childrenNumber + passengersNumber);
-
-		if (destination != null) {
 			if (isBusiness) {
-				result = destination.getBusinessPrice() * passengersNumber;
+				flightPrice = f.getBusinessPrice() - flightPrice;
+				result = flightPrice * passengersNumber;
 
-				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(destination.getAirline().getId());
-				result += childrenNumber * (destination.getBusinessPrice() - (destination.getBusinessPrice() * airlineConfiguration.getChildrenDiscount() / 100));
+				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(f.getAirline().getId());
+				result += childrenNumber * (flightPrice - (flightPrice * airlineConfiguration.getChildrenDiscount() / 100));
 			} else {
-				result = destination.getEconomyPrice() * passengersNumber;
+				flightPrice = f.getEconomyPrice() - flightPrice;
+				result = flightPrice * passengersNumber;
 
-				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(destination.getAirline().getId());
-				result += childrenNumber * (destination.getEconomyPrice() - (destination.getEconomyPrice() * airlineConfiguration.getChildrenDiscount() / 100));
+				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(f.getAirline().getId());
+				result += childrenNumber * (flightPrice - (flightPrice * airlineConfiguration.getChildrenDiscount() / 100));
 			}
-			result += destination.getDeparture().getRate() * (childrenNumber + passengersNumber);
+			result += f.getDeparture().getRate() * (childrenNumber + passengersNumber);
 		}
+
+		return result;
+	}
+
+	public Double getTotalFeeBook(final Double originalPrice, final Collection<Offer> offers, final Collection<Season> seasons) {
+		Double result;
+
+		result = originalPrice;
+
+		for (final Offer o : offers)
+			result -= result * (o.getDiscount() / 100);
+
+		for (final Season s : seasons)
+			if (s.getType() == "increase")
+				result += result * (s.getPricePercentage() / 100);
+			else if (s.getType() == "discount")
+				result -= result * (s.getPricePercentage() / 100);
 
 		return result;
 	}

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import domain.Season;
 
 @Repository
-public interface SeasonReporitory extends JpaRepository<Season, Integer> {
+public interface SeasonRepository extends JpaRepository<Season, Integer> {
 
 	@Query("select s from Season s where s.airline.id=?1 and inactive=false")
 	Collection<Season> findActiveByAirlineId(int airlineId);

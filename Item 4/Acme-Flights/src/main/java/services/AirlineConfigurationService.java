@@ -29,47 +29,47 @@ public class AirlineConfigurationService {
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
-	
-	public AirlineConfiguration findOne(int airlineConfigId){
-		
+
+	public AirlineConfiguration findOne(final int airlineConfigId) {
+
 		return this.airlineConfigurationRepository.findOne(airlineConfigId);
 	}
-	
-	public Collection<AirlineConfiguration> findAll(){
+
+	public Collection<AirlineConfiguration> findAll() {
 		return this.airlineConfigurationRepository.findAll();
 	}
-	
-	public AirlineConfiguration create(Airline airline){
-		
+
+	public AirlineConfiguration create(final Airline airline) {
+
 		AirlineConfiguration result;
-		
-		result=new AirlineConfiguration();
-		
-//		result.setMaxCancellationDays(1);
-//		result.setMaxChildrenAge(1);
-//		result.setChildrenDiscount(0.0);
-//		result.setMaxBagWeight(0.0);
-//		result.setOverweightBagPrice(0.0);
+
+		result = new AirlineConfiguration();
+
+		//		result.setMaxCancellationDays(1);
+		//		result.setMaxChildrenAge(1);
+		//		result.setChildrenDiscount(0.0);
+		//		result.setMaxBagWeight(0.0);
+		//		result.setOverweightBagPrice(0.0);
 		result.setControlledBy(airline);
-		
+
 		return result;
 	}
-	
-	public AirlineConfiguration save(AirlineConfiguration airlineConfiguration){
+
+	public AirlineConfiguration save(final AirlineConfiguration airlineConfiguration) {
 		Assert.notNull(airlineConfiguration);
-		
+
 		this.airlineConfigurationRepository.save(airlineConfiguration);
-		
+
 		return airlineConfiguration;
-		
+
 	}
-	
-	public void delete(AirlineConfiguration airlineConfiguration){
+
+	public void delete(final AirlineConfiguration airlineConfiguration) {
 		Assert.notNull(airlineConfiguration);
-		
+
 		this.airlineConfigurationRepository.delete(airlineConfiguration);
 	}
-	
+
 	// Other business methods -------------------------------------------------
 
 	public AirlineConfiguration findByAirlineId(final int airlineId) {

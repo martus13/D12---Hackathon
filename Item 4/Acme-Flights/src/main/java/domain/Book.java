@@ -39,7 +39,6 @@ public class Book extends DomainEntity {
 	private Double	originalPrice;
 	private String	comment;
 	private Date	cancelationMoment;
-	private Integer	usedPoints;
 
 
 	@NotNull
@@ -119,16 +118,6 @@ public class Book extends DomainEntity {
 
 	public void setCancelationMoment(final Date cancelationMoment) {
 		this.cancelationMoment = cancelationMoment;
-	}
-
-	@NotNull
-	@Min(0)
-	public Integer getUsedPoints() {
-		return this.usedPoints;
-	}
-
-	public void setUsedPoints(final Integer usedPoints) {
-		this.usedPoints = usedPoints;
 	}
 
 

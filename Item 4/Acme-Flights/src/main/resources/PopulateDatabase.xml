@@ -310,7 +310,7 @@
 	
 	<!-- AirlineConfiguration -->
 	
-	<bean id="airlineConfig1" class="domain.AirlineConfiguration">
+	<bean id="airlineConfiguration1" class="domain.AirlineConfiguration">
 		<property name="maxCancellationDays" value="7"/>
 		<property name="maxChildrenAge" value="13"/>
 		<property name="childrenDiscount" value="10.0"/>
@@ -319,7 +319,7 @@
 		<property name="controlledBy" ref="airline1"/>
 	</bean>
 	
-	<bean id="airlineConfig2" class="domain.AirlineConfiguration">
+	<bean id="airlineConfiguration2" class="domain.AirlineConfiguration">
 		<property name="maxCancellationDays" value="14"/>
 		<property name="maxChildrenAge" value="16"/>
 		<property name="childrenDiscount" value="12.0"/>
@@ -328,7 +328,7 @@
 		<property name="controlledBy" ref="airline2"/>
 	</bean>
 	
-	<bean id="airlineConfig3" class="domain.AirlineConfiguration">
+	<bean id="airlineConfiguration3" class="domain.AirlineConfiguration">
 		<property name="maxCancellationDays" value="30"/>
 		<property name="maxChildrenAge" value="15"/>
 		<property name="childrenDiscount" value="9.5"/>
@@ -833,7 +833,7 @@
 	
 	<bean id="pointsCard2" class="domain.PointsCard">
 		<property name="expirationMoment" value="07/10/2017 15:30:01" />
-		<property name="points" value="0" />
+		<property name="points" value="2" />
 		<property name="user" ref="user1" />
 		<property name="airline" ref="airline2" />
 	</bean>
@@ -875,7 +875,6 @@
 		<property name="isBusiness" value="false" />
 		<property name="totalFee" value="285.98" />
 		<property name="originalPrice" value="158.88" />
-		<property name="usedPoints" value="0" />
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
@@ -901,7 +900,6 @@
 		<property name="isBusiness" value="true" />
 		<property name="totalFee" value="88.39" />
 		<property name="originalPrice" value="305.82" />
-		<property name="usedPoints" value="0" />
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
@@ -927,7 +925,6 @@
 		<property name="isBusiness" value="false" />
 		<property name="totalFee" value="244.24" />
 		<property name="originalPrice" value="233.04" />
-		<property name="usedPoints" value="0" />
 		<property name="user" ref="user2" />
 		<property name="flights">
 			<list>
@@ -956,7 +953,6 @@
 		<property name="isBusiness" value="false" />
 		<property name="totalFee" value="54.83" />
 		<property name="originalPrice" value="274.14" />
-		<property name="usedPoints" value="0" />
 		<property name="cancelationMoment" value="08/02/2016 10:34:00" />
 		<property name="user" ref="user2" />
 		<property name="flights">
@@ -983,7 +979,6 @@
 		<property name="isBusiness" value="false" />
 		<property name="totalFee" value="220.11" />
 		<property name="originalPrice" value="215" />
-		<property name="usedPoints" value="0" />
 		<property name="user" ref="user2" />
 		<property name="flights">
 			<list>
@@ -1000,6 +995,22 @@
 				<ref bean="season4" /> 
 			</list>
 		</property>
+	</bean>
+	
+	<!-- Applies -->
+	
+	<bean id="applies1" class="domain.Applies">
+		<property name="usedPoints" value="1"/>
+		<property name="book" ref="book2"/>
+		<property name="pointsCard" ref="pointsCard2"/>
+		<property name="flight" ref="flight7"/>
+	</bean>
+	
+	<bean id="applies2" class="domain.Applies">
+		<property name="usedPoints" value="2"/>
+		<property name="book" ref="book2"/>
+		<property name="pointsCard" ref="pointsCard2"/>
+		<property name="flight" ref="flight8"/>
 	</bean>
 	
 	<!-- Invoice -->

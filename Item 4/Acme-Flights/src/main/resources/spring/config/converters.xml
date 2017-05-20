@@ -22,6 +22,53 @@
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 
 		-->
+		<bean class="converters.ActorToStringConverter" /> 
+		<bean class="converters.AdministratorToStringConverter" /> 
+		<bean class="converters.AirlineConfigurationToStringConverter" /> 
+		<bean class="converters.AirlineToStringConverter" /> 
+		<bean class="converters.AirportToStringConverter" /> 
+		<bean class="converters.AppliesToStringConverter" /> 
+		<bean class="converters.BannerToStringConverter" /> 
+		<bean class="converters.BookToStringConverter" /> 
+		<bean class="converters.CampaignToStringConverter" /> 
+		<bean class="converters.CommentToStringConverter" /> 
+		<bean class="converters.ConfigurationToStringConverter" /> 
+		<bean class="converters.CreditCardToStringConverter" /> 
+		<bean class="converters.ExchangeRateToStringConverter" /> 
+		<bean class="converters.FinderToStringConverter" /> 
+		<bean class="converters.FlightToStringConverter" /> 
+		<bean class="converters.InvoiceToStringConverter" /> 
+		<bean class="converters.ManagerToStringConverter" /> 
+		<bean class="converters.MonthlyBillToStringConverter" /> 
+		<bean class="converters.OffertableToStringConverter" /> 
+		<bean class="converters.OfferToStringConverter" /> 
+		<bean class="converters.PointsCardToStringConverter" /> 
+		<bean class="converters.SeasonToStringConverter" /> 
+		<bean class="converters.UserToStringConverter" /> 
+		
+		<bean class="converters.StringToActorConverter" /> 
+		<bean class="converters.StringToAdministratorConverter" /> 
+		<bean class="converters.StringToAirlineConfigurationConverter" /> 
+		<bean class="converters.StringToAirlineConverter" /> 
+		<bean class="converters.StringToAirportConverter" /> 
+		<bean class="converters.StringToAppliesConverter" /> 
+		<bean class="converters.StringToBannerConverter" /> 
+		<bean class="converters.StringToBookConverter" /> 
+		<bean class="converters.StringToCampaignConverter" /> 
+		<bean class="converters.StringToCommentConverter" /> 
+		<bean class="converters.StringToConfigurationConverter" /> 
+		<bean class="converters.StringToCreditCardConverter" /> 
+		<bean class="converters.StringToExchangeRateConverter" /> 
+		<bean class="converters.StringToFinderConverter" /> 
+		<bean class="converters.StringToFlightConverter" /> 
+		<bean class="converters.StringToInvoiceConverter" /> 
+		<bean class="converters.StringToManagerConverter" /> 
+		<bean class="converters.StringToMonthlyBillConverter" /> 
+		<bean class="converters.StringToOfferConverter" /> 
+		<bean class="converters.StringToOffertableConverter" /> 
+		<bean class="converters.StringToPointsCardConverter" /> 
+		<bean class="converters.StringToSeasonConverter" /> 
+		<bean class="converters.StringToUserConverter" /> 
 	</util:list>
 	
 </beans>
