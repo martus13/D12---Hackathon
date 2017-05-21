@@ -42,19 +42,19 @@
 			<form:errors path="destination" cssClass="error" />
 		</div>
 	
-	<acme:input code="searchTemplate.approximateAge" path="approximateAge" />
-	<acme:input code="searchTemplate.singleKeyword" path="singleKeyword" />
-	<acme:input code="searchTemplate.country" path="country" />
-	<acme:input code="searchTemplate.state" path="state" />
-	<acme:input code="searchTemplate.province" path="province" />
-	<acme:input code="searchTemplate.city" path="city" />
+	<acme:input code="finder.departureDate" path="departureDate" />
+	<acme:input code="finder.returnDate" path="returnDate" />
+	<acme:input code="finder.isBusiness" path="isBusiness" />
+	<acme:input code="finder.passengersNumber" path="passengersNumber" />
+	<acme:input code="finder.childrenNumber" path="childrenNumber" />
+	<acme:input code="finder.returnFlight" path="returnFlight" />
 	
-	<acme:submit name="save" code="searchTemplate.save" />
-	<jstl:if test="${searchTemplate.id!=0 }">
-		<acme:submit name="delete" code="searchTemplate.delete" />
+	<acme:submit name="save" code="finder.save" />
+	<jstl:if test="${finder.id!=0 }">
+		<acme:submit name="delete" code="finder.delete" />
 	</jstl:if>
 	
-	<acme:cancel url="searchTemplate/chorbi/display.do" code="searchTemplate.cancel" />
+	<acme:cancel url="finder/user/display.do" code="finder.cancel" />
 	
 </form:form>
 	
