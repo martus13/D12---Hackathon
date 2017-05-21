@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -14,30 +15,27 @@ import domain.Offertable;
 @Transactional
 public class OffertableService {
 
-	
 	// Managed repository -----------------------------------------------------
-		@Autowired
-		private OffertableRepository	offertableRepository;
+	@Autowired
+	private OffertableRepository	offertableRepository;
 
 
-		// Supporting services ----------------------------------------------------
+	// Supporting services ----------------------------------------------------
 
-		// Constructors -----------------------------------------------------------
-		public OffertableService() {
-			super();
-		}
+	// Constructors -----------------------------------------------------------
+	public OffertableService() {
+		super();
+	}
 
-		// Simple CRUD methods ----------------------------------------------------
+	// Simple CRUD methods ----------------------------------------------------
 
-		
-		public Offertable findOne(int offertableId){
-			return this.offertableRepository.findOne(offertableId);
-		}
-		
-		public Collection<Offertable> findAll (){
-			
-			return this.offertableRepository.findAll();
-		}
-		
-		
+	public Offertable findOne(final int offertableId) {
+		return this.offertableRepository.findOne(offertableId);
+	}
+
+	public Collection<Offertable> findAll() {
+
+		return this.offertableRepository.findAll();
+	}
+
 }

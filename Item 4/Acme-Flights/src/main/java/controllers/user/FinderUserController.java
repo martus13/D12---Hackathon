@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.user;
 
 import java.util.Collection;
 
@@ -18,6 +18,7 @@ import services.AirportService;
 import services.CreditCardService;
 import services.FinderService;
 import services.UserService;
+import controllers.AbstractController;
 import domain.Airport;
 import domain.CreditCard;
 import domain.Finder;
@@ -25,7 +26,7 @@ import domain.User;
 
 @Controller
 @RequestMapping("/finder/user")
-public class FinderController extends AbstractController {
+public class FinderUserController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 	@Autowired
@@ -43,7 +44,7 @@ public class FinderController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public FinderController() {
+	public FinderUserController() {
 		super();
 	}
 
@@ -172,9 +173,9 @@ public class FinderController extends AbstractController {
 		ModelAndView result;
 		Collection<Airport> airports;
 
-		airports = this.airportService.findAll();
+		airports = this.airportService.findNotDeleted();
 
-		result = new ModelAndView("searchTemplate/edit");
+		result = new ModelAndView("finder/edit");
 		result.addObject("finder", finder);
 		result.addObject("airports", airports);
 		result.addObject("message", message);

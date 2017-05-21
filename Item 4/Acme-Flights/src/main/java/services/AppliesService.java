@@ -108,7 +108,8 @@ public class AppliesService {
 				this.pointsCardService.save(pointsCard);
 		}
 
-		book.setOriginalPrice(this.bookService.getOriginPriceBook(book.getIsBusiness(), book.getPassengersNumber(), book.getChildrenNumber(), book.getFlights(), this.findByBookId(book.getId())));
+		book = this.bookService.calculatePrice(book);
+
 		this.bookService.save(book);
 
 		return applies;
@@ -133,7 +134,8 @@ public class AppliesService {
 
 		this.pointsCardService.save(pointsCard);
 
-		book.setOriginalPrice(this.bookService.getOriginPriceBook(book.getIsBusiness(), book.getPassengersNumber(), book.getChildrenNumber(), book.getFlights(), this.findByBookId(book.getId())));
+		book = this.bookService.calculatePrice(book);
+
 		this.bookService.save(book);
 
 	}

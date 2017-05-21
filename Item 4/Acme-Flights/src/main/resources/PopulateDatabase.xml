@@ -316,7 +316,7 @@
 		<property name="childrenDiscount" value="10.0"/>
 		<property name="maxBagWeight" value="15.5"/>
 		<property name="overweightBagPrice" value="30.0"/>
-		<property name="controlledBy" ref="airline1"/>
+		<property name="airline" ref="airline1"/>
 	</bean>
 	
 	<bean id="airlineConfiguration2" class="domain.AirlineConfiguration">
@@ -325,7 +325,7 @@
 		<property name="childrenDiscount" value="12.0"/>
 		<property name="maxBagWeight" value="20.0"/>
 		<property name="overweightBagPrice" value="25.0"/>
-		<property name="controlledBy" ref="airline2"/>
+		<property name="airline" ref="airline2"/>
 	</bean>
 	
 	<bean id="airlineConfiguration3" class="domain.AirlineConfiguration">
@@ -334,7 +334,7 @@
 		<property name="childrenDiscount" value="9.5"/>
 		<property name="maxBagWeight" value="15.5"/>
 		<property name="overweightBagPrice" value="20.0"/>
-		<property name="controlledBy" ref="airline3"/>
+		<property name="airline" ref="airline3"/>
 	</bean>
 	
 	<!-- Season -->
@@ -873,7 +873,7 @@
 		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="285.98" />
+		<property name="totalFee" value="191.68" />
 		<property name="originalPrice" value="158.88" />
 		<property name="user" ref="user1" />
 		<property name="flights">
@@ -898,8 +898,8 @@
 		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="1" />
 		<property name="isBusiness" value="true" />
-		<property name="totalFee" value="88.39" />
-		<property name="originalPrice" value="305.82" />
+		<property name="totalFee" value="272.022" />
+		<property name="originalPrice" value="420.292" />
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
@@ -923,7 +923,7 @@
 		<property name="passengersNumber" value="3" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="244.24" />
+		<property name="totalFee" value="237.25" />
 		<property name="originalPrice" value="233.04" />
 		<property name="user" ref="user2" />
 		<property name="flights">
@@ -951,7 +951,7 @@
 		<property name="passengersNumber" value="3" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="54.83" />
+		<property name="totalFee" value="172.908" />
 		<property name="originalPrice" value="274.14" />
 		<property name="cancelationMoment" value="08/02/2016 10:34:00" />
 		<property name="user" ref="user2" />
@@ -977,7 +977,7 @@
 		<property name="passengersNumber" value="4" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="220.11" />
+		<property name="totalFee" value="219.7" />
 		<property name="originalPrice" value="215" />
 		<property name="user" ref="user2" />
 		<property name="flights">

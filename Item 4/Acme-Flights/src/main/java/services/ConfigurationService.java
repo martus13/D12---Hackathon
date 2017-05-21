@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -14,43 +15,43 @@ import domain.Configuration;
 @Service
 @Transactional
 public class ConfigurationService {
-	
+
 	// Managed repository -----------------------------------------------------
-		@Autowired
-		private ConfigurationRepository	configurationRepository;
+	@Autowired
+	private ConfigurationRepository	configurationRepository;
+
+	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
-		// Supporting services ----------------------------------------------------
-		
-		@Autowired
-		private AdministratorService administratorService;
+	// Constructors -----------------------------------------------------------
 
-		// Constructors -----------------------------------------------------------
-		
-		public ConfigurationService() {
-			super();
-		}
+	public ConfigurationService() {
+		super();
+	}
 
-		// Simple CRUD methods ----------------------------------------------------
-		
-		public Configuration findOne(int configurationId){
-			
-			return this.configurationRepository.findOne(configurationId);
-		}
-		
-		public Collection<Configuration> findAll(){
-			
-			return this.configurationRepository.findAll();
-		}
-		
-		public Configuration save(Configuration configuration) {
-			Assert.notNull(configuration);
+	// Simple CRUD methods ----------------------------------------------------
 
-			Assert.notNull(this.administratorService.findByPrincipal());
+	public Configuration findOne(final int configurationId) {
 
-			configuration = this.configurationRepository.save(configuration);
+		return this.configurationRepository.findOne(configurationId);
+	}
 
-			return configuration;
-		}
+	public Collection<Configuration> findAll() {
+
+		return this.configurationRepository.findAll();
+	}
+
+	public Configuration save(Configuration configuration) {
+		Assert.notNull(configuration);
+
+		Assert.notNull(this.administratorService.findByPrincipal());
+
+		configuration = this.configurationRepository.save(configuration);
+
+		return configuration;
+	}
 
 }

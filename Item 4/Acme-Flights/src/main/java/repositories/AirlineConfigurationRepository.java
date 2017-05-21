@@ -10,6 +10,6 @@ import domain.AirlineConfiguration;
 @Repository
 public interface AirlineConfigurationRepository extends JpaRepository<AirlineConfiguration, Integer> {
 
-	@Query("select a from AirlineConfiguration a where a.controlledBy.id=?1")
+	@Query("select a from AirlineConfiguration a where a.airline.id=?1")
 	AirlineConfiguration findByAirlineId(int airlineId);
 }

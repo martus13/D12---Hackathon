@@ -15,32 +15,31 @@
 	<form:hidden path="user"/>
 	<form:hidden path="results"/>
 	
+	<div>
+		<form:label path="departure">
+			<spring:message code="finder.departure" />
+		</form:label>	
+		<form:select path="departure">
+			<form:option value="${null }" label="----" />		
+			<jstl:forEach items="${airports }" var="departure">
+				<form:option value="${departure}" label="${departure.iataCode - departure.city}" />
+			</jstl:forEach>
+		</form:select>
+		<form:errors path="departure" cssClass="error" />
+	</div>
 	
 	<div>
-			<form:label path="departure">
-				<spring:message code="finder.departure" />
-			</form:label>	
-			<form:select path="departure">
-				<form:option value="${null }" label="----" />		
-				<jstl:forEach items="${airports }" var="departure">
-					<form:option value="${departure}" label="${departure}" />
-				</jstl:forEach>
-			</form:select>
-			<form:errors path="departure" cssClass="error" />
-		</div>
-		
-		<div>
-			<form:label path="destination">
-				<spring:message code="finder.destination" />
-			</form:label>	
-			<form:select path="destination">
-				<form:option value="${null }" label="----" />		
-				<jstl:forEach items="${airports }" var="destination">
-					<form:option value="${destination}" label="${destination}" />
-				</jstl:forEach>
-			</form:select>
-			<form:errors path="destination" cssClass="error" />
-		</div>
+		<form:label path="destination">
+			<spring:message code="finder.destination" />
+		</form:label>	
+		<form:select path="destination">
+			<form:option value="${null }" label="----" />		
+			<jstl:forEach items="${airports }" var="destination">
+				<form:option value="${destination}" label="${destination}" />
+			</jstl:forEach>
+		</form:select>
+		<form:errors path="destination" cssClass="error" />
+	</div>
 	
 	<acme:input code="finder.departureDate" path="departureDate" />
 	<acme:input code="finder.returnDate" path="returnDate" />

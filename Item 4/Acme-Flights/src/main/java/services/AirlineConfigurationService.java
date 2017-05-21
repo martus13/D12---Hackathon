@@ -50,7 +50,7 @@ public class AirlineConfigurationService {
 		//		result.setChildrenDiscount(0.0);
 		//		result.setMaxBagWeight(0.0);
 		//		result.setOverweightBagPrice(0.0);
-		result.setControlledBy(airline);
+		result.setAirline(airline);
 
 		return result;
 	}

@@ -76,18 +76,18 @@ public class AirlineConfiguration extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Airline	controlledBy;
+	private Airline	airline;
 
 
 	@NotNull
 	@Valid
 	@OneToOne(optional = false)
-	public Airline getControlledBy() {
-		return this.controlledBy;
+	public Airline getAirline() {
+		return this.airline;
 	}
 
-	public void setControlledBy(final Airline controlledBy) {
-		this.controlledBy = controlledBy;
+	public void setAirline(final Airline airline) {
+		this.airline = airline;
 	}
 
 }

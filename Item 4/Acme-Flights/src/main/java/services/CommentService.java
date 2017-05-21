@@ -1,8 +1,8 @@
+
 package services;
 
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -19,72 +19,71 @@ import domain.User;
 @Transactional
 public class CommentService {
 
-	
 	// Managed repository -----------------------------------------------------
 	@Autowired
 	private CommentRepository	commentRepository;
 
-
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private UserService userService;
-	
+	private UserService			userService;
+
+
 	// Constructors -----------------------------------------------------------
 	public CommentService() {
 		super();
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
-	
-	public Comment findOne(int commentId){
+
+	public Comment findOne(final int commentId) {
 		return this.commentRepository.findOne(commentId);
 	}
-	
-	public Collection<Comment> findAll(){
+
+	public Collection<Comment> findAll() {
 		return this.commentRepository.findAll();
 	}
-	
-	public Comment create(Airline airline){
+
+	public Comment create(final Airline airline) {
 		Assert.notNull(airline);
-		
+
 		Comment result;
 		User user;
 		Calendar creationMoment;
-		
+
 		result = new Comment();
-		
+
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
-		
+
 		creationMoment = Calendar.getInstance();
 		creationMoment.set(Calendar.MILLISECOND, -10);
-		
+
 		result.setCreationMoment(creationMoment.getTime());
 		result.setAirline(airline);
 		result.setUser(user);
-		
+
 		return result;
 	}
-	
-	public Comment save(Comment comment){
+
+	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
-		
-		User principal = this.userService.findByPrincipal();
+
+		final User principal = this.userService.findByPrincipal();
 		Assert.isTrue(principal.equals(comment.getUser()));
-		
+
 		this.commentRepository.save(comment);
-		
+
 		return comment;
 	}
-	
-	public void delete(Comment comment){
+
+	public void delete(final Comment comment) {
 		Assert.notNull(comment);
-		
-		User principal = this.userService.findByPrincipal();
+
+		final User principal = this.userService.findByPrincipal();
 		Assert.isTrue(principal.equals(comment.getUser()));
-		
+
 		this.commentRepository.delete(comment);
 	}
-	
+
 }

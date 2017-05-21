@@ -96,6 +96,14 @@ public class AirportService {
 	}
 	// Other business methods -------------------------------------------------
 
+	public Collection<Airport> findNotDeleted() {
+		Collection<Airport> result;
+
+		result = this.airportRepository.findNotDeleted();
+
+		return result;
+	}
+
 	public Collection<Object[]> findMostVisitedCities() {
 		Collection<Object[]> result;
 
