@@ -46,6 +46,7 @@ public class InvoiceService {
 		creationMoment.set(Calendar.MILLISECOND, -10);
 		
 		result.setCreationMoment(creationMoment.getTime());
+		result.setTotalFee(book.getTotalFee());
 		result.setBook(book);
 		
 		return result;
