@@ -47,8 +47,8 @@
 		
 		<!-- USER -->
 		
-		<security:intercept-url pattern="/finder/user/display.do" access="USER" />
-		<security:intercept-url pattern="/finder/user/edit.do" access="USER" />
+		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
 		
 		<!-- MANAGER -->
 

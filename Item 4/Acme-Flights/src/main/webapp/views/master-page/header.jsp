@@ -23,7 +23,7 @@
 				
 		<!-- USER -->
 		<security:authorize access="hasRole('USER')">
-		<li><a class="fNiv" href="finder/user/display.do"><spring:message code="master.page.user.finder" /></a></li>
+			<li><a class="fNiv" href="finder/user/display.do"><spring:message code="master.page.user.finder" /></a></li>
 		</security:authorize>
 		<!-- MANAGER -->
 		
