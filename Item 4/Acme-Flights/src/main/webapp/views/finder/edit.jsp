@@ -22,7 +22,7 @@
 		<form:select path="departure">
 			<form:option value="${null }" label="----" />		
 			<jstl:forEach items="${airports }" var="departure">
-				<form:option value="${departure}" label="${departure.iataCode - departure.city}" />
+				<form:option value="${departure}" label="${departure.iataCode} - ${departure.city }" />
 			</jstl:forEach>
 		</form:select>
 		<form:errors path="departure" cssClass="error" />
@@ -35,18 +35,18 @@
 		<form:select path="destination">
 			<form:option value="${null }" label="----" />		
 			<jstl:forEach items="${airports }" var="destination">
-				<form:option value="${destination}" label="${destination}" />
+				<form:option value="${destination}" label="${destination.iataCode} - ${destination.city }" />
 			</jstl:forEach>
 		</form:select>
 		<form:errors path="destination" cssClass="error" />
 	</div>
 	
 	<acme:input code="finder.departureDate" path="departureDate" />
-	<acme:input code="finder.returnDate" path="returnDate" />
-	<acme:input code="finder.isBusiness" path="isBusiness" />
+	<acme:checkbox code="finder.returnFlight" path="returnFlight" onchange="myFunctionYes(this.checked)" />
+	<acme:input code="finder.returnDate" path="returnDate" disabled="${true }" />
 	<acme:input code="finder.passengersNumber" path="passengersNumber" />
 	<acme:input code="finder.childrenNumber" path="childrenNumber" />
-	<acme:input code="finder.returnFlight" path="returnFlight" />
+	<acme:checkbox code="finder.isBusiness" path="isBusiness" />
 	
 	<acme:submit name="save" code="finder.save" />
 	<jstl:if test="${finder.id!=0 }">
@@ -56,4 +56,15 @@
 	<acme:cancel url="finder/user/display.do" code="finder.cancel" />
 	
 </form:form>
+
+<script>
+	
+	function myFunctionYes(value) {
+    	if(value){
+    		document.getElementsByName("returnDate")[0].disabled = false;
+    	}else{
+    		document.getElementsByName("returnDate")[0].disabled = true;
+    	}
+	}
+</script>
 	

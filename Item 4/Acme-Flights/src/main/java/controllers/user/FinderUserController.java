@@ -61,7 +61,6 @@ public class FinderUserController extends AbstractController {
 
 		result = new ModelAndView("finder/display");
 		result.addObject("finder", finder);
-
 		return result;
 	}
 

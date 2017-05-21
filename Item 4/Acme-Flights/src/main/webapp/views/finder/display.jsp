@@ -6,22 +6,28 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div>
 	<jstl:choose>
-		<jstl:when test="${empty finder }">
+		<jstl:when test="${finder==null}">
 			<a href="finder/user/create.do"><spring:message code="finder.create" /></a>
 		</jstl:when>
 		<jstl:otherwise>
 			<ul>
 				<li>
 					<b><spring:message code="finder.departure" />:</b>
-					<jstl:out value="${finder.departure}" />
+					<jstl:out value="${finder.departure.iataCode}" /> - <jstl:out value="${finder.departure.city}" />
 				</li>
 				
 				<li>
 					<b><spring:message code="finder.destination" />:</b>
-					<jstl:out value="${finder.destination}" />
+					<jstl:out value="${finder.departure.iataCode}" /> - <jstl:out value="${finder.departure.city}" />
+				</li>
+				
+				<li>
+					<b><spring:message code="finder.departureDate" />:</b>
+					<fmt:formatDate value="${finder.departureDate}" pattern="dd/MM/yyyy" />
 				</li>
 				
 				<li>
@@ -29,20 +35,12 @@
 					<jstl:out value="${finder.returnFlight}" />
 				</li>
 				
-				<li>
-					<b><spring:message code="finder.departureDate" />:</b>
-					<jstl:out value="${finder.departureDate}" />
-				</li>
-				
-				<li>
-					<b><spring:message code="finder.returnDate"/>:</b>
-					<jstl:out value="${finder.returnDate}"/>
-				</li>
-				
-				<li>
-					<b><spring:message code="finder.isBusiness"/>:</b>
-					<jstl:out value="${finder.isBusiness}"/>
-				</li>
+				<jstl:if test="${finder.returnFlight }">
+					<li>
+						<b><spring:message code="finder.returnDate"/>:</b>
+						<jstl:out value="${finder.returnDate}"/>
+					</li>
+				</jstl:if>
 				
 				<li>
 					<b><spring:message code="finder.passengersNumber"/>:</b>
@@ -54,7 +52,11 @@
 					<jstl:out value="${finder.childrenNumber}"/>
 				</li>
 				
-						
+				<li>
+					<b><spring:message code="finder.isBusiness"/>:</b>
+					<jstl:out value="${finder.isBusiness}"/>
+				</li>
+				
 			</ul>
 			
 		</jstl:otherwise>

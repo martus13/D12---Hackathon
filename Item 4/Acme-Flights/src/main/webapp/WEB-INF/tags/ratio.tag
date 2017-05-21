@@ -25,16 +25,8 @@
 <%@ attribute name="path" required="true"%>
 <%@ attribute name="code" required="true"%>
 
-<%@ attribute name="type" required="false"%>
-<%@ attribute name="placeholder" required="false"%>
-<%@ attribute name="step" required="false"%>
-<%@ attribute name="min" required="false"%>
-<%@ attribute name="max" required="false"%>
-<%@ attribute name="disabled" required="false"%>
-
-<jstl:if test="${type == null}">
-	<jstl:set var="type" value="text" />
-</jstl:if>
+<%@ attribute name="name" required="false"%>
+<%@ attribute name="onclick" required="false"%>
 
 <%-- Definition --%>
 
@@ -42,6 +34,6 @@
 	<form:label path="${path}">
 		<spring:message code="${code}" />:
 	</form:label>
-	<form:input path="${path}" type="${type }" placeholder="${placeholder }" step="${step }" min="${min }" max="${max }" disabled="${disabled }" />
+	<form:radiobutton path="${path}" name="${name }" onclick="${onclick }"  />
 	<form:errors class="error" cssClass="error" path="${path}" />
 </div>

@@ -1,7 +1,7 @@
 <%--
- * textbox.tag
+ * checkbox.tag
  *
- * Copyright (C) 2017 Universidad de Sevilla
+ * Copyright (C) 2014 Universidad de Sevilla
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -21,27 +21,23 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <%-- Attributes --%> 
- 
-<%@ attribute name="path" required="true"%>
-<%@ attribute name="code" required="true"%>
 
-<%@ attribute name="type" required="false"%>
-<%@ attribute name="placeholder" required="false"%>
-<%@ attribute name="step" required="false"%>
-<%@ attribute name="min" required="false"%>
-<%@ attribute name="max" required="false"%>
-<%@ attribute name="disabled" required="false"%>
+<%@ attribute name="path" required="true" %>
+<%@ attribute name="code" required="true" %>
+<%@ attribute name="readonly" required="false" %>
+<%@ attribute name="name" required="false" %>
+<%@ attribute name="onchange" required="false" %>
 
-<jstl:if test="${type == null}">
-	<jstl:set var="type" value="text" />
+<jstl:if test="${readonly == null}">
+	<jstl:set var="readonly" value="false" />
 </jstl:if>
 
 <%-- Definition --%>
 
-<div>
+<div class="form-group">
+	<form:checkbox path="${path}" name="${name}" onchange="${onchange}" />
 	<form:label path="${path}">
-		<spring:message code="${code}" />:
+		<spring:message code="${code}" />
 	</form:label>
-	<form:input path="${path}" type="${type }" placeholder="${placeholder }" step="${step }" min="${min }" max="${max }" disabled="${disabled }" />
-	<form:errors class="error" cssClass="error" path="${path}" />
+	<form:errors path="${path}" cssClass="error" />
 </div>
