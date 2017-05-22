@@ -16,7 +16,7 @@ public class MiscController extends AbstractController {
 		super();
 	}
 
-	// Display profile --------------------------------------------------------	
+	// Conditions -------------------------------------------------------------	
 	@RequestMapping(value = "/conditions", method = RequestMethod.GET)
 	public ModelAndView conditions() {
 		ModelAndView result;

@@ -180,7 +180,10 @@ public class BookService {
 		seasons = new ArrayList<Season>();
 		offers = new ArrayList<Offer>();
 
-		applies = this.appliesService.findByBookId(book.getId());
+		if (book.getId() != 0)
+			applies = this.appliesService.findByBookId(book.getId());
+		else
+			applies = null;
 
 		for (final Flight f : book.getFlights()) {
 			Double flightPrice;

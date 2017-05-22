@@ -194,8 +194,8 @@
 		<property name="outgoings">
 			<list>
 				<ref bean="flight1" />
-				<ref bean="flight5" />
-				<ref bean="flight8" />
+				<ref bean="flight6" />
+				<ref bean="flight9" />
 			</list>
 		</property>
 	</bean>
@@ -210,7 +210,7 @@
 		<property name="deleted" value="false" />
 		<property name="outgoings">
 			<list>
-				<ref bean="flight6" />
+				<ref bean="flight7" />
 			</list>
 		</property>
 	</bean>
@@ -239,7 +239,7 @@
 		<property name="outgoings">
 			<list>
 				<ref bean="flight3" />
-				<ref bean="flight7" />
+				<ref bean="flight8" />
 			</list>
 		</property>
 	</bean>
@@ -463,6 +463,11 @@
 		<property name="airline" ref="airline1" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport3" />
+		<property name="departureFinders">
+			<list>
+				<ref bean="finder1" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="flight2" class="domain.Flight">
@@ -479,6 +484,11 @@
 		<property name="airline" ref="airline1" />
 		<property name="departure" ref="airport3" />
 		<property name="destination" ref="airport1" />
+		<property name="departureFinders">
+			<list>
+				<ref bean="finder2" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="flight3" class="domain.Flight">
@@ -495,12 +505,16 @@
 		<property name="airline" ref="airline3" />
 		<property name="departure" ref="airport4" />
 		<property name="destination" ref="airport5" />
+		<property name="departureFinders">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="flight4" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="06/18/2017 06:40" />
-		<property name="arrivalDate" value="06/18/2017 09:35" />
+		<property name="departureDate" value="05/28/2017 11:55" />
+		<property name="arrivalDate" value="05/31/2017 15:30" />
 		<property name="businessPrice" value="100.7" />
 		<property name="economyPrice" value="44.75" />
 		<property name="businessSeats" value="30" />
@@ -509,11 +523,35 @@
 		<property name="availableEconomySeats" value="175" />
 		<property name="cancelled" value="false" />
 		<property name="airline" ref="airline3" />
-		<property name="departure" ref="airport5" />
-		<property name="destination" ref="airport4" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport3" />
+		<property name="departureFinders">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="flight5" class="domain.Flight">
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="06/05/2017 16:15" />
+		<property name="arrivalDate" value="06/05/2017 19:40" />
+		<property name="businessPrice" value="59.82" />
+		<property name="economyPrice" value="30.99" />
+		<property name="businessSeats" value="24" />
+		<property name="economySeats" value="132" />
+		<property name="availableBusinessSeats" value="24" />
+		<property name="availableEconomySeats" value="132" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline3" />
+		<property name="departure" ref="airport3" />
+		<property name="destination" ref="airport1" />
+		<property name="departureFinders">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="flight6" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
 		<property name="departureDate" value="05/26/2017 11:35" />
 		<property name="arrivalDate" value="05/26/2017 13:35" />
@@ -527,9 +565,13 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport2" />
+		<property name="departureFinders">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
-	<bean id="flight6" class="domain.Flight">
+	<bean id="flight7" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
 		<property name="departureDate" value="05/29/2017 22:35" />
 		<property name="arrivalDate" value="05/30/2017 0:30" />
@@ -543,9 +585,13 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport2" />
 		<property name="destination" ref="airport1" />
+		<property name="departureFinders">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
-	<bean id="flight7" class="domain.Flight">
+	<bean id="flight8" class="domain.Flight">
 		<property name="creationMoment" value="05/01/2016 22:15" />
 		<property name="departureDate" value="03/28/2017 6:35" />
 		<property name="arrivalDate" value="03/28/2017 8:15" />
@@ -559,9 +605,13 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport4" />
 		<property name="destination" ref="airport1" />
+		<property name="departureFinders">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
-	<bean id="flight8" class="domain.Flight">
+	<bean id="flight9" class="domain.Flight">
 		<property name="creationMoment" value="05/01/2016 22:15" />
 		<property name="departureDate" value="04/01/2017 22:35" />
 		<property name="arrivalDate" value="04/01/2017 23:40" />
@@ -575,6 +625,11 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport4" />
+		<property name="departureFinders">
+			<list>
+				<ref bean="finder3" />
+			</list>
+		</property>
 	</bean>
 	
 	<!-- Offer -->
@@ -775,17 +830,24 @@
 	<!-- Finder -->
 	
 	<bean id="finder1" class="domain.Finder">
-		<property name="departureDate" value="02/01/2017" />
+		<property name="departureDate" value="05/28/2017" />
 		<property name="isBusiness" value="false" />
-		<property name="passengersNumber" value="1" />
+		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="0" />
-		<property name="returnFlight" value="false" />
+		<property name="returnFlight" value="true" />
+		<property name="returnDate" value="06/05/2017" />
+		<property name="updatedMoment" value="05/22/2017 21:37:00" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport3" />
 		<property name="user" ref="user1" />
-		<property name="results" >
+		<property name="departureResults" >
 			<list>
 				<ref bean="flight1"/>
+			</list>
+		</property>
+		<property name="destinationResults" >
+			<list>
+				<ref bean="flight2"/>
 			</list>
 		</property>
 	</bean>
@@ -796,12 +858,17 @@
 		<property name="passengersNumber" value="1" />
 		<property name="childrenNumber" value="0" />
 		<property name="returnFlight" value="false" />
+		<property name="updatedMoment" value="05/22/2017 21:37:00" />
 		<property name="departure" ref="airport3" />
 		<property name="destination" ref="airport1" />
 		<property name="user" ref="user2" />
-		<property name="results" >
+		<property name="departureResults" >
 			<list>
 				<ref bean="flight2"/>
+			</list>
+		</property>
+		<property name="destinationResults" >
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -812,12 +879,17 @@
 		<property name="passengersNumber" value="1" />
 		<property name="childrenNumber" value="0" />
 		<property name="returnFlight" value="false" />
+		<property name="updatedMoment" value="05/22/2017 21:37:00" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport4" />
 		<property name="user" ref="user3" />
-		<property name="results" >
+		<property name="departureResults" >
 			<list>
-				<ref bean="flight8"/>
+				<ref bean="flight9"/>
+			</list>
+		</property>
+		<property name="destinationResults" >
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -878,8 +950,8 @@
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
-				<ref bean="flight5" /> 
 				<ref bean="flight6" /> 
+				<ref bean="flight7" /> 
 			</list>
 		</property>
 		<property name="offers">
@@ -903,8 +975,8 @@
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
-				<ref bean="flight7" /> 
 				<ref bean="flight8" /> 
+				<ref bean="flight9" /> 
 			</list>
 		</property>
 		<property name="offers">
@@ -957,8 +1029,8 @@
 		<property name="user" ref="user2" />
 		<property name="flights">
 			<list>
-				<ref bean="flight7" /> 
 				<ref bean="flight8" /> 
+				<ref bean="flight9" /> 
 			</list>
 		</property>
 		<property name="offers">
@@ -1003,14 +1075,14 @@
 		<property name="usedPoints" value="1"/>
 		<property name="book" ref="book2"/>
 		<property name="pointsCard" ref="pointsCard2"/>
-		<property name="flight" ref="flight7"/>
+		<property name="flight" ref="flight8"/>
 	</bean>
 	
 	<bean id="applies2" class="domain.Applies">
 		<property name="usedPoints" value="2"/>
 		<property name="book" ref="book2"/>
 		<property name="pointsCard" ref="pointsCard2"/>
-		<property name="flight" ref="flight8"/>
+		<property name="flight" ref="flight9"/>
 	</bean>
 	
 	<!-- Invoice -->

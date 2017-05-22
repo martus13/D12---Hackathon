@@ -17,11 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 import services.AirportService;
 import services.CreditCardService;
 import services.FinderService;
+import services.FlightService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Airport;
 import domain.CreditCard;
 import domain.Finder;
+import domain.Flight;
 import domain.User;
 
 @Controller
@@ -40,6 +42,9 @@ public class FinderUserController extends AbstractController {
 
 	@Autowired
 	private AirportService		airportService;
+
+	@Autowired
+	private FlightService		flightService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -81,7 +86,6 @@ public class FinderUserController extends AbstractController {
 	public ModelAndView findByFinder(@RequestParam final int finderId) {
 		ModelAndView result;
 		Finder finder;
-		Collection<User> users;
 		CreditCard creditCard;
 
 		finder = this.finderService.findOne(finderId);
@@ -95,13 +99,15 @@ public class FinderUserController extends AbstractController {
 
 		} else {
 
-			users = this.finderService.findUsersByFinder(finder);
+			Collection<Flight[]> flights;
 
-			result = new ModelAndView("user/list");
-			result.addObject("users", users);
-			result.addObject("principalId", 0);
+			flights = this.flightService.findByFinder(finder);
+			result = new ModelAndView("finder/search");
+			result.addObject("flights", flights);
 			result.addObject("requestURI", "finder/user/findByFinder.do?finderId=" + finderId);
+
 		}
+
 		return result;
 	}
 
@@ -150,7 +156,8 @@ public class FinderUserController extends AbstractController {
 		finder.setDestination(null);
 		finder.setIsBusiness(null);
 		finder.setPassengersNumber(null);
-		finder.setResults(null);
+		finder.setDepartureResults(null);
+		finder.setDestinationResults(null);
 		finder.setReturnDate(null);
 		finder.setReturnFlight(null);
 		this.finderService.save(finder);

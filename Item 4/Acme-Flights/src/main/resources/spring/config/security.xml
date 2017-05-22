@@ -47,9 +47,15 @@
 		
 		<!-- USER -->
 		
+		<security:intercept-url pattern="/book/user/listByUser.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/book/user/display.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/book/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/book/user/cancel.do" access="hasRole('USER')" />
+		
 		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/finder/user/findByFinder.do" access="hasRole('USER')" />
 		
 		<!-- MANAGER -->
 

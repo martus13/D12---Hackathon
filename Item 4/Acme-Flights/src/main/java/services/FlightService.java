@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.FlightRepository;
 import domain.Book;
+import domain.Configuration;
 import domain.Finder;
 import domain.Flight;
 import domain.Manager;
@@ -22,14 +24,20 @@ public class FlightService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private FlightRepository	flightRepository;
+	private FlightRepository		flightRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private ManagerService		managerService;
+	private ManagerService			managerService;
 
 	@Autowired
-	private BookService			bookService;
+	private BookService				bookService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
+
+	@Autowired
+	private FinderService			finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -141,54 +149,139 @@ public class FlightService {
 
 	public Collection<Flight[]> findByFinder(final Finder finder) {
 		Collection<Flight[]> result;
+		Collection<Flight> departures;
+		Collection<Flight> destinations;
 		Integer totalPassengersNumber;
+		Configuration configuration;
+		Calendar calendar;
+		final Calendar configurationCalendar;
 
 		totalPassengersNumber = finder.getPassengersNumber() + finder.getChildrenNumber();
+		departures = new ArrayList<Flight>();
+		destinations = new ArrayList<Flight>();
+		result = new ArrayList<Flight[]>();
 
-		if (finder.getIsBusiness()) {
-			if (finder.getReturnFlight())
-				result = this.findNotCancelledBusinessByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
-			else
-				result = this.findNotCancelledBusinessWithReturnByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), finder.getReturnDate(), totalPassengersNumber);
-		} else if (finder.getReturnFlight())
-			result = this.findNotCancelledEconomyByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
-		else
-			result = this.findNotCancelledEconomyWithReturnByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), finder.getReturnDate(), totalPassengersNumber);
+		calendar = Calendar.getInstance();
+		calendar.add(Calendar.MILLISECOND, -10);
+
+		configuration = this.configurationService.findConfiguration();
+
+		configurationCalendar = Calendar.getInstance();
+		configurationCalendar.setTime(configuration.getCachedTime());
+
+		// Comprobamos si finder tiene ya guardados los resultados o no
+		if (finder.getUpdatedMoment().before(configurationCalendar.getTime()) || finder.getUpdatedMoment() == configurationCalendar.getTime()) {
+			departures = finder.getDepartureResults();
+			destinations = finder.getDestinationResults();
+		} else {
+			if (finder.getIsBusiness()) {
+				departures = this.findNotCancelledEconomyByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
+				if (finder.getReturnFlight())
+					destinations = this.findNotCancelledEconomyByFinder(finder.getDestination().getId(), finder.getDeparture().getId(), finder.getReturnDate(), totalPassengersNumber);
+
+			} else {
+				departures = this.findNotCancelledEconomyByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
+				if (finder.getReturnFlight())
+					destinations = this.findNotCancelledEconomyByFinder(finder.getDestination().getId(), finder.getDeparture().getId(), finder.getReturnDate(), totalPassengersNumber);
+			}
+
+			finder.setDepartureResults(departures);
+			finder.setDestinationResults(destinations);
+		}
+
+		finder.setUpdatedMoment(calendar.getTime());
+		this.finderService.save(finder);
+
+		for (final Flight fDeparture : departures)
+			if (destinations.isEmpty()) {
+				Flight aux[];
+
+				aux = new Flight[2];
+
+				aux[0] = fDeparture;
+				aux[1] = null;
+				result.add(aux);
+			} else
+				for (final Flight fDestination : destinations) {
+					Flight aux[];
+
+					aux = new Flight[2];
+
+					aux[0] = fDeparture;
+					aux[1] = fDestination;
+					result.add(aux);
+				}
 
 		return result;
 	}
-
-	public Collection<Flight[]> findNotCancelledEconomyByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
-		Collection<Flight[]> result;
+	public Collection<Flight> findNotCancelledEconomyByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
+		Collection<Flight> result;
 
 		result = this.flightRepository.findNotCancelledEconomyByFinder(departureId, destinationId, departureDate, totalPassengersNumber);
 
 		return result;
 	}
 
-	public Collection<Flight[]> findNotCancelledEconomyWithReturnByFinder(final int departureId, final int destinationId, final Date departureDate, final Date returnDate, final Integer totalPassengersNumber) {
-		Collection<Flight[]> result;
-
-		result = this.flightRepository.findNotCancelledEconomyWithReturnByFinder(departureId, destinationId, departureDate, returnDate, totalPassengersNumber);
-
-		return result;
-	}
-
-	public Collection<Flight[]> findNotCancelledBusinessByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
-		Collection<Flight[]> result;
+	public Collection<Flight> findNotCancelledBusinessByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
+		Collection<Flight> result;
 
 		result = this.flightRepository.findNotCancelledBusinessByFinder(departureId, destinationId, departureDate, totalPassengersNumber);
 
 		return result;
 	}
 
-	public Collection<Flight[]> findNotCancelledBusinessWithReturnByFinder(final int departureId, final int destinationId, final Date departureDate, final Date returnDate, final Integer totalPassengersNumber) {
-		Collection<Flight[]> result;
-
-		result = this.flightRepository.findNotCancelledBusinessWithReturnByFinder(departureId, destinationId, departureDate, returnDate, totalPassengersNumber);
-
-		return result;
-	}
+	/*
+	 * public Collection<Flight[]> findByFinder(final Finder finder) {
+	 * Collection<Flight[]> result;
+	 * Integer totalPassengersNumber;
+	 * 
+	 * totalPassengersNumber = finder.getPassengersNumber() + finder.getChildrenNumber();
+	 * 
+	 * if (finder.getIsBusiness()) {
+	 * if (finder.getReturnFlight())
+	 * result = this.findNotCancelledBusinessByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
+	 * else
+	 * result = this.findNotCancelledBusinessWithReturnByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), finder.getReturnDate(), totalPassengersNumber);
+	 * } else if (finder.getReturnFlight())
+	 * result = this.findNotCancelledEconomyByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
+	 * else
+	 * result = this.findNotCancelledEconomyWithReturnByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), finder.getReturnDate(), totalPassengersNumber);
+	 * 
+	 * return result;
+	 * }
+	 * 
+	 * public Collection<Flight[]> findNotCancelledEconomyByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
+	 * Collection<Flight[]> result;
+	 * 
+	 * result = this.flightRepository.findNotCancelledEconomyByFinder(departureId, destinationId, departureDate, totalPassengersNumber);
+	 * 
+	 * return result;
+	 * }
+	 * 
+	 * public Collection<Flight[]> findNotCancelledEconomyWithReturnByFinder(final int departureId, final int destinationId, final Date departureDate, final Date returnDate, final Integer totalPassengersNumber) {
+	 * Collection<Flight[]> result;
+	 * 
+	 * result = this.flightRepository.findNotCancelledEconomyWithReturnByFinder(departureId, destinationId, departureDate, returnDate, totalPassengersNumber);
+	 * 
+	 * return result;
+	 * }
+	 * 
+	 * public Collection<Flight[]> findNotCancelledBusinessByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
+	 * Collection<Flight[]> result;
+	 * 
+	 * result = this.flightRepository.findNotCancelledBusinessByFinder(departureId, destinationId, departureDate, totalPassengersNumber);
+	 * 
+	 * return result;
+	 * }
+	 * 
+	 * public Collection<Flight[]> findNotCancelledBusinessWithReturnByFinder(final int departureId, final int destinationId, final Date departureDate, final Date returnDate, final Integer totalPassengersNumber) {
+	 * Collection<Flight[]> result;
+	 * 
+	 * result = this.flightRepository.findNotCancelledBusinessWithReturnByFinder(departureId, destinationId, departureDate, returnDate, totalPassengersNumber);
+	 * 
+	 * return result;
+	 * }
+	 */
 
 	public Object[] findMaxMinAvgFlightsPerAirport() {
 		Object[] result;

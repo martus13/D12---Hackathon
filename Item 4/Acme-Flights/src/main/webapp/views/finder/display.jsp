@@ -22,7 +22,7 @@
 				
 				<li>
 					<b><spring:message code="finder.destination" />:</b>
-					<jstl:out value="${finder.departure.iataCode}" /> - <jstl:out value="${finder.departure.city}" />
+					<jstl:out value="${finder.destination.iataCode}" /> - <jstl:out value="${finder.destination.city}" />
 				</li>
 				
 				<li>
@@ -58,7 +58,7 @@
 				</li>
 				
 			</ul>
-			
+			<a href="finder/user/findByFinder.do?finderId=${finder.id }"><spring:message code="finder.search" /></a>
 		</jstl:otherwise>
 	</jstl:choose>
 	<br>
