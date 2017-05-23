@@ -50,6 +50,7 @@
 		<security:intercept-url pattern="/book/user/listByUser.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/book/user/createWithoutReturn.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/cancel.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />

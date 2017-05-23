@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.OfferRepository;
+import domain.Flight;
 import domain.Offer;
+import domain.Offertable;
 
 @Service
 @Transactional
@@ -80,6 +83,30 @@ public class OfferService {
 		Offer result;
 
 		result = this.offerRepository.findByDateAndOffertableId(offertableId, date);
+
+		return result;
+	}
+
+	public Collection<Offer> findByDateAndOffertables(final Collection<Offertable> offertables, final Date date) {
+		Assert.notNull(offertables);
+		Assert.notNull(date);
+
+		Collection<Offer> result;
+
+		result = new ArrayList<Offer>();
+
+		for (final Offertable o : offertables) {
+			Offer offer;
+
+			offer = this.offerRepository.findByDateAndOffertableId(o.getId(), date);
+
+			if (o instanceof Flight && offer == null)
+				offer = this.offerRepository.findByDateAndOffertableId(((Flight) o).getAirline().getId(), date);
+
+			if (offer != null)
+				result.add(offer);
+
+		}
 
 		return result;
 	}

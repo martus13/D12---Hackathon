@@ -114,6 +114,136 @@ public class BookService {
 
 		return result;
 	}
+
+	public Book create(final Flight departure, final Integer seasonDepartureId, final Integer offerFlightDepartureId, final Integer offerAirlineDepartureId, final Flight destination, final Integer seasonDestinationId,
+		final Integer offerFlightDestinationId, final Integer offerAirlineDestinationId) {
+		final Book result;
+		User user;
+		Finder finder;
+		Calendar calendar;
+		Collection<Flight> flights;
+		Double originalFee;
+		Double totalFee;
+		Season seasonDeparture;
+		Season seasonDestination;
+		Offer offerDeparture;
+		Offer offerDestination;
+		Collection<Season> seasons;
+		Collection<Offer> offers;
+		Double departurePrice;
+		Double destinationPrice;
+
+		user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+
+		calendar = Calendar.getInstance();
+		calendar.add(Calendar.MILLISECOND, -10);
+
+		finder = this.finderService.findByUserId(user.getId());
+		Assert.notNull(finder);
+		if (finder.getIsBusiness())
+			Assert.isTrue(departure.getAvailableBusinessSeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
+		else
+			Assert.isTrue(departure.getAvailableEconomySeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
+
+		if (finder.getReturnFlight())
+			if (finder.getIsBusiness())
+				Assert.isTrue(destination.getAvailableBusinessSeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
+			else
+				Assert.isTrue(destination.getAvailableEconomySeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
+
+		Assert.notNull(departure);
+		flights = new ArrayList<Flight>();
+		flights.add(departure);
+		if (finder.getReturnFlight())
+			flights.add(destination);
+
+		destinationPrice = 0.0;
+		if (finder.getIsBusiness()) {
+			departurePrice = departure.getBusinessPrice();
+			if (finder.getReturnFlight())
+				destinationPrice = destination.getBusinessPrice();
+		} else {
+			departurePrice = departure.getEconomyPrice();
+			if (finder.getReturnFlight())
+				destinationPrice = destination.getEconomyPrice();
+		}
+		originalFee = departurePrice + destinationPrice;
+
+		seasons = new ArrayList<Season>();
+		if (seasonDepartureId != null) {
+			seasonDeparture = this.seasonService.findOne(seasonDepartureId);
+			seasons.add(seasonDeparture);
+
+			if (seasonDeparture.getType() == "increase")
+				departurePrice = departurePrice + (departurePrice * seasonDeparture.getPricePercentage() / 100);
+			else if (seasonDeparture.getType() == "discount")
+				departurePrice = departurePrice - (departurePrice * seasonDeparture.getPricePercentage() / 100);
+		}
+		if (finder.getReturnFlight() && seasonDestinationId != null) {
+			seasonDestination = this.seasonService.findOne(seasonDestinationId);
+			seasons.add(seasonDestination);
+
+			if (seasonDestination != null)
+				if (seasonDestination.getType() == "increase")
+					destinationPrice = destinationPrice + (destinationPrice * seasonDestination.getPricePercentage() / 100);
+				else if (seasonDestination.getType() == "discount")
+					destinationPrice = destinationPrice - (destinationPrice * seasonDestination.getPricePercentage() / 100);
+		}
+
+		offers = new ArrayList<Offer>();
+		if (offerFlightDepartureId != null) {
+			offerDeparture = this.offerService.findOne(offerFlightDepartureId);
+			if (offerDeparture == null)
+				offerDeparture = this.offerService.findOne(offerAirlineDepartureId);
+			if (offerDeparture != null)
+				offers.add(offerDeparture);
+			departurePrice = departurePrice - (departurePrice * offerDeparture.getDiscount() / 100);
+		}
+
+		if (finder.getReturnFlight() && offerFlightDestinationId != null) {
+			offerDestination = this.offerService.findOne(offerFlightDestinationId);
+			if (offerDestination == null)
+				offerDestination = this.offerService.findOne(offerAirlineDestinationId);
+			if (offerDestination != null)
+				offers.add(offerDestination);
+			destinationPrice = destinationPrice - (destinationPrice * offerDestination.getDiscount() / 100);
+		}
+
+		// calculamos el precio real (con temporada y oferta)
+		Double childrenPrice;
+		AirlineConfiguration airlineConfiguration;
+		if (finder.getChildrenNumber() > 0) {
+			airlineConfiguration = this.airlineConfigurationService.findByAirlineId(departure.getAirline().getId());
+			childrenPrice = departurePrice - (departurePrice * airlineConfiguration.getChildrenDiscount() / 100);
+
+			if (finder.getReturnFlight()) {
+				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(departure.getAirline().getId());
+				childrenPrice += destinationPrice - (destinationPrice * airlineConfiguration.getChildrenDiscount() / 100);
+			}
+		} else
+			childrenPrice = 0.0;
+		totalFee = departurePrice + destinationPrice;
+
+		totalFee = totalFee * finder.getPassengersNumber() + finder.getChildrenNumber() * (childrenPrice);
+
+		result = new Book();
+		result.setUser(user);
+		result.setCreationMoment(calendar.getTime());
+		result.setCancelationMoment(null);
+		result.setFlights(flights);
+		result.setPassengersNumber(finder.getPassengersNumber());
+		result.setChildrenNumber(finder.getChildrenNumber());
+		result.setIsBusiness(finder.getIsBusiness());
+		result.setSeasons(seasons);
+		result.setOffers(offers);
+		result.setOriginalPrice(originalFee);
+		result.setTotalFee(totalFee);
+
+		//result = this.calculatePrice(result);
+
+		return result;
+	}
 	public Book save(Book book) {
 		Assert.notNull(book);
 		User user;

@@ -16,14 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AirportService;
 import services.CreditCardService;
+import services.ExchangeRateService;
 import services.FinderService;
 import services.FlightService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Airport;
 import domain.CreditCard;
+import domain.ExchangeRate;
 import domain.Finder;
-import domain.Flight;
 import domain.User;
 
 @Controller
@@ -45,6 +46,9 @@ public class FinderUserController extends AbstractController {
 
 	@Autowired
 	private FlightService		flightService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -99,11 +103,16 @@ public class FinderUserController extends AbstractController {
 
 		} else {
 
-			Collection<Flight[]> flights;
+			Collection<Object[]> flights;
+			Collection<ExchangeRate> exchangeRates;
 
 			flights = this.flightService.findByFinder(finder);
+			exchangeRates = this.exchangeRateService.findAll();
+
 			result = new ModelAndView("finder/search");
+			result.addObject("finder", finder);
 			result.addObject("flights", flights);
+			result.addObject("exchangeRates", exchangeRates);
 			result.addObject("requestURI", "finder/user/findByFinder.do?finderId=" + finderId);
 
 		}

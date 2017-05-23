@@ -23,6 +23,26 @@
 	<form:hidden path="seasons" />
 	<form:hidden path="offers" />
 	
+	<li>
+		<b><spring:message code="book.passengersNumber" />:</b>
+		<jstl:out value="${book.passengersNumber}" />
+	</li>
+	
+	<li>
+		<b><spring:message code="book.childrenNumber" />:</b>
+		<jstl:out value="${book.childrenNumber}" />
+	</li>
+	
+	<li>
+		<b><spring:message code="book.isBusiness" />:</b>
+		<jstl:out value="${book.isBusiness}" />
+	</li>
+	
+	<li>
+		<b><spring:message code="book.totalFee"/>:</b>
+		<jstl:out value="${book.totalFee}"/>
+	</li>
+	
 	<acme:textarea code="book.comment" path="comment" rows="3" />
 	
 	<acme:submit name="save" code="book.save" />

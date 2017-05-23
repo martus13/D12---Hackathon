@@ -6,9 +6,20 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script>
+	var z = [];
+</script>
 <security:authentication var="principalUserAccount" property="principal" />
 <jstl:set var="i" value="1" />
+
+<spring:message code="finder.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
 
 <jstl:forEach var="flight" items="${flights }">
 	
@@ -19,23 +30,126 @@
 		
 		<display:table name="${flight }" id="row" requestURI="${requestURI }" class="displaytag">
 			
-			<acme:column code="finder.departureDate" property="departureDate" />
-			<acme:column code="finder.arrivalDate" property="arrivalDate" />
+			<acme:column code="finder.departureDate" property="[0].departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />
+			<acme:column code="finder.arrivalDate" property="[0].arrivalDate" format="{0,date,dd/MM/yyyy HH:mm}" />
 			
 			<spring:message code="finder.departure" var="departureHeader" />
 			<display:column title="${departureHeader}" sortable="true" >
-				<jstl:out value="${row.departure.iataCode }" /> - <jstl:out value="${row.departure.city }" />
+				<jstl:out value="${row[0].departure.iataCode }" /> - <jstl:out value="${row[0].departure.city }" />
 			</display:column> 
 			
 			<spring:message code="finder.destination" var="destinationHeader" />
 			<display:column title="${destinationHeader}" sortable="true" >
-				<jstl:out value="${row.destination.iataCode }" /> - <jstl:out value="${row.destination.city }" />
+				<jstl:out value="${row[0].destination.iataCode }" /> - <jstl:out value="${row[0].destination.city }" />
 			</display:column> 
 			
-			<acme:column code="finder.airline" property="airline.name" />
+			<acme:column code="finder.airline" property="[0].airline.name" />
+			
+			<spring:message code="finder.price" var="priceHeader" />
+			<display:column title="${priceHeader }" sortable="true" >
+				<jstl:choose>
+					<jstl:when test="${finder.isBusiness}">
+						<jstl:set var="flightPrice" value="${row[0].businessPrice }" />
+					</jstl:when>
+					<jstl:otherwise>
+						<jstl:set var="flightPrice" value="${row[0].economyPrice }" />
+					</jstl:otherwise>
+				</jstl:choose>
+				<jstl:if test="${not empty row[1]}">
+					<jstl:choose>
+						<jstl:when test="${row[1].type=='increase' }">
+							<jstl:set var="flightPrice" value="${flightPrice+(flightPrice*row[1].pricePercentage/100) }" />
+						</jstl:when>
+						<jstl:otherwise>
+							<jstl:set var="flightPrice" value="${flightPrice-(flightPrice*row[1].pricePercentage/100) }" />
+						</jstl:otherwise>
+					</jstl:choose>
+				</jstl:if>
+				<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${flightPrice}" />
+			</display:column> 
+			<display:column>
+				<jstl:if test="${not empty row[2] }">
+					<b>-<jstl:out value="${row[2].discount } %" /></b>
+				</jstl:if>
+				<jstl:if test="${empty row[2] && not empty row[3] }">
+					<b>-<jstl:out value="${row[3].discount } %" /></b>
+				</jstl:if>
+			</display:column>
+			
 		</display:table>
-		<a href="book/user/create.do?departureId=${flight[0].id}&&destinationId=${flight[1].id}"><spring:message code="finder.book" /></a>
+		
+		<jstl:choose>
+			<jstl:when test="${finder.returnFlight}">
+				<a href="book/user/create.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }&&destinationId=${flight[1][0].id}&&season2=${flight[1][1].id }&&offerFlight2=${flight[1][2].id }&&offerAirline2=${flight[1][3].id }"><spring:message code="finder.book" /></a>
+			</jstl:when>
+			<jstl:otherwise>
+				<a href="book/user/createWithoutReturn.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }"><spring:message code="finder.book" /></a>
+			</jstl:otherwise>
+		</jstl:choose>
+		<jstl:if test="${finder.returnFlight }">
+			
+		</jstl:if>
+		
 		<jstl:set var="i" value="${i+1 }" />
 	</fieldset>
+	
+	<script>
+		function getValorIni(){
+			var iniVal = document.getElementsByTagName("table");
+			var iniValLast = iniVal[iniVal.length-1].rows;
+			var y = [];
+			
+			for(var j=0;j<iniValLast.length;j++){
+				str = iniValLast[j+1].cells[5].innerHTML;
+				y[j]=str;
+				if(j==1){
+					z.push(y);
+				}
+			}
+		}
+		document.onload=getValorIni();
+		
+		function selectRate(value1EUR){
+			var x = document.getElementsByTagName("table");
+			
+			for(var i=0;i<x.length;i++){
+				w = z[i];
+				for (var l = 0; row = x[i].rows[l+1]; l++) {
+					cellsVal = row.cells[5].innerHTML;
+					v = w[l];
+					
+					v = Math.round(v*value1EUR * 100.0) / 100.0;
+					
+					row.cells[5].innerHTML = v;
+					
+				}
+			}
+		}
+		
+		// var z=[];
+		// function getValorIni(){
+		//	var iniVal = document.getElementById("row").rows;
+		//	var j;
+		//	
+		//	for(j=0;j<iniVal.length;j++){
+		//		z[j] = iniVal[j+1].cells[5].innerHTML;
+		//	}
+		//	
+		//}
+		//function selectRate(value1EUR){
+		//	var x = document.getElementById("row").rows;
+		//	var i;
+		//	
+		//	for(i=0; i<z.length; i++){
+		//		var y = z[i];
+		//		
+		//		y = Math.round(y*value1EUR * 100.0) / 100.0;
+		//	
+		//		x[i+1].cells[5].innerHTML = y;
+		//	
+		//	}
+		//
+		//}
+	</script>
 </jstl:forEach>
 

@@ -38,7 +38,7 @@
 				<jstl:if test="${finder.returnFlight }">
 					<li>
 						<b><spring:message code="finder.returnDate"/>:</b>
-						<jstl:out value="${finder.returnDate}"/>
+						<fmt:formatDate value="${finder.returnDate}" pattern="dd/MM/yyyy" />
 					</li>
 				</jstl:if>
 				

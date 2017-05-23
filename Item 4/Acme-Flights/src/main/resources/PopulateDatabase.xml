@@ -853,13 +853,13 @@
 	</bean>
 	
 	<bean id="finder2" class="domain.Finder">
-		<property name="departureDate" value="09/01/2017" />
+		<property name="departureDate" value="05/29/2017" />
 		<property name="isBusiness" value="false" />
 		<property name="passengersNumber" value="1" />
 		<property name="childrenNumber" value="0" />
 		<property name="returnFlight" value="false" />
 		<property name="updatedMoment" value="05/22/2017 21:37:00" />
-		<property name="departure" ref="airport3" />
+		<property name="departure" ref="airport2" />
 		<property name="destination" ref="airport1" />
 		<property name="user" ref="user2" />
 		<property name="departureResults" >

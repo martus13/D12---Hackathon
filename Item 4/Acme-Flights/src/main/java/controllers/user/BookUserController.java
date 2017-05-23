@@ -85,21 +85,85 @@ public class BookUserController extends AbstractController {
 
 	// Creation ---------------------------------------------------------------		
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int departureId, @RequestParam final int destinationId) {
+	public ModelAndView create(@RequestParam final int departureId, @RequestParam final String season1, @RequestParam final String offerFlight1, @RequestParam final String offerAirline1, @RequestParam final int destinationId,
+		@RequestParam final String season2, @RequestParam final String offerFlight2, @RequestParam final String offerAirline2) {
 		ModelAndView result;
 		Book book;
 		Flight departure;
 		Flight destination;
+		Integer seasonDeparture;
+		Integer offerFlightDeparture;
+		Integer offerAirlineDeparture;
+		Integer seasonDestination;
+		Integer offerFlightDestination;
+		Integer offerAirlineDestination;
 
 		departure = this.flightService.findOne(departureId);
 		destination = this.flightService.findOne(destinationId);
 
-		book = this.bookService.create(departure, destination);
+		if (season1 != "")
+			seasonDeparture = Integer.valueOf(season1);
+		else
+			seasonDeparture = null;
+		if (offerFlight1 != "")
+			offerFlightDeparture = Integer.valueOf(offerFlight1);
+		else
+			offerFlightDeparture = null;
+		if (offerAirline1 != "")
+			offerAirlineDeparture = Integer.valueOf(offerAirline1);
+		else
+			offerAirlineDeparture = null;
+		if (season2 != "")
+			seasonDestination = Integer.valueOf(season2);
+		else
+			seasonDestination = null;
+		if (offerFlight2 != "")
+			offerFlightDestination = Integer.valueOf(offerFlight2);
+		else
+			offerFlightDestination = null;
+		if (offerAirline2 != "")
+			offerAirlineDestination = Integer.valueOf(offerAirline2);
+		else
+			offerAirlineDestination = null;
+
+		book = this.bookService.create(departure, seasonDeparture, offerFlightDeparture, offerAirlineDeparture, destination, seasonDestination, offerFlightDestination, offerAirlineDestination);
 
 		result = this.createEditModelAndView(book);
 
 		return result;
 	}
+
+	@RequestMapping(value = "/createWithoutReturn", method = RequestMethod.GET)
+	public ModelAndView createWithoutReturn(@RequestParam final int departureId, @RequestParam final String season1, @RequestParam final String offerFlight1, @RequestParam final String offerAirline1) {
+		ModelAndView result;
+		Book book;
+		Flight departure;
+		Integer seasonDeparture;
+		Integer offerFlightDeparture;
+		Integer offerAirlineDeparture;
+
+		departure = this.flightService.findOne(departureId);
+
+		if (season1 != "")
+			seasonDeparture = Integer.valueOf(season1);
+		else
+			seasonDeparture = null;
+		if (offerFlight1 != "")
+			offerFlightDeparture = Integer.valueOf(offerFlight1);
+		else
+			offerFlightDeparture = null;
+		if (offerAirline1 != "")
+			offerAirlineDeparture = Integer.valueOf(offerAirline1);
+		else
+			offerAirlineDeparture = null;
+
+		book = this.bookService.create(departure, seasonDeparture, offerFlightDeparture, offerAirlineDeparture, null, null, null, null);
+
+		result = this.createEditModelAndView(book);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Book book, final BindingResult binding) {
 
