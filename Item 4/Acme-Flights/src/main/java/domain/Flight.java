@@ -1,13 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -148,10 +146,9 @@ public class Flight extends Offertable {
 
 	// Relationships ----------------------------------------------------------
 
-	private Airline				airline;
-	private Airport				departure;
-	private Airport				destination;
-	private Collection<Finder>	departureFinders;
+	private Airline	airline;
+	private Airport	departure;
+	private Airport	destination;
 
 
 	@NotNull
@@ -185,23 +182,6 @@ public class Flight extends Offertable {
 
 	public void setDestination(final Airport destination) {
 		this.destination = destination;
-	}
-
-	@NotNull
-	@Valid
-	@ManyToMany()
-	public Collection<Finder> getDepartureFinders() {
-		return this.departureFinders;
-	}
-
-	public void setDepartureFinders(final Collection<Finder> departureFinders) {
-		this.departureFinders = departureFinders;
-	}
-	public void addFinder(final Finder finder) {
-		this.departureFinders.add(finder);
-	}
-	public void removeFinder(final Finder finder) {
-		this.departureFinders.remove(finder);
 	}
 
 }

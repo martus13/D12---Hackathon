@@ -132,6 +132,8 @@ public class BookService {
 		Collection<Offer> offers;
 		Double departurePrice;
 		Double destinationPrice;
+		Double childrenPrice;
+		AirlineConfiguration airlineConfiguration;
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
@@ -211,8 +213,6 @@ public class BookService {
 		}
 
 		// calculamos el precio real (con temporada y oferta)
-		Double childrenPrice;
-		AirlineConfiguration airlineConfiguration;
 		if (finder.getChildrenNumber() > 0) {
 			airlineConfiguration = this.airlineConfigurationService.findByAirlineId(departure.getAirline().getId());
 			childrenPrice = departurePrice - (departurePrice * airlineConfiguration.getChildrenDiscount() / 100);
@@ -226,6 +226,8 @@ public class BookService {
 		totalFee = departurePrice + destinationPrice;
 
 		totalFee = totalFee * finder.getPassengersNumber() + finder.getChildrenNumber() * (childrenPrice);
+
+		totalFee = Math.round(totalFee * 100.0) / 100.0;
 
 		result = new Book();
 		result.setUser(user);

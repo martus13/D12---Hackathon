@@ -463,11 +463,6 @@
 		<property name="airline" ref="airline1" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport3" />
-		<property name="departureFinders">
-			<list>
-				<ref bean="finder1" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight2" class="domain.Flight">
@@ -484,11 +479,6 @@
 		<property name="airline" ref="airline1" />
 		<property name="departure" ref="airport3" />
 		<property name="destination" ref="airport1" />
-		<property name="departureFinders">
-			<list>
-				<ref bean="finder2" />
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight3" class="domain.Flight">
@@ -505,10 +495,6 @@
 		<property name="airline" ref="airline3" />
 		<property name="departure" ref="airport4" />
 		<property name="destination" ref="airport5" />
-		<property name="departureFinders">
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight4" class="domain.Flight">
@@ -525,10 +511,6 @@
 		<property name="airline" ref="airline3" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport3" />
-		<property name="departureFinders">
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight5" class="domain.Flight">
@@ -545,10 +527,6 @@
 		<property name="airline" ref="airline3" />
 		<property name="departure" ref="airport3" />
 		<property name="destination" ref="airport1" />
-		<property name="departureFinders">
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight6" class="domain.Flight">
@@ -565,10 +543,6 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport2" />
-		<property name="departureFinders">
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight7" class="domain.Flight">
@@ -585,10 +559,6 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport2" />
 		<property name="destination" ref="airport1" />
-		<property name="departureFinders">
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight8" class="domain.Flight">
@@ -605,10 +575,6 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport4" />
 		<property name="destination" ref="airport1" />
-		<property name="departureFinders">
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="flight9" class="domain.Flight">
@@ -625,11 +591,6 @@
 		<property name="airline" ref="airline2" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport4" />
-		<property name="departureFinders">
-			<list>
-				<ref bean="finder3" />
-			</list>
-		</property>
 	</bean>
 	
 	<!-- Offer -->
@@ -840,16 +801,6 @@
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport3" />
 		<property name="user" ref="user1" />
-		<property name="departureResults" >
-			<list>
-				<ref bean="flight1"/>
-			</list>
-		</property>
-		<property name="destinationResults" >
-			<list>
-				<ref bean="flight2"/>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="finder2" class="domain.Finder">
@@ -862,15 +813,6 @@
 		<property name="departure" ref="airport2" />
 		<property name="destination" ref="airport1" />
 		<property name="user" ref="user2" />
-		<property name="departureResults" >
-			<list>
-				<ref bean="flight2"/>
-			</list>
-		</property>
-		<property name="destinationResults" >
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<bean id="finder3" class="domain.Finder">
@@ -883,15 +825,6 @@
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport4" />
 		<property name="user" ref="user3" />
-		<property name="departureResults" >
-			<list>
-				<ref bean="flight9"/>
-			</list>
-		</property>
-		<property name="destinationResults" >
-			<list>
-			</list>
-		</property>
 	</bean>
 	
 	<!-- PointsCard -->

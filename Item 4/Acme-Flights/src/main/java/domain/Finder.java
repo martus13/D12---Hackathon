@@ -1,13 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -113,11 +111,9 @@ public class Finder extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Airport				departure;
-	private Airport				destination;
-	private User				user;
-	private Collection<Flight>	departureResults;
-	private Collection<Flight>	destinationResults;
+	private Airport	departure;
+	private Airport	destination;
+	private User	user;
 
 
 	@NotNull
@@ -151,28 +147,6 @@ public class Finder extends DomainEntity {
 
 	public void setUser(final User user) {
 		this.user = user;
-	}
-
-	@NotNull
-	@Valid
-	@ManyToMany(mappedBy = "departureFinders")
-	public Collection<Flight> getDepartureResults() {
-		return this.departureResults;
-	}
-
-	public void setDepartureResults(final Collection<Flight> departureResults) {
-		this.departureResults = departureResults;
-	}
-
-	@NotNull
-	@Valid
-	@ManyToMany()
-	public Collection<Flight> getDestinationResults() {
-		return this.destinationResults;
-	}
-
-	public void setDestinationResults(final Collection<Flight> destinationResults) {
-		this.destinationResults = destinationResults;
 	}
 
 }
