@@ -175,7 +175,7 @@
 	</bean>
 	
 	<bean id="exchangeRate6" class="domain.ExchangeRate">
-		<property name="isoCode" value="CHY" />
+		<property name="isoCode" value="CNY" />
 		<property name="currency" value="Chinese Yuan Renminbi" />
 		<property name="value1EUR" value="7.54086" />
 	</bean>

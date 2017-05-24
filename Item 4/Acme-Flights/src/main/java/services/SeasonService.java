@@ -80,7 +80,7 @@ public class SeasonService {
 		Assert.isTrue(season.getAirline().equals(manager.getAirline()));
 
 		// Comprobamos que no se solapen temporadas
-		Assert.isTrue(this.findOverlappingByAirport(season.getAirline().getId(), season.getStartDay(), season.getStartMonth(), season.getEndDay(), season.getEndMonth()).isEmpty());
+		Assert.isTrue(this.findOverlappingByAirline(season.getAirline().getId(), season.getStartDay(), season.getStartMonth(), season.getEndDay(), season.getEndMonth()).isEmpty());
 
 		season = this.seasonReporitory.save(season);
 
@@ -133,7 +133,7 @@ public class SeasonService {
 		return result;
 	}
 
-	public Collection<Season> findOverlappingByAirport(final int airlineId, final Integer startDay, final Integer startMonth, final Integer endDay, final Integer endMonth) {
+	public Collection<Season> findOverlappingByAirline(final int airlineId, final Integer startDay, final Integer startMonth, final Integer endDay, final Integer endMonth) {
 		Collection<Season> result;
 
 		result = this.seasonReporitory.findActiveByAirlineId(airlineId);

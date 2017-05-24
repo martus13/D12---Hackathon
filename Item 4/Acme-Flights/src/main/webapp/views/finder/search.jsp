@@ -102,7 +102,7 @@
 			for(var j=0;j<iniValLast.length;j++){
 				str = iniValLast[j+1].cells[5].innerHTML;
 				y[j]=str;
-				if(j==1){
+				if(j==iniValLast.length-2){
 					z.push(y);
 				}
 			}

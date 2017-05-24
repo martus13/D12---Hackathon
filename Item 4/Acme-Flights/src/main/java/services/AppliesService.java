@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.AppliesRepository;
+import domain.AirlineConfiguration;
 import domain.Applies;
 import domain.Book;
 import domain.Flight;
@@ -21,17 +22,20 @@ public class AppliesService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private AppliesRepository	appliesRepository;
+	private AppliesRepository			appliesRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private UserService			userService;
+	private UserService					userService;
 
 	@Autowired
-	private PointsCardService	pointsCardService;
+	private PointsCardService			pointsCardService;
 
 	@Autowired
-	private BookService			bookService;
+	private BookService					bookService;
+
+	@Autowired
+	private AirlineConfigurationService	airlineConfigurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -80,8 +84,11 @@ public class AppliesService {
 		PointsCard pointsCard;
 		Applies auxApplies;
 		Book book;
+		Double totalFee;
+		AirlineConfiguration airlineConfiguration;
 
 		book = applies.getBook();
+		airlineConfiguration = this.airlineConfigurationService.findByAirlineId(applies.getFlight().getAirline().getId());
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
@@ -108,20 +115,23 @@ public class AppliesService {
 				this.pointsCardService.save(pointsCard);
 		}
 
-		book = this.bookService.calculatePrice(book);
-
+		totalFee = book.getTotalFee();
+		totalFee += applies.getUsedPoints() * (-book.getPassengersNumber() - book.getChildrenNumber() + book.getChildrenNumber() * airlineConfiguration.getChildrenDiscount() / 100);
+		book.setTotalFee(totalFee);
 		this.bookService.save(book);
 
 		return applies;
 	}
-
 	public void delete(final Applies applies) {
 		Assert.notNull(applies);
 		User user;
 		PointsCard pointsCard;
 		Book book;
+		Double totalFee;
+		AirlineConfiguration airlineConfiguration;
 
 		book = applies.getBook();
+		airlineConfiguration = this.airlineConfigurationService.findByAirlineId(applies.getFlight().getAirline().getId());
 		pointsCard = applies.getPointsCard();
 
 		user = this.userService.findByPrincipal();
@@ -134,8 +144,9 @@ public class AppliesService {
 
 		this.pointsCardService.save(pointsCard);
 
-		book = this.bookService.calculatePrice(book);
-
+		totalFee = book.getTotalFee();
+		totalFee -= applies.getUsedPoints() * (-book.getPassengersNumber() - book.getChildrenNumber() + book.getChildrenNumber() * airlineConfiguration.getChildrenDiscount() / 100);
+		book.setTotalFee(totalFee);
 		this.bookService.save(book);
 
 	}
