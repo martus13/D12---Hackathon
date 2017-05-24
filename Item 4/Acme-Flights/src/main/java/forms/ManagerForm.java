@@ -1,6 +1,8 @@
 
 package forms;
 
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -9,6 +11,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+
+import domain.Airline;
 
 public class ManagerForm {
 
@@ -19,7 +23,19 @@ public class ManagerForm {
 	private String	surname;
 	private String	email;
 	private String	contactPhone;
+	private Airline	airline;
 
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Airline getAirline() {
+		return this.airline;
+	}
+
+	public void setAirline(final Airline airline) {
+		this.airline = airline;
+	}
 
 	@Size(min = 5, max = 32)
 	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)

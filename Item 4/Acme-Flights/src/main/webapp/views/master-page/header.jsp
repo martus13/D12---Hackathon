@@ -25,12 +25,15 @@
 		<security:authorize access="hasRole('USER')">
 			<li><a class="fNiv" href="finder/user/display.do"><spring:message code="master.page.user.finder" /></a></li>
 			<li><a class="fNiv" href="book/user/listByUser.do"><spring:message code="master.page.user.book" /></a></li>
+			<li><a class="fNiv" href="creditCard/user/list.do"><spring:message code="master.page.user.creditCard" /></a></li>
 		</security:authorize>
 		
 		<!-- MANAGER -->
 		
 		<!-- ADMIN -->
-		
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv" href="managerUser/administrator/register.do"><spring:message code="master.page.admin.manager" /></a></li>
+		</security:authorize>
 		
 		<!-- isAnonymous -->
 		<security:authorize access="isAnonymous()">

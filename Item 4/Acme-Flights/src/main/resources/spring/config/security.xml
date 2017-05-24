@@ -58,9 +58,16 @@
 		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/findByFinder.do" access="hasRole('USER')" />
 		
+		<security:intercept-url pattern="/creditCard/user/list.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/creditCard/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/creditCard/user/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/creditCard/user/delete.do" access="hasRole('USER')" />
+		
 		<!-- MANAGER -->
 
+		<!-- ADMIN -->
 		
+		<security:intercept-url pattern="/managerUser/administrator/register.do" access="hasRole('ADMIN')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
