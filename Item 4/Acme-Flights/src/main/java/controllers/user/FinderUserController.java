@@ -159,17 +159,7 @@ public class FinderUserController extends AbstractController {
 	public ModelAndView delete(@Valid final Finder finder, final BindingResult binding) {
 		ModelAndView result;
 
-		finder.setChildrenNumber(null);
-		finder.setDeparture(null);
-		finder.setDepartureDate(null);
-		finder.setDestination(null);
-		finder.setIsBusiness(null);
-		finder.setPassengersNumber(null);
-		finder.setDepartureResults(null);
-		finder.setDestinationResults(null);
-		finder.setReturnDate(null);
-		finder.setReturnFlight(null);
-		this.finderService.save(finder);
+		this.finderService.delete(finder);
 		result = new ModelAndView("redirect:display.do");
 
 		return result;

@@ -44,8 +44,17 @@
 	</div>
 	
 	<acme:input code="finder.departureDate" path="departureDate" placeholder="dd/mm/yyyy"/>
-	<acme:checkbox code="finder.returnFlight" path="returnFlight" onchange="myFunctionYes(this.checked)" />
-	<acme:input code="finder.returnDate" path="returnDate" disabled="${true }" placeholder="dd/mm/yyyy"/>
+	<jstl:choose>
+		<jstl:when test="${finder.id==0 }">
+			<jstl:set var="disabledReturnDate" value="${false}" />
+			<jstl:set var="checkedReturnFlight" value="${true}" />
+		</jstl:when>
+		<jstl:otherwise>
+			<jstl:set var="disabledReturnDate" value="${not finder.returnFlight}" /> 
+		</jstl:otherwise>
+	</jstl:choose>
+	<acme:checkbox code="finder.returnFlight" path="returnFlight" checked="${checkedReturnFlight }" onchange="myFunctionYes(this.checked)" />
+	<acme:input code="finder.returnDate" path="returnDate" disabled="${disabledReturnDate }" placeholder="dd/mm/yyyy"/>
 	<acme:input code="finder.passengersNumber" path="passengersNumber" />
 	<acme:input code="finder.childrenNumber" path="childrenNumber" />
 	<acme:checkbox code="finder.isBusiness" path="isBusiness" />
@@ -54,7 +63,6 @@
 	<jstl:if test="${finder.id!=0 }">
 		<acme:submit name="delete" code="finder.delete" />
 	</jstl:if>
-	
 	<acme:cancel url="finder/user/display.do" code="finder.cancel" />
 	
 </form:form>

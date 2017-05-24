@@ -27,6 +27,7 @@
 <%@ attribute name="readonly" required="false" %>
 <%@ attribute name="name" required="false" %>
 <%@ attribute name="onchange" required="false" %>
+<%@ attribute name="checked" required="false" %>
 
 <jstl:if test="${readonly == null}">
 	<jstl:set var="readonly" value="false" />
@@ -35,7 +36,7 @@
 <%-- Definition --%>
 
 <div class="form-group">
-	<form:checkbox path="${path}" name="${name}" onchange="${onchange}" />
+	<form:checkbox path="${path}" name="${name}" onchange="${onchange}" checked="${checked }" />
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>

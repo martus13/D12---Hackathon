@@ -26,17 +26,6 @@ public class ManagerForm {
 	private Airline	airline;
 
 
-	@NotNull
-	@Valid
-	@ManyToOne(optional = false)
-	public Airline getAirline() {
-		return this.airline;
-	}
-
-	public void setAirline(final Airline airline) {
-		this.airline = airline;
-	}
-
 	@Size(min = 5, max = 32)
 	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	@NotBlank
@@ -113,6 +102,17 @@ public class ManagerForm {
 
 	public void setContactPhone(final String contactPhone) {
 		this.contactPhone = contactPhone;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Airline getAirline() {
+		return this.airline;
+	}
+
+	public void setAirline(final Airline airline) {
+		this.airline = airline;
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
 import domain.Finder;
+import domain.Flight;
 import domain.User;
 
 @Service
@@ -28,6 +29,9 @@ public class FinderService {
 
 	@Autowired
 	private CreditCardService	creditCardService;
+
+	@Autowired
+	private FlightService		flightService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -80,6 +84,13 @@ public class FinderService {
 
 	public void delete(final Finder finder) {
 		Assert.notNull(finder);
+		Collection<Flight> flights;
+
+		flights = finder.getDepartureResults();
+		for (final Flight f : flights) {
+			f.removeFinder(finder);
+			this.flightService.save(f);
+		}
 
 		this.finderRepository.delete(finder);
 	}

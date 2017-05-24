@@ -84,9 +84,11 @@ public class FlightService {
 		Assert.notNull(flight);
 		Manager manager;
 
-		manager = this.managerService.findByPrincipal();
-		Assert.notNull(manager);
-		Assert.isTrue(flight.getAirline().equals(manager.getAirline()));
+		if (flight.getId() == 0) {
+			manager = this.managerService.findByPrincipal();
+			Assert.notNull(manager);
+			Assert.isTrue(flight.getAirline().equals(manager.getAirline()));
+		}
 
 		flight = this.flightRepository.save(flight);
 

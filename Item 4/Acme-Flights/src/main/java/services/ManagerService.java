@@ -129,6 +129,7 @@ public class ManagerService {
 		manager.setSurname(managerForm.getSurname());
 		manager.setEmail(managerForm.getEmail());
 		manager.setContactPhone(managerForm.getContactPhone());
+		manager.setAirline(managerForm.getAirline());
 
 		return manager;
 	}
@@ -143,6 +144,7 @@ public class ManagerService {
 		managerForm.setSurname(manager.getSurname());
 		managerForm.setEmail(manager.getEmail());
 		managerForm.setContactPhone(manager.getContactPhone());
+		managerForm.setAirline(manager.getAirline());
 
 		return managerForm;
 	}

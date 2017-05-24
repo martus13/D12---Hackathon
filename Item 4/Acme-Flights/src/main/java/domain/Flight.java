@@ -197,5 +197,11 @@ public class Flight extends Offertable {
 	public void setDepartureFinders(final Collection<Finder> departureFinders) {
 		this.departureFinders = departureFinders;
 	}
+	public void addFinder(final Finder finder) {
+		this.departureFinders.add(finder);
+	}
+	public void removeFinder(final Finder finder) {
+		this.departureFinders.remove(finder);
+	}
 
 }
