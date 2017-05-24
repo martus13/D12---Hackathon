@@ -64,7 +64,12 @@
 		<security:intercept-url pattern="/creditCard/user/delete.do" access="hasRole('USER')" />
 		
 		<!-- MANAGER -->
-
+		
+		<security:intercept-url pattern="/banner/manager/list.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/banner/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/banner/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/banner/manager/delete.do" access="hasRole('MANAGER')" />
+		
 		<!-- ADMIN -->
 		
 		<security:intercept-url pattern="/managerUser/administrator/register.do" access="hasRole('ADMIN')" />

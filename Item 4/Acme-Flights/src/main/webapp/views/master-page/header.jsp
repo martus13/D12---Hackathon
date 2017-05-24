@@ -30,6 +30,10 @@
 		
 		<!-- MANAGER -->
 		
+		<security:authorize access="hasRole('MANAGER')">
+			<li><a class="fNiv" href="banner/manager/list.do"><spring:message code="master.page.manager.banner" /></a></li>
+		</security:authorize>
+		
 		<!-- ADMIN -->
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv" href="managerUser/administrator/register.do"><spring:message code="master.page.admin.manager" /></a></li>

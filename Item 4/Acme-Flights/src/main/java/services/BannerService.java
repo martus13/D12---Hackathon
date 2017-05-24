@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.util.Assert;
 
 import repositories.BannerRepository;
 import domain.Banner;
+import domain.Campaign;
+import domain.Manager;
 
 @Service
 @Transactional
@@ -19,8 +22,14 @@ public class BannerService {
 	@Autowired
 	private BannerRepository	bannerRepository;
 
-
 	// Supporting services ----------------------------------------------------
+
+	@Autowired
+	private CampaignService		campaignService;
+
+	@Autowired
+	private ManagerService		managerService;
+
 
 	// Constructors -----------------------------------------------------------
 	public BannerService() {
@@ -72,4 +81,26 @@ public class BannerService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<Campaign> findCampaignsByAirlineAndManager() {
+		Collection<Campaign> campaigns;
+		final Collection<Campaign> aux = new ArrayList<Campaign>();
+		Manager manager;
+
+		campaigns = this.campaignService.findAll();
+		manager = this.managerService.findByPrincipal();
+		manager.getAirline();
+
+		for (final Campaign c : campaigns)
+			if (c.getAirline().equals(manager.getAirline()))
+				aux.add(c);
+		return aux;
+	}
+
+	public Collection<Banner> findByAirlineId(final int airlineId) {
+		Collection<Banner> res;
+
+		res = this.bannerRepository.findByAirlineId(airlineId);
+
+		return res;
+	}
 }

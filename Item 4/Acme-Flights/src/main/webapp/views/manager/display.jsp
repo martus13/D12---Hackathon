@@ -25,14 +25,10 @@
 		</li>
 		
 		<li>
-			<b><spring:message code="manager.company" />:</b>
+			<b><spring:message code="manager.aairline" />:</b>
 			<jstl:out value="${f:replaceAllPhoneAndEmail(manager.company, '***')}" />
 		</li>
 		
-		<li>
-			<b><spring:message code="manager.vatNumber" />:</b>
-			<jstl:out value="${f:replaceAllPhoneAndEmail(manager.vatNumber, '***')}" />
-		</li>
 		
 		<%-- <security:authorize access="hasRole('MANAGER')" >
 			<jstl:if test="${principalUserAccount.id != manager.userAccount.id}">
