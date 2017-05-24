@@ -13,7 +13,9 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="user"/>
-	<form:hidden path="results"/>
+	<form:hidden path="departureResults"/>
+	<form:hidden path="destinationResults"/>
+	<form:hidden path="updatedMoment"/>
 	
 	<div>
 		<form:label path="departure">
@@ -41,9 +43,9 @@
 		<form:errors path="destination" cssClass="error" />
 	</div>
 	
-	<acme:input code="finder.departureDate" path="departureDate" />
+	<acme:input code="finder.departureDate" path="departureDate" placeholder="dd/mm/yyyy"/>
 	<acme:checkbox code="finder.returnFlight" path="returnFlight" onchange="myFunctionYes(this.checked)" />
-	<acme:input code="finder.returnDate" path="returnDate" disabled="${true }" />
+	<acme:input code="finder.returnDate" path="returnDate" disabled="${true }" placeholder="dd/mm/yyyy"/>
 	<acme:input code="finder.passengersNumber" path="passengersNumber" />
 	<acme:input code="finder.childrenNumber" path="childrenNumber" />
 	<acme:checkbox code="finder.isBusiness" path="isBusiness" />

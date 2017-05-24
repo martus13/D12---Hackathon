@@ -59,6 +59,7 @@
 				
 			</ul>
 			<a href="finder/user/findByFinder.do?finderId=${finder.id }"><spring:message code="finder.search" /></a>
+			<a href="finder/user/edit.do?finderId=${finder.id }"><spring:message code="finder.edit" /></a>
 		</jstl:otherwise>
 	</jstl:choose>
 	<br>
