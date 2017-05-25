@@ -16,6 +16,9 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
 	@Query("select f from Flight f where f.cancelled=false")
 	Collection<Flight> findNotCancelled();
 
+	@Query("select f from Flight f where f.cancelled=false and current_timestamp <= f.departureDate")
+	Collection<Flight> findNotCancelledNotPassed();
+
 	@Query("select f from Flight f where f.cancelled=false and f.airline.id=?1")
 	Collection<Flight> findNotCancelledByAirline(int airlineId);
 

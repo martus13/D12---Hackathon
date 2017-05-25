@@ -122,6 +122,14 @@ public class FlightService {
 		return result;
 	}
 
+	public Collection<Flight> findNotCancelledNotPassed() {
+		Collection<Flight> result;
+
+		result = this.flightRepository.findNotCancelledNotPassed();
+
+		return result;
+	}
+
 	public Collection<Flight> findNotCancelledByAirline(final int airlineId) {
 		Collection<Flight> result;
 

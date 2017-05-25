@@ -20,7 +20,12 @@
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-				
+		
+		<!-- permitAll -->
+		<security:authorize access="permitAll">
+			<li><a class="fNiv" href="flight/list.do"><spring:message code="master.page.flight.list" /></a></li>
+		</security:authorize>
+		
 		<!-- USER -->
 		<security:authorize access="hasRole('USER')">
 			<li><a class="fNiv" href="finder/user/display.do"><spring:message code="master.page.user.finder" /></a></li>
@@ -36,6 +41,20 @@
 		
 		<!-- ADMIN -->
 		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv"><spring:message code="master.page.admin.airport" /></a>
+				<ul>
+					<li class="arrow"></li>				
+					<li><a href="airport/administrator/list.do"><spring:message code="master.page.airport.list" /> </a></li>
+					<li><a href="airport/administrator/create.do"><spring:message code="master.page.airport.create" /> </a></li>
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message code="master.page.admin.airline" /></a>
+				<ul>
+					<li class="arrow"></li>				
+					<li><a href="airline/administrator/list.do"><spring:message code="master.page.airline.list" /> </a></li>
+					<li><a href="airline/administrator/create.do"><spring:message code="master.page.airline.create" /> </a></li>
+				</ul>
+			</li>
 			<li><a class="fNiv" href="managerUser/administrator/register.do"><spring:message code="master.page.admin.manager" /></a></li>
 		</security:authorize>
 		

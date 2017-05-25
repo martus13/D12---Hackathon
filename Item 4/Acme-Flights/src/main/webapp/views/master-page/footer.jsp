@@ -19,4 +19,4 @@
 
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme-Flights Co., Inc.</b>
 <br>
-<a href="misc/conditions.do" target="_blank"><spring:message code="chorbi.conditions" /></a>
+<a href="misc/conditions.do" target="_blank"><spring:message code="flights.conditions" /></a>

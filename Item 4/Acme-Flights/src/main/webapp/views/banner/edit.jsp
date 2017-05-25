@@ -15,18 +15,8 @@
 	
 	
 	<acme:textarea code="banner.picture" path="picture" rows="3" />
+	<acme:select items="${campaigns}" itemLabel="id" code="banner.campaign" path="campaign" />
 	
-	<form:label path="campaign">
-			<spring:message code="banner.campaign" />
-	</form:label>	
-	<form:select path="campaign">
-		<form:option value="${null }" label="----" />		
-		<jstl:forEach items="${campaigns }" var="campaign">
-			<form:option value="${campaign}" />
-		</jstl:forEach>
-	</form:select>
-	<form:errors path="campaign" cssClass="error" />
-		 
 	<acme:submit name="save" code="banner.save" />
 	<acme:cancel url="banner/manager/list.do" code="banner.cancel" />
 		

@@ -57,13 +57,14 @@ public class BookUserController extends AbstractController {
 		books = this.bookService.findByUser(user.getId());
 
 		result = new ModelAndView("book/list");
-		result.addObject("requestURI", "book/user/listByChorbi.do");
+		result.addObject("requestURI", "book/user/listByUser.do");
 		result.addObject("books", books);
 
 		return result;
 	}
 
 	// Displaying -------------------------------------------------------------
+
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int bookId) {
 		ModelAndView result;
