@@ -39,8 +39,8 @@
 			<li><a class="fNiv"><spring:message code="master.page.manager.flight" /></a>
 				<ul>
 					<li class="arrow"></li>				
-					<li><a href="flight/manager/listByAirline.do"><spring:message code="master.page.flight.list" /> </a></li>
-					<li><a href="flight/manager/create.do"><spring:message code="master.page.flight.create" /> </a></li>
+					<li><a href="flight/manager/listByAirline.do"><spring:message code="master.page.manager.flight.list" /> </a></li>
+					<li><a href="flight/manager/create.do"><spring:message code="master.page.manager.flight.create" /> </a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="banner/manager/list.do"><spring:message code="master.page.manager.banner" /></a></li>

@@ -25,8 +25,19 @@
 		<a href="airline/display.do?airlineId=${row.airline.id }"><jstl:out value="${row.airline.name }" /></a>
 	</display:column>
 	
+	<security:authorize access="hasRole('MANAGER')">
+		<display:column>
+			<jstl:set var="now" value="<%=new java.util.Date()%>" />
+			<jstl:if test="${row.departureDate gt now}">
+				<form:form action="flight/manager/delete.do?flightId=${row.id}" modelAttribute="flight">
+					<acme:submit name="delete" code="flight.delete" />
+				</form:form>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 </display:table>
 <security:authorize access="hasRole('MANAGER')">
-	<a href="flight/manager/create.do"><spring:message code="banner.create" /></a>
+	<a href="flight/manager/create.do"><spring:message code="flight.create" /></a>
 </security:authorize>
 

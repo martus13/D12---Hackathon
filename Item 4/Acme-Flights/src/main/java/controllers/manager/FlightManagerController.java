@@ -119,18 +119,16 @@ public class FlightManagerController extends AbstractController {
 
 	// Delete -----------------------------------------------------------------
 
-	@RequestMapping(value = "/cancel", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Flight flight, final BindingResult binding) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@RequestParam final int flightId) {
 
 		ModelAndView result;
+		Flight flight;
 
-		try {
-			this.flightService.delete(flight);
+		flight = this.flightService.findOne(flightId);
+		this.flightService.delete(flight);
 
-			result = new ModelAndView("redirect:listByAirline.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(flight, "flight.commit.error");
-		}
+		result = new ModelAndView("redirect:listByAirline.do");
 
 		return result;
 

@@ -92,7 +92,7 @@ public class FlightService {
 			Assert.isTrue(flight.getAirline().equals(manager.getAirline()));
 			flight.setAvailableBusinessSeats(flight.getBusinessSeats());
 			flight.setAvailableEconomySeats(flight.getEconomySeats());
-		} else {
+		} else if (!flight.getCancelled()) {
 			flight.setAvailableBusinessSeats(this.findAvailableBusinessSeatByFlightId(flight.getId()));
 			flight.setAvailableEconomySeats(this.findAvailableEconomySeatByFlightId(flight.getId()));
 		}

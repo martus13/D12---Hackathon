@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.BookRepository;
+import domain.Actor;
 import domain.AirlineConfiguration;
 import domain.Book;
 import domain.Finder;
@@ -31,6 +32,9 @@ public class BookService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private UserService					userService;
+
+	@Autowired
+	private ActorService				actorService;
 
 	@Autowired
 	private FinderService				finderService;
@@ -240,12 +244,14 @@ public class BookService {
 
 	public void delete(Book book) {
 		Assert.notNull(book);
-		User user;
+		Actor actor;
 		Calendar calendar;
 
-		user = this.userService.findByPrincipal();
-		Assert.notNull(user);
-		Assert.isTrue(book.getUser().equals(user));
+		actor = this.actorService.findByPrincipal();
+		Assert.notNull(actor);
+		Assert.isTrue(this.actorService.checkAuthority(actor, "USER") || this.actorService.checkAuthority(actor, "MANAGER"));
+		if (this.actorService.checkAuthority(actor, "USER"))
+			Assert.isTrue(book.getUser().getId() == actor.getId());
 
 		calendar = Calendar.getInstance();
 		calendar.add(Calendar.MILLISECOND, -10);
