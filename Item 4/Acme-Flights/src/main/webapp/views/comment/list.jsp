@@ -7,17 +7,3 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="banner/manager/edit.do" modelAttribute="banner">
-	
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="numDisplayed" />
-	
-	
-	<acme:textarea code="banner.picture" path="picture" rows="3" />
-	<acme:select items="${campaigns}" itemLabel="id" code="banner.campaign" path="campaign" />
-	
-	<acme:submit name="save" code="banner.save" />
-	<acme:cancel url="banner/manager/list.do" code="banner.cancel" />
-		
-</form:form>

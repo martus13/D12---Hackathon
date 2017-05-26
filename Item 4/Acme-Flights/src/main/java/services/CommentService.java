@@ -27,6 +27,9 @@ public class CommentService {
 
 	@Autowired
 	private UserService			userService;
+	
+	@Autowired
+	private AirlineService		airlineService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -68,22 +71,45 @@ public class CommentService {
 
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
-
+		
+		//Assert.isTrue(comment.getType().equals("Neutral")||comment.getType().equals("Positive")||comment.getType().equals("Negative"));
+		
 		final User principal = this.userService.findByPrincipal();
 		Assert.isTrue(principal.equals(comment.getUser()));
 
 		this.commentRepository.save(comment);
+		
+		//Recalcular el rating de la aerolína afectada
+				Airline airline = comment.getAirline();
+				double rating = 0.0;
+				
+				Collection<Comment> comentarios = this.commentRepository.findByAirline(airline.getId());
+				
+				for(Comment c:comentarios){
+					rating=rating+c.getRating().getAirline();
+				}
+				
+				rating=rating/comentarios.size();
+		airline.setRating(rating);
+		this.airlineService.save(airline);
+		
 
 		return comment;
 	}
 
 	public void delete(final Comment comment) {
 		Assert.notNull(comment);
-
+		
 		final User principal = this.userService.findByPrincipal();
 		Assert.isTrue(principal.equals(comment.getUser()));
 
 		this.commentRepository.delete(comment);
 	}
 
+	//Other business methods-----------------------------------------
+	
+	public Collection<Comment> findByAirlineId(int airlineId){
+		
+		return this.commentRepository.findByAirline(airlineId);
+	}
 }

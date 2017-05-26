@@ -30,7 +30,7 @@ public class Comment extends DomainEntity {
 
 	private Date	creationMoment;
 	private String	type;
-	private String	comment;
+	private String	commentText;
 	private Rating	rating;
 
 
@@ -53,11 +53,11 @@ public class Comment extends DomainEntity {
 		this.type = type;
 	}
 
-	public String getComment() {
-		return this.comment;
+	public String getCommentText() {
+		return this.commentText;
 	}
-	public void setComment(final String comment) {
-		this.comment = comment;
+	public void setCommentText(final String commentText) {
+		this.commentText = commentText;
 	}
 
 	@Valid

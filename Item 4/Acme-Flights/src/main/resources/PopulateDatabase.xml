@@ -1038,8 +1038,8 @@
 	
 	<bean id="comment1" class="domain.Comment">
 		<property name="creationMoment" value="04/04/2017 13:47"/>
-		<property name="type" value="positive"/>
-		<property name="comment" value="Muy cómodo y muy buen servicio. Un placer volar con ellos."/>
+		<property name="type" value="Positive"/>
+		<property name="commentText" value="Muy cómodo y muy buen servicio. Un placer volar con ellos."/>
 		<property name="rating" ref="rating1"/>
 		<property name="airline" ref="airline2"/>
 		<property name="user" ref="user1"/>
@@ -1047,8 +1047,8 @@
 	
 	<bean id="comment2" class="domain.Comment">
 		<property name="creationMoment" value="04/03/2017 12:40"/>
-		<property name="type" value="negative"/>
-		<property name="comment" value="Me perdieron la maleta"/>
+		<property name="type" value="Negative"/>
+		<property name="commentText" value="Me perdieron la maleta"/>
 		<property name="rating" ref="rating2"/>
 		<property name="airline" ref="airline2"/>
 		<property name="user" ref="user2"/>
@@ -1056,8 +1056,8 @@
 	
 	<bean id="comment3" class="domain.Comment">
 		<property name="creationMoment" value="03/27/2017 10:40"/>
-		<property name="type" value="neutral"/>
-		<property name="comment" value="He volado mucho con esta compañía y no tengo muchas quejas aunque las hay mejores"/>
+		<property name="type" value="Neutral"/>
+		<property name="commentText" value="He volado mucho con esta compañía y no tengo muchas quejas aunque las hay mejores"/>
 		<property name="rating" ref="rating3"/>
 		<property name="airline" ref="airline1"/>
 		<property name="user" ref="user3"/>
@@ -1065,8 +1065,8 @@
 	
 	<bean id="comment4" class="domain.Comment">
 		<property name="creationMoment" value="03/29/2017 15:58"/>
-		<property name="type" value="positive"/>
-		<property name="comment" value="Todo muy bien, aunque mejoraría la comida que ofrecen en los viajes largos"/>
+		<property name="type" value="Positive"/>
+		<property name="commentText" value="Todo muy bien, aunque mejoraría la comida que ofrecen en los viajes largos"/>
 		<property name="rating" ref="rating4"/>
 		<property name="airline" ref="airline3"/>
 		<property name="user" ref="user1"/>
@@ -1074,8 +1074,8 @@
 	
 	<bean id="comment5" class="domain.Comment">
 		<property name="creationMoment" value="04/21/2017 21:36"/>
-		<property name="type" value="neutral"/>
-		<property name="comment" value="Tuvieron un poco de retraso en la salida pero luego el servicio fue bastante bueno en general"/>
+		<property name="type" value="Neutral"/>
+		<property name="commentText" value="Tuvieron un poco de retraso en la salida pero luego el servicio fue bastante bueno en general"/>
 		<property name="rating" ref="rating5"/>
 		<property name="airline" ref="airline3"/>
 		<property name="user" ref="user1"/>

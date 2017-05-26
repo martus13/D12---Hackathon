@@ -67,6 +67,8 @@
 		<security:intercept-url pattern="/creditCard/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/creditCard/user/delete.do" access="hasRole('USER')" />
 		
+		<security:intercept-url pattern="/comment/user/create.do" access="hasRole('USER')" />
+		
 		<!-- MANAGER -->
 		
 		<security:intercept-url pattern="/banner/manager/list.do" access="hasRole('MANAGER')" /> 

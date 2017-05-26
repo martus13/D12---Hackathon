@@ -33,7 +33,29 @@
 			<b><spring:message code="airline.rating"/>:</b>
 			<jstl:out value="${airline.rating}"/>
 		</li>
+	
+	<display:table name="comments" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	
+		<acme:column code="comment.type" property="type"/>
+		<acme:column code="comment.comment" property="commentText"/>
+		<acme:column code="comment.date"	property="creationMoment"/>
+		<acme:column code="comment.rating.flight" property="rating.flight"/>
+		<acme:column code="comment.rating.airline" property="rating.airline"/>
+		<acme:column code="comment.rating.service" property="rating.service"/>
+		<acme:column code="comment.rating.comfort" property="rating.comfort"/>
+		<acme:column code="comment.sender" property="user.name"/>
+		
+	</display:table>
 		
 	</ul>
+	
+
+	
+	<security:authorize access="hasRole('USER')">
+		<a href="comment/user/create.do?airlineId=${airline.id }">
+			<spring:message code="airline.comment" />
+		</a>
+	
+	</security:authorize>
 </div>
 	
