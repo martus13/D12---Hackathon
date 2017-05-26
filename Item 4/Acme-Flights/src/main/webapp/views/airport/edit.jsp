@@ -23,6 +23,9 @@
 	<acme:input code="airport.rate" path="rate" type="number" min="0" step="0.01" />
 		 
 	<acme:submit name="save" code="airport.save" />
+	<jstl:if test="${airport.id!=0 }">
+		<acme:submit name="delete" code="airport.delete" />
+	</jstl:if>
 	<acme:cancel url="airport/administrator/list.do" code="airport.cancel" />
 		
 </form:form>

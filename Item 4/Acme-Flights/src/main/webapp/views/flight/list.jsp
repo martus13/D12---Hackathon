@@ -26,4 +26,7 @@
 	</display:column>
 	
 </display:table>
+<security:authorize access="hasRole('MANAGER')">
+	<a href="flight/manager/create.do"><spring:message code="banner.create" /></a>
+</security:authorize>
 

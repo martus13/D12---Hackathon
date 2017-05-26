@@ -94,13 +94,14 @@
 	</fieldset>
 	
 	<script>
-		function getValorIni(){
+	var currencyColumn = 5;	
+	function getValorIni(){
 			var iniVal = document.getElementsByTagName("table");
 			var iniValLast = iniVal[iniVal.length-1].rows;
 			var y = [];
 			
 			for(var j=0;j<iniValLast.length;j++){
-				str = iniValLast[j+1].cells[5].innerHTML;
+				str = iniValLast[j+1].cells[currencyColumn].innerHTML;
 				y[j]=str;
 				if(j==iniValLast.length-2){
 					z.push(y);
@@ -115,41 +116,15 @@
 			for(var i=0;i<x.length;i++){
 				w = z[i];
 				for (var l = 0; row = x[i].rows[l+1]; l++) {
-					cellsVal = row.cells[5].innerHTML;
 					v = w[l];
 					
 					v = Math.round(v*value1EUR * 100.0) / 100.0;
 					
-					row.cells[5].innerHTML = v;
+					row.cells[currencyColumn].innerHTML = v;
 					
 				}
 			}
 		}
-		
-		// var z=[];
-		// function getValorIni(){
-		//	var iniVal = document.getElementById("row").rows;
-		//	var j;
-		//	
-		//	for(j=0;j<iniVal.length;j++){
-		//		z[j] = iniVal[j+1].cells[5].innerHTML;
-		//	}
-		//	
-		//}
-		//function selectRate(value1EUR){
-		//	var x = document.getElementById("row").rows;
-		//	var i;
-		//	
-		//	for(i=0; i<z.length; i++){
-		//		var y = z[i];
-		//		
-		//		y = Math.round(y*value1EUR * 100.0) / 100.0;
-		//	
-		//		x[i+1].cells[5].innerHTML = y;
-		//	
-		//	}
-		//
-		//}
 	</script>
 </jstl:forEach>
 

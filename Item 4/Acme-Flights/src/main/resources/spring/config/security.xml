@@ -76,6 +76,11 @@
 		<security:intercept-url pattern="/banner/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/banner/manager/delete.do" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/flight/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/flight/manager/display.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/flight/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/flight/manager/cancel.do" access="hasRole('MANAGER')" /> 
+		
 		<!-- ADMIN -->
 		
 		<security:intercept-url pattern="/airline/administrator/list.do" access="hasRole('ADMIN')" />

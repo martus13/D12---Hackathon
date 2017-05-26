@@ -74,10 +74,6 @@ public class AirlineService {
 
 	public Airline save(Airline airline) {
 		Assert.notNull(airline);
-		Administrator administrator;
-
-		administrator = this.administratorService.findByPrincipal();
-		Assert.notNull(administrator);
 
 		airline = this.airlineRepository.save(airline);
 
@@ -89,7 +85,7 @@ public class AirlineService {
 
 		administrator = this.administratorService.findByPrincipal();
 		Assert.notNull(administrator);
-		Assert.isTrue(this.flightService.findNotCancelledNotPassedWithBooksByAirlineId(airline.getId()).isEmpty());
+		Assert.isTrue(this.flightService.findNotCancelledNotPassedByAirlineId(airline.getId()).isEmpty());
 
 		airline.setDeleted(true);
 		airline = this.airlineRepository.save(airline);

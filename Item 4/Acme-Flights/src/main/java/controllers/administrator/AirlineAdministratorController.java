@@ -124,9 +124,13 @@ public class AirlineAdministratorController extends AbstractController {
 
 		ModelAndView result;
 
-		this.airlineService.delete(airline);
+		try {
+			this.airlineService.delete(airline);
 
-		result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(airline, "airline.commit.error");
+		}
 
 		return result;
 

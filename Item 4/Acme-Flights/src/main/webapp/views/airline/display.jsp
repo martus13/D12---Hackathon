@@ -49,8 +49,6 @@
 		
 	</ul>
 	
-
-	
 	<security:authorize access="hasRole('USER')">
 		<a href="comment/user/create.do?airlineId=${airline.id }">
 			<spring:message code="airline.comment" />

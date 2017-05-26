@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AirportService;
+import services.ExchangeRateService;
 import controllers.AbstractController;
 import domain.Airport;
+import domain.ExchangeRate;
 
 @Controller
 @RequestMapping("/airport/administrator")
@@ -24,7 +26,10 @@ public class AirportAdministratorController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private AirportService	airportService;
+	private AirportService		airportService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -39,12 +44,15 @@ public class AirportAdministratorController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Airport> airports;
+		Collection<ExchangeRate> exchangeRates;
 
 		airports = this.airportService.findNotDeleted();
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("airport/list");
 		result.addObject("requestURI", "airport/administrator/list.do");
 		result.addObject("airports", airports);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}
@@ -124,9 +132,13 @@ public class AirportAdministratorController extends AbstractController {
 
 		ModelAndView result;
 
-		this.airportService.delete(airport);
+		try {
+			this.airportService.delete(airport);
 
-		result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(airport, "airport.commit.error");
+		}
 
 		return result;
 

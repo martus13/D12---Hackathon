@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BookService;
+import services.ExchangeRateService;
 import services.FlightService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Book;
+import domain.ExchangeRate;
 import domain.Flight;
 import domain.User;
 
@@ -29,13 +31,16 @@ public class BookUserController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private BookService		bookService;
+	private BookService			bookService;
 
 	@Autowired
-	private UserService		userService;
+	private UserService			userService;
 
 	@Autowired
-	private FlightService	flightService;
+	private FlightService		flightService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -49,16 +54,19 @@ public class BookUserController extends AbstractController {
 	public ModelAndView listByUser() {
 		ModelAndView result;
 		Collection<Book> books;
+		Collection<ExchangeRate> exchangeRates;
 		User user;
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
 
 		books = this.bookService.findByUser(user.getId());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("book/list");
 		result.addObject("requestURI", "book/user/listByUser.do");
 		result.addObject("books", books);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

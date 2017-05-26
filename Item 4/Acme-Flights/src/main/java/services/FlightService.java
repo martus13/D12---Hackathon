@@ -76,6 +76,8 @@ public class FlightService {
 		result.setAirline(manager.getAirline());
 		result.setCreationMoment(calendar.getTime());
 		result.setCancelled(false);
+		result.setAvailableBusinessSeats(0);
+		result.setAvailableEconomySeats(0);
 
 		return result;
 	}
@@ -88,7 +90,20 @@ public class FlightService {
 			manager = this.managerService.findByPrincipal();
 			Assert.notNull(manager);
 			Assert.isTrue(flight.getAirline().equals(manager.getAirline()));
+			flight.setAvailableBusinessSeats(flight.getBusinessSeats());
+			flight.setAvailableEconomySeats(flight.getEconomySeats());
+		} else {
+			flight.setAvailableBusinessSeats(this.findAvailableBusinessSeatByFlightId(flight.getId()));
+			flight.setAvailableEconomySeats(this.findAvailableEconomySeatByFlightId(flight.getId()));
 		}
+		Assert.isTrue(!flight.getDeparture().equals(flight.getDestination()));
+		Assert.isTrue(flight.getArrivalDate().after(flight.getDepartureDate()));
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		calendar.add(Calendar.MILLISECOND, -10);
+
+		Assert.isTrue(flight.getDepartureDate().after(calendar.getTime()));
 
 		flight = this.flightRepository.save(flight);
 
@@ -138,10 +153,10 @@ public class FlightService {
 		return result;
 	}
 
-	public Collection<Flight> findNotCancelledNotPassedWithBooksByAirlineId(final int airlineId) {
+	public Collection<Flight> findNotCancelledNotPassedByAirlineId(final int airlineId) {
 		Collection<Flight> result;
 
-		result = this.flightRepository.findNotCancelledNotPassedWithBooksByAirlineId(airlineId);
+		result = this.flightRepository.findNotCancelledNotPassedByAirlineId(airlineId);
 
 		return result;
 	}
@@ -204,6 +219,22 @@ public class FlightService {
 					aux[1] = fDestination;
 					result.add(aux);
 				}
+
+		return result;
+	}
+
+	public Integer findAvailableBusinessSeatByFlightId(final int flightId) {
+		Integer result;
+
+		result = this.flightRepository.findAvailableBusinessSeatByFlightId(flightId);
+
+		return result;
+	}
+
+	public Integer findAvailableEconomySeatByFlightId(final int flightId) {
+		Integer result;
+
+		result = this.flightRepository.findAvailableEconomySeatByFlightId(flightId);
 
 		return result;
 	}
