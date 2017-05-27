@@ -20,7 +20,8 @@
 	<spring:message code="flight.destination" var="destinationHeader" />
 	<display:column title="${destinationHeader}" sortable="true" >
 		<jstl:out value="${row.destination.iataCode }" /> - <jstl:out value="${row.destination.city }" />
-				</display:column> 
+	</display:column> 
+	
 	<display:column>
 		<a href="airline/display.do?airlineId=${row.airline.id }"><jstl:out value="${row.airline.name }" /></a>
 	</display:column>

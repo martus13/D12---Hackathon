@@ -43,6 +43,13 @@
 					<li><a href="flight/manager/create.do"><spring:message code="master.page.manager.flight.create" /> </a></li>
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message code="master.page.manager.season" /></a>
+				<ul>
+					<li class="arrow"></li>				
+					<li><a href="season/manager/listByAirline.do"><spring:message code="master.page.manager.season.list" /> </a></li>
+					<li><a href="season/manager/create.do"><spring:message code="master.page.manager.season.create" /> </a></li>
+				</ul>
+			</li>
 			<li><a class="fNiv" href="banner/manager/list.do"><spring:message code="master.page.manager.banner" /></a></li>
 			<li><a class="fNiv" href="offer/manager/list.do"><spring:message code="master.page.manager.offer" /></a></li>
 			<li><a class="fNiv"><spring:message code="master.page.manager.configuration" /></a>
@@ -75,9 +82,11 @@
 		
 		<!-- isAnonymous -->
 		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="user/register.do"><spring:message code="master.page.regiter.user" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
+		<!-- isAuthenticated -->
 		<security:authorize access="isAuthenticated()">
 			<li>
 				<a class="fNiv"> 

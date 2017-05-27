@@ -25,18 +25,19 @@
 		
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/airline/tiles.xml</value>
+		<value>/views/airlineConfiguration/tiles.xml</value>
 		<value>/views/airport/tiles.xml</value>
 		<value>/views/banner/tiles.xml</value>
 		<value>/views/book/tiles.xml</value>
+		<value>/views/comment/tiles.xml</value>
 		<value>/views/creditCard/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
 		<value>/views/flight/tiles.xml</value>
-		<value>/views/manager/tiles.xml</value>
-		<value>/views/profile/tiles.xml</value>
-		<value>/views/offer/tiles.xml</value>
-		<value>/views/comment/tiles.xml</value>
 		<value>/views/invoice/tiles.xml</value>
-		<value>/views/airlineConfiguration/tiles.xml</value>
+		<value>/views/manager/tiles.xml</value>
+		<value>/views/offer/tiles.xml</value>
+		<value>/views/profile/tiles.xml</value>
+		<value>/views/season/tiles.xml</value>
 	</util:list>
 
 </beans>

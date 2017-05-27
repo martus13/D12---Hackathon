@@ -16,19 +16,19 @@
       
 <tiles-definitions>
 
-	<definition name="manager/edit" extends="master.page">	
-		<put-attribute name="title" value="Gerente: Editar perfil" />
-		<put-attribute name="body" value="/views/manager/edit.jsp" />
+	<definition name="season/list" extends="master.page">	
+		<put-attribute name="title" value="Temporada: Listar" />
+		<put-attribute name="body" value="/views/season/list.jsp" />
 	</definition>
 	
-	<definition name="manager/list" extends="master.page">	
-		<put-attribute name="title" value="Gerente: Listar" />
-		<put-attribute name="body" value="/views/manager/list.jsp" />
+	<definition name="season/display" extends="master.page">	
+		<put-attribute name="title" value="Temporada: Mostrar" />
+		<put-attribute name="body" value="/views/season/display.jsp" />
 	</definition>
 	
-	<definition name="manager/display" extends="master.page">	
-		<put-attribute name="title" value="Gerente: Mostrar" />
-		<put-attribute name="body" value="/views/manager/display.jsp" />
+	<definition name="season/create" extends="master.page">	
+		<put-attribute name="title" value="Temporada: Crear" />
+		<put-attribute name="body" value="/views/season/create.jsp" />
 	</definition>
 	
 </tiles-definitions>

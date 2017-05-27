@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -13,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.User;
+import forms.UserForm;
 
 @Service
 @Transactional
@@ -106,5 +108,49 @@ public class UserService {
 		result = this.userRepository.findByUserAccountId(userAccountId);
 
 		return result;
+	}
+
+	public User reconstructCreate(final UserForm userForm) {
+		Assert.notNull(userForm);
+
+		User user;
+		String password;
+
+		Assert.isTrue(userForm.getPassword().equals(userForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+
+		user = this.create();
+		password = this.encryptPassword(userForm.getPassword());
+
+		user.getUserAccount().setUsername(userForm.getUsername());
+		user.getUserAccount().setPassword(password);
+		user.setName(userForm.getName());
+		user.setSurname(userForm.getSurname());
+		user.setEmail(userForm.getEmail());
+		user.setContactPhone(userForm.getContactPhone());
+
+		return user;
+	}
+
+	public UserForm desreconstructCreate(final User user) {
+		UserForm userForm;
+
+		userForm = new UserForm();
+
+		userForm.setUsername(user.getUserAccount().getUsername());
+		userForm.setName(user.getName());
+		userForm.setSurname(user.getSurname());
+		userForm.setEmail(user.getEmail());
+		userForm.setContactPhone(user.getContactPhone());
+
+		return userForm;
+	}
+
+	public String encryptPassword(String password) {
+		Md5PasswordEncoder encoder;
+
+		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+
+		return password;
 	}
 }

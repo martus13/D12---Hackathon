@@ -16,27 +16,28 @@
 	<ul>
 		<li>
 			<b><spring:message code="manager.name" />:</b>
-			<jstl:out value="${f:replaceAllPhoneAndEmail(manager.name, '***')}" />
+			<jstl:out value="${manager.name}" />
 		</li>
 		
 		<li>
 			<b><spring:message code="manager.surname" />:</b>
-			<jstl:out value="${f:replaceAllPhoneAndEmail(manager.surname, '***')}" />
+			<jstl:out value="${manager.surname}" />
 		</li>
 		
 		<li>
-			<b><spring:message code="manager.aairline" />:</b>
-			<jstl:out value="${f:replaceAllPhoneAndEmail(manager.company, '***')}" />
+			<b><spring:message code="manager.email" />:</b>
+			<jstl:out value="${manager.email}" />
 		</li>
 		
+		<li>
+			<b><spring:message code="manager.phoneNumber" />:</b>
+			<jstl:out value="${manager.phoneNumber}" />
+		</li>
 		
-		<%-- <security:authorize access="hasRole('MANAGER')" >
-			<jstl:if test="${principalUserAccount.id != manager.userAccount.id}">
-				<li>
-					<input type="submit" name="chirp" value="<spring:message code="manager.chirp" />" onclick="location='chirp/manager/create.do?receiverId=${manager.id}'"/>
-				</li>
-			</jstl:if>
-		</security:authorize>
-		 --%>
+		<li>
+			<b><spring:message code="manager.airline" />:</b>
+			<jstl:out value="${manager.company}" />
+		</li>
+		
 	</ul>
 </div>

@@ -11,57 +11,43 @@
 <div>
 	<ul>
 		<li>
-			<b><spring:message code="book.creationMoment" />:</b>
-			<fmt:formatDate value="${book.creationMoment}" pattern="dd/MM/yyyy HH:mm:ss" />
+			<b><spring:message code="flight.departureDate" />:</b>
+			<fmt:formatDate value="${flight.departureDate}" pattern="dd/MM/yyyy HH:mm" />
 		</li>
 		
 		<li>
-			<b><spring:message code="book.passengersNumber" />:</b>
-			<jstl:out value="${book.passengersNumber}" />
+			<b><spring:message code="flight.arrivalDate" />:</b>
+			<fmt:formatDate value="${flight.arrivalDate}" pattern="dd/MM/yyyy HH:mm" />
 		</li>
 		
 		<li>
-			<b><spring:message code="book.childrenNumber" />:</b>
-			<jstl:out value="${book.childrenNumber}" />
+			<b><spring:message code="flight.departure" />:</b>
+			<jstl:out value="${flight.departure.iataCode }" /> - <jstl:out value="${flight.departure.city }" />
 		</li>
 		
 		<li>
-			<b><spring:message code="book.isBusiness" />:</b>
-			<jstl:out value="${book.isBusiness}" />
+			<b><spring:message code="flight.destination" />:</b>
+			<jstl:out value="${flight.destination.iataCode }" /> - <jstl:out value="${flight.destination.city }" />
 		</li>
 		
 		<li>
-			<b><spring:message code="book.totalFee"/>:</b>
-			<jstl:out value="${book.totalFee}"/>
+			<b><spring:message code="flight.economySeats" />:</b>
+			<jstl:out value="${flight.economySeats}" />
 		</li>
 		
 		<li>
-			<b><spring:message code="book.comment"/>:</b>
-			<jstl:out value="${book.comment}"/>
+			<b><spring:message code="flight.economyPrice" />:</b>
+			<jstl:out value="${flight.economyPrice}" />
 		</li>
 		
 		<li>
-			<b><spring:message code="book.cancelationMoment"/>:</b>
-			<fmt:formatDate value="${book.cancelationMoment}" pattern="dd/MM/yyyy" />
+			<b><spring:message code="flight.businessSeats"/>:</b>
+			<jstl:out value="${flight.businessSeats}"/>
 		</li>
 		
 		<li>
-			<b><spring:message code="book.flights"/>:</b>
-			<display:table name="${book.flights }" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
-				
-				<acme:column code="book.flight.departureDate" property="departureDate" format="{0,date,dd/MM/yyyy}" />
-				<acme:column code="book.flight.arrivalDate" property="arrivalDate" format="{0,date,dd/MM/yyyy}" />
-				
-				<spring:message code="book.flight.departure" var="departureHeader" />
-				<display:column title="${departureHeader}" sortable="true" >
-					<jstl:out value="${row.departure.iataCode }" /> - <jstl:out value="${row.departure.city }" />
-				</display:column> 
-				
-				<spring:message code="book.flight.destination" var="destinationHeader" />
-				<display:column title="${destinationHeader}" sortable="true" >
-					<jstl:out value="${row.destination.iataCode }" /> - <jstl:out value="${row.destination.city }" />
-				</display:column> 
-			</display:table>
+			<b><spring:message code="flight.businessPrice"/>:</b>
+			<jstl:out value="${flight.businessPrice}"/>
 		</li>
 		
 	</ul>

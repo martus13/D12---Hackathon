@@ -43,6 +43,10 @@
 		
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
+		<!-- isAnonymous -->
+		
+		<security:intercept-url pattern="/user/register.do" access="isAnonymous()" />
+		
 		<!-- permitAll -->
 		
 		<security:intercept-url pattern="/airline/display.do" access="permitAll" />
@@ -57,11 +61,6 @@
 		<security:intercept-url pattern="/book/user/createWithoutReturn.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/cancel.do" access="hasRole('USER')" />
 		
-		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
-		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
-		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
-		<security:intercept-url pattern="/finder/user/findByFinder.do" access="hasRole('USER')" />
-		
 		<security:intercept-url pattern="/creditCard/user/list.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/creditCard/user/create.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/creditCard/user/edit.do" access="hasRole('USER')" />
@@ -69,7 +68,16 @@
 		
 		<security:intercept-url pattern="/comment/user/create.do" access="hasRole('USER')" />
 		
+		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/finder/user/findByFinder.do" access="hasRole('USER')" />
+		
 		<!-- MANAGER -->
+		
+		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/airlineConfiguration/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
 		
 		<security:intercept-url pattern="/banner/manager/list.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/banner/manager/create.do" access="hasRole('MANAGER')" /> 
@@ -81,15 +89,15 @@
 		<security:intercept-url pattern="/flight/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/delete.do" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/season/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/season/manager/display.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/season/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/season/manager/delete.do" access="hasRole('MANAGER')" />
+		
 		<security:intercept-url pattern="/offer/manager/list.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/delete.do" access="hasRole('MANAGER')" />
-		
-		
-		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/airlineConfiguration/manager/edit.do" access="hasRole('MANAGER')" /> 
-		 <security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
 		
 		<!-- ADMIN -->
 		

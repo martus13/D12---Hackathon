@@ -16,14 +16,19 @@
        
 <tiles-definitions>
 
-	<definition name="profile/registerUser" extends="master.page">	
-		<put-attribute name="title" value="User: Register" />
-		<put-attribute name="body" value="/views/profile/register.jsp" />
+	<definition name="season/list" extends="master.page">	
+		<put-attribute name="title" value="Season: List" />
+		<put-attribute name="body" value="/views/season/list.jsp" />
 	</definition>
 	
-	<definition name="profile/registerManager" extends="master.page">	
-		<put-attribute name="title" value="Manager: Register" />
-		<put-attribute name="body" value="/views/profile/register.jsp" />
+	<definition name="season/display" extends="master.page">	
+		<put-attribute name="title" value="Season: Display" />
+		<put-attribute name="body" value="/views/season/display.jsp" />
+	</definition>
+	
+	<definition name="season/create" extends="master.page">	
+		<put-attribute name="title" value="Season: Create" />
+		<put-attribute name="body" value="/views/season/create.jsp" />
 	</definition>
 	
 </tiles-definitions>

@@ -95,10 +95,11 @@ public class ManagerAdministratorController extends AbstractController {
 
 		airlines = this.airlineService.findAll();
 
-		result = new ModelAndView("manager/register");
+		result = new ModelAndView("profile/registerManager");
 		result.addObject("managerForm", managerForm);
-		result.addObject("userForm", "managerForm");
+		result.addObject("registerForm", "managerForm");
 		result.addObject("airlines", airlines);
+		result.addObject("isManager", true);
 		result.addObject("requestURI", "managerUser/administrator/register.do");
 		result.addObject("message", message);
 
