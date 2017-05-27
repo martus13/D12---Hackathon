@@ -285,5 +285,10 @@ public class BookService {
 
 		return result;
 	}
+	
+	public Collection<Book> findNotCancelledWithoutInvoices(){
+		
+		return this.findNotCancelledWithoutInvoices();
+	}
 
 }

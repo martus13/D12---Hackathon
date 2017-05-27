@@ -14,6 +14,9 @@ public interface AirlineRepository extends JpaRepository<Airline, Integer> {
 
 	@Query("select a from Airline a where a.deleted=false")
 	Collection<Airline> findNotDeleted();
+	
+	@Query("select m.airline from Manager m where m.id=?1")
+	Airline findByManager(int managerId);
 
 	// 2. Las aerolíneas con menos reservas
 	@Query("select s.airline.name from Book b join b.seasons s where b.cancelationMoment is null group by s.airline having count (b) <= ALL (select count(b1) from Book b1 join b1.seasons s1 where b1.cancelationMoment is null group by s1.airline)")

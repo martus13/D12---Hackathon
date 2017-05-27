@@ -72,8 +72,9 @@ public class CommentService {
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
 
-		//Assert.isTrue(comment.getType().equals("Neutral")||comment.getType().equals("Positive")||comment.getType().equals("Negative"));
-
+		Assert.isTrue(comment.getType().equals("Neutral")||comment.getType().equals("Positive")||comment.getType().equals("Negative"));
+		
+		
 		final User principal = this.userService.findByPrincipal();
 		Assert.isTrue(principal.equals(comment.getUser()));
 

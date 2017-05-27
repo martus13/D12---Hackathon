@@ -119,5 +119,10 @@ public class AirlineService {
 
 		return result;
 	}
+	
+	public Airline findByManager(int managerId){
+		
+		return this.airlineRepository.findByManager(managerId);
+	}
 
 }

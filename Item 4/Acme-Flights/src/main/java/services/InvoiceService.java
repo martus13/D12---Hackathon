@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.AdministratorRepository;
+import repositories.BookRepository;
 import repositories.InvoiceRepository;
+import domain.Administrator;
 import domain.Book;
 import domain.Invoice;
 
@@ -25,6 +28,12 @@ public class InvoiceService {
 
 	// Supporting services ----------------------------------------------------
 
+	@Autowired
+	private BookService bookService;
+	
+//	@Autowired
+//	private AdministratorService adminService;
+	
 	// Constructors -----------------------------------------------------------
 	public InvoiceService() {
 		super();
@@ -67,4 +76,17 @@ public class InvoiceService {
 
 		this.invoiceRepository.delete(invoice);
 	}
+	
+	// Other business methods--------------------------------------------------------
+	
+	public void generateInvoices(){
+		
+
+		Collection<Book> books = this.bookService.findNotCancelledWithoutInvoices();
+		
+		for(Book b:books){
+			this.create(b);
+		}
+	}
+	
 }

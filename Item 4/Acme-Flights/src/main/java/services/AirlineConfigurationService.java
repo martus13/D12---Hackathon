@@ -79,5 +79,10 @@ public class AirlineConfigurationService {
 
 		return result;
 	}
+	
+	public AirlineConfiguration findByManager(int managerId){
+		
+		return this.airlineConfigurationRepository.findByManager(managerId);
+	}
 
 }

@@ -70,7 +70,7 @@ public class CommentUserController extends AbstractController {
 		} else
 			try {
 				comment = this.commentService.save(comment);
-				result = new ModelAndView("redirect:display.do");
+				result = new ModelAndView("redirect:../../airline/display.do?airlineId="+comment.getAirline().getId());
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);

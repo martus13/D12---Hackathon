@@ -16,14 +16,14 @@
        
 <tiles-definitions>
 
-	<definition name="flight/list" extends="master.page">	
-		<put-attribute name="title" value="Flight: List" />
-		<put-attribute name="body" value="/views/flight/list.jsp" />
+	<definition name="profile/action-1" extends="master.page">	
+		<put-attribute name="title" value="Profile: Action 1" />
+		<put-attribute name="body" value="/views/profile/action-1.jsp" />
 	</definition>
 	
-	<definition name="flight/create" extends="master.page">	
-		<put-attribute name="title" value="Flight: Create" />
-		<put-attribute name="body" value="/views/flight/create.jsp" />
+	<definition name="profile/action-2" extends="master.page">	
+		<put-attribute name="title" value="Profile: Action 2" />
+		<put-attribute name="body" value="/views/profile/action-2.jsp" />
 	</definition>
 	
 </tiles-definitions>

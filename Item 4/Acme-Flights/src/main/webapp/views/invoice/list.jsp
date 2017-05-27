@@ -7,3 +7,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<display:table name="invoices" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+
+	<acme:column code="invoice.totalFee" property="totalFee"/>
+	<acme:column code="invoice.creationMoment" property="creationMoment"/>
+	<acme:column code="invoice.paidMoment" property="paidMoment"/>
+
+
+
+</display:table>
