@@ -80,6 +80,13 @@
 		<security:intercept-url pattern="/flight/manager/display.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/delete.do" access="hasRole('MANAGER')" />
+		
+		<security:intercept-url pattern="/offer/manager/list.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/offer/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/offer/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/offer/manager/delete.do" access="hasRole('MANAGER')" />
+		
+		
 		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/airlineConfiguration/manager/edit.do" access="hasRole('MANAGER')" /> 
 		 <security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 

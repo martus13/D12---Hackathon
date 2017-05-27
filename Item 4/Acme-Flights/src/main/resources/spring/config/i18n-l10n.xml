@@ -33,6 +33,7 @@
 		<value>/views/flight/messages</value>
 		<value>/views/manager/messages</value>
 		<value>/views/profile/messages</value>
+		<value>/views/offer/messages</value>
 		
 		<value>/views/comment/messages</value>
 		<value>/views/invoice/messages</value>

@@ -33,6 +33,7 @@
 		<value>/views/flight/tiles.xml</value>
 		<value>/views/manager/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
+		<value>/views/offer/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
 		<value>/views/invoice/tiles.xml</value>
 		<value>/views/airlineConfiguration/tiles.xml</value>

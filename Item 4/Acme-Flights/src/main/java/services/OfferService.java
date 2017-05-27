@@ -76,6 +76,33 @@ public class OfferService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<Offer> findByOffertableId(final int offertableId) {
+		Assert.isTrue(offertableId != 0);
+		Collection<Offer> result;
+		result = this.offerRepository.findByOffertableId(offertableId);
+		return result;
+	}
+
+	public Collection<Offer> findByOffertableIdFlight(final int offertableId) {
+		Assert.isTrue(offertableId != 0);
+		Collection<Offer> result;
+		result = this.offerRepository.findByOffertableIdFlight(offertableId);
+		return result;
+	}
+
+	public Collection<Offer> findByOffertableIdAll(final int airlineId) {
+		Collection<Offer> result;
+		Collection<Offer> aux;
+
+		result = this.findByOffertableId(airlineId);
+		aux = this.findByOffertableIdFlight(airlineId);
+
+		for (final Offer e : aux)
+			result.add(e);
+
+		return result;
+	}
+
 	public Offer findByDateAndOffertableId(final int offertableId, final Date date) {
 		Assert.isTrue(offertableId != 0);
 		Assert.notNull(date);
