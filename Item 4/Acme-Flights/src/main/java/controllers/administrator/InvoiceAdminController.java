@@ -15,7 +15,7 @@ import domain.Invoice;
 
 @Controller
 @RequestMapping("/invoice/administrator")
-public class InvoiceAdministratorController extends AbstractController {
+public class InvoiceAdminController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
@@ -25,7 +25,7 @@ public class InvoiceAdministratorController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public InvoiceAdministratorController() {
+	public InvoiceAdminController() {
 		super();
 	}
 
