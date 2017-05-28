@@ -15,6 +15,7 @@ import repositories.BookRepository;
 import repositories.InvoiceRepository;
 import domain.Administrator;
 import domain.Book;
+import domain.Flight;
 import domain.Invoice;
 
 @Service
@@ -85,8 +86,27 @@ public class InvoiceService {
 		Collection<Book> books = this.bookService.findNotCancelledWithoutInvoices();
 		
 		for(Book b:books){
-			this.create(b);
+			
+				this.create(b);
 		}
+	}
+	
+	public Collection<Invoice> findByUser(int userId){
+		return this.invoiceRepository.findByUser(userId);
+	}
+	
+	public Collection<Invoice> findByManager(int managerId){
+		return this.invoiceRepository.findByManager(managerId);
+	}
+	
+	public void markAsPaid(Invoice invoice){
+		
+		final Calendar paidMoment = Calendar.getInstance();
+		paidMoment.set(Calendar.MILLISECOND, -10);
+		
+		invoice.setPaidMoment(paidMoment.getTime());
+		this.save(invoice);
+		
 	}
 	
 }

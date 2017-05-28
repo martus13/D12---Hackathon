@@ -189,7 +189,6 @@ public class FlightService {
 		configuration = this.configurationService.findConfiguration();
 
 		configurationCalendar = Calendar.getInstance();
-		configurationCalendar.setTime(configuration.getCachedTime());
 
 		if (finder.getIsBusiness()) {
 			departures = this.findEconomyFlightsOfferAndSeasonByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);

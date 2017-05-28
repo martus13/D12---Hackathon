@@ -42,6 +42,7 @@
 		<value>/views/profile/messages</value>
 		<value>/views/season/messages</value>
 		
+		<value>/views/configuration/messages</value>
 	</util:list>
 
 </beans>

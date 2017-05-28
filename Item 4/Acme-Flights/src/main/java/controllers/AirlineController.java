@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AirlineConfigurationService;
 import services.AirlineService;
 import services.CommentService;
 import domain.Airline;
+import domain.AirlineConfiguration;
 import domain.Comment;
 
 @Controller
@@ -26,7 +28,9 @@ public class AirlineController extends AbstractController {
 	
 	@Autowired
 	private CommentService commentService;
-
+	
+	@Autowired
+	private AirlineConfigurationService airlineConfigurationService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -40,14 +44,18 @@ public class AirlineController extends AbstractController {
 	public ModelAndView display(@RequestParam final int airlineId) {
 		ModelAndView result;
 		Airline airline;
-
+		AirlineConfiguration configurations;
+		
 		airline = this.airlineService.findOne(airlineId);
 		Collection<Comment> comentarios = this.commentService.findByAirlineId(airlineId);
+		configurations= this.airlineConfigurationService.findByAirlineId(airlineId);
+		
 		
 		result = new ModelAndView("airline/display");
 		result.addObject("requestURI", "airline/display.do?airlineId=" + airlineId);
 		result.addObject("airline", airline);
 		result.addObject("comments", comentarios);
+		result.addObject("configurations",configurations);
 
 		return result;
 	}

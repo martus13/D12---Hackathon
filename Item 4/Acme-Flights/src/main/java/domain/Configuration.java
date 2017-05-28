@@ -25,20 +25,9 @@ public class Configuration extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
 
-	private Date	cachedTime;
+
 	private Double	fee;
-	private Double	campaingFee;
-
-
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "HH:mm:ss")
-	public Date getCachedTime() {
-		return this.cachedTime;
-	}
-	public void setCachedTime(final Date cachedTime) {
-		this.cachedTime = cachedTime;
-	}
+	private Double	campaignFee;
 
 	@NotNull
 	@Min(0)
@@ -51,11 +40,11 @@ public class Configuration extends DomainEntity {
 
 	@NotNull
 	@Min(0)
-	public Double getCampaingFee() {
-		return this.campaingFee;
+	public Double getCampaignFee() {
+		return this.campaignFee;
 	}
-	public void setCampaingFee(final Double campaingFee) {
-		this.campaingFee = campaingFee;
+	public void setCampaignFee(final Double campaignFee) {
+		this.campaignFee = campaignFee;
 	}
 
 	// Relationships ----------------------------------------------------------

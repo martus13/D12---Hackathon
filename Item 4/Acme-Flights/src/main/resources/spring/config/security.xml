@@ -53,6 +53,8 @@
 		
 		<security:intercept-url pattern="/flight/list.do" access="permitAll" />
 		
+		<security:intercept-url pattern="/invoice/invoice/create.do" access="hasRole('USER')" />
+		
 		<!-- USER -->
 		
 		<security:intercept-url pattern="/book/user/listByUser.do" access="hasRole('USER')" />
@@ -68,6 +70,8 @@
 		
 		<security:intercept-url pattern="/comment/user/create.do" access="hasRole('USER')" />
 		
+		<security:intercept-url pattern="/invoice/user/list.do" access="hasRole('USER')" />
+
 		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
@@ -115,8 +119,14 @@
 		
 		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/airlineConfiguration/manager/edit.do" access="hasRole('MANAGER')" /> 
+
+		<security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/airlineConfiguration/manager/delete.do" access="hasRole('MANAGER')" /> 
+
 		<security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
 		
+		<security:intercept-url pattern="/invoice/manager/list.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/invoice/manager/markAsPaid.do" access="hasRole('MANAGER')" />
 		<!-- ADMIN -->
 		
 		<security:intercept-url pattern="/airline/administrator/list.do" access="hasRole('ADMIN')" />
@@ -129,7 +139,13 @@
 		<security:intercept-url pattern="/airport/administrator/create.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/airport/administrator/edit.do" access="hasRole('ADMIN')" />
 		
+		<security:intercept-url pattern="/invoice/administrator/list.do" access="hasRole('ADMIN')" />
+		
 		<security:intercept-url pattern="/managerUser/administrator/register.do" access="hasRole('ADMIN')" />
+		
+		<security:intercept-url pattern="/configuration/administrator/display.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/configuration/administrator/edit.do" access="hasRole('ADMIN')" />
+	
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

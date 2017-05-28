@@ -46,6 +46,16 @@
 		<acme:column code="comment.sender" property="user.name"/>
 		
 	</display:table>
+
+	<display:table name="configurations" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	
+		<acme:column code="airlineConfig.cancellationDays" property="maxCancellationDays"/>
+		<acme:column code="airlineConfig.childrenAge" property="maxChildrenAge"/>
+		<acme:column code="airlineConfig.childrenDiscount"	property="childrenDiscount"/>
+		<acme:column code="airlineConfig.maxBagWeight" property="maxBagWeight"/>
+		<acme:column code="airlineConfig.overweightBagPrice" property="overweightBagPrice"/>
+	
+	</display:table>
 		
 	</ul>
 	

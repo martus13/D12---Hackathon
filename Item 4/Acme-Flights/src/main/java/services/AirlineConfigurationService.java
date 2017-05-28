@@ -63,13 +63,6 @@ public class AirlineConfigurationService {
 		return airlineConfiguration;
 
 	}
-
-	public void delete(final AirlineConfiguration airlineConfiguration) {
-		Assert.notNull(airlineConfiguration);
-
-		this.airlineConfigurationRepository.delete(airlineConfiguration);
-	}
-
 	// Other business methods -------------------------------------------------
 
 	public AirlineConfiguration findByAirlineId(final int airlineId) {

@@ -32,6 +32,7 @@
 			<li><a class="fNiv" href="book/user/listByUser.do"><spring:message code="master.page.user.book" /></a></li>
 			<li><a class="fNiv" href="pointsCard/user/listByUser.do"><spring:message code="master.page.user.pointsCard" /></a></li>
 			<li><a class="fNiv" href="creditCard/user/list.do"><spring:message code="master.page.user.creditCard" /></a></li>
+			<li><a class="fNiv" href="invoice/user/list.do"><spring:message code="master.page.invoices" /></a></li>
 		</security:authorize>
 		
 		<!-- MANAGER -->
@@ -60,6 +61,7 @@
 					<li class="arrow"></li>				
 					<li><a href="airlineConfiguration/manager/display.do"><spring:message code="master.page.manager.configuration.display" /> </a></li>
 				</ul>
+			<li><a class="fNiv" href="invoice/manager/list.do"><spring:message code="master.page.invoices" /></a></li>	
 			</li>
 			
 		</security:authorize>
@@ -80,7 +82,11 @@
 					<li><a href="airline/administrator/create.do"><spring:message code="master.page.airline.create" /> </a></li>
 				</ul>
 			</li>
+			<li><a class="fNiv" href="invoice/administrator/list.do"><spring:message code="master.page.invoices" /></a></li>	
+			
+			
 			<li><a class="fNiv" href="managerUser/administrator/register.do"><spring:message code="master.page.admin.manager" /></a></li>
+			<li><a class="fNiv" href="configuration/administrator/display.do"><spring:message code="master.page.config" /></a></li>
 		</security:authorize>
 		
 		<!-- isAnonymous -->

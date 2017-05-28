@@ -116,7 +116,6 @@ public class AirlineConfigurationManagerController extends AbstractController{
 
 			}
 		return result;
-
 	}
 	
 	// Ancillary methods ----------------------------------------------------

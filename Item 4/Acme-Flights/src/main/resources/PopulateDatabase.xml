@@ -136,8 +136,7 @@
 	<!-- Configuration -->
 	
 	<bean id="configuration1" class="domain.Configuration">
-		<property name="cachedTime" value="01/01/2017 12:00:00" />
-		<property name="campaingFee" value="1.00" />
+		<property name="campaignFee" value="1.00" />
 		<property name="fee" value="1.00" />
 	</bean>
 	
