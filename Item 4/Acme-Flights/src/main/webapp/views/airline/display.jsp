@@ -34,17 +34,10 @@
 			<b><spring:message code="airline.rating"/>:</b>
 			<jstl:out value="${airline.rating}"/>
 		</li>
-		<display:column>
-			<jstl:if test="${principalUserAccount.id==row.user.userAccount.id}">
-				<form:form action="comment/user/edit.do?commentId=${row.id}" modelAttribute="comment">
-					<acme:submit name="edit" code="airline.edit" />
-				</form:form>
-			</jstl:if>
-		</display:column>
+	
 	
 		
 		<li>
-			<jstl:set var="checkCanComment" value="${true }" />
 			
 			<b><spring:message code="airline.comments"/>:</b>
 			<display:table name="comments" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
@@ -58,20 +51,23 @@
 				<acme:column code="comment.rating.comfort" property="rating.comfort"/>
 				<acme:column code="comment.sender" property="user.name"/>
 				
-				<jstl:if test="${principalUserAccount.id==row.user.userAccount.id }">
-					<jstl:set var="checkCanComment" value="${false }" />
+				<display:column>
+					<jstl:if test="${principalUserAccount.id==row.user.userAccount.id}">
+					<form:form action="comment/user/edit.do?commentId=${row.id}" modelAttribute="comment">
+						<acme:submit name="edit" code="airline.edit" />
+					</form:form>
 				</jstl:if>
-				
-			</display:table>
-			<security:authorize access="hasRole('USER')">
-				<jstl:if test="${checkCanComment }">
-					<a href="comment/user/create.do?airlineId=${airline.id }">
-						<spring:message code="airline.comment" />
-					</a>
-				</jstl:if>
-			</security:authorize>
-		</li>
-		
+		</display:column>
+		 </display:table>
+		 
+	<security:authorize access="hasRole('USER')">
+		<jstl:if test="${hasFlight and !hasCommented}">
+			<a href="comment/user/create.do?airlineId=${airline.id }">
+				<spring:message code="airline.comment" />
+			</a>
+		</jstl:if>
+	</security:authorize>
+		 
 		<li>
 			<b><spring:message code="airline.configuration"/>:</b>
 			<display:table name="airlineConfiguration" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
@@ -84,17 +80,7 @@
 			
 			</display:table>
 		</li>
-</ul>
-	<security:authorize access="hasRole('USER')">
-	
-<<<<<<< .mine
-		<jstl:if test="${hasFlight and !hasCommented}">
-			<a href="comment/user/create.do?airlineId=${airline.id }">
-				<spring:message code="airline.comment" />
-			</a>
-		</jstl:if>
-	</security:authorize>
-=======
+
 		<li>
 			<b><spring:message code="airline.seasons"/>:</b>
 			<display:table name="seasons" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
@@ -121,8 +107,8 @@
 			</display:table>
 		</li>
 	</ul>
->>>>>>> .r99
 	
+
 
 </div>
 	
