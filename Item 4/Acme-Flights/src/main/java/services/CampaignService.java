@@ -80,6 +80,7 @@ public class CampaignService {
 
 	public void delete(final Campaign campaign) {
 		Assert.notNull(campaign);
+		//Assert.isTrue(this.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() == 0);
 		Collection<Banner> banners;
 		Collection<MonthlyBill> monthlyBills;
 
@@ -109,6 +110,14 @@ public class CampaignService {
 		Collection<Campaign> campaigns;
 
 		campaigns = this.campaignRepository.findByAirlineId(airlineId);
+
+		return campaigns;
+	}
+
+	public Collection<Campaign> findUnpaidMonthlyBillsByCampaignId(final int campaignId) {
+		Collection<Campaign> campaigns;
+
+		campaigns = this.campaignRepository.findUnpaidMonthlyBillsByCampaignId(campaignId);
 
 		return campaigns;
 	}

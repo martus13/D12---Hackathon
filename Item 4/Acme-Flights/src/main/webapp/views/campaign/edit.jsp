@@ -29,9 +29,7 @@
 	<acme:input code="campaign.maxDisplayed" path="maxDisplayed"/>
 	
 	<acme:submit name="save" code="campaign.save" />
-	<jstl:if test="${campaign.id!=0 }">
-		<acme:submit name="delete" code="campaign.delete" />
-	</jstl:if>
+	
 	<acme:cancel url="campaign/manager/list.do" code="campaign.cancel" />
 	
 </form:form>

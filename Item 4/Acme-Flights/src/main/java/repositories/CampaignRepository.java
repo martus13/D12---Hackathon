@@ -18,4 +18,6 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	@Query("select c from Campaign c where c.airline.id=?1")
 	Collection<Campaign> findByAirlineId(int airlineId);
 
+	@Query("select m from MonthlyBill m where m.paidMoment=null and m.campaign=?1")
+	Collection<Campaign> findUnpaidMonthlyBillsByCampaignId(int campaignId);
 }
