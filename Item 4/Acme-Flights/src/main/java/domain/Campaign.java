@@ -31,6 +31,7 @@ public class Campaign extends DomainEntity {
 	private Date	startDate;
 	private Date	endDate;
 	private Integer	maxDisplayed;
+	private Boolean	deleted;
 
 
 	@NotNull
@@ -63,6 +64,15 @@ public class Campaign extends DomainEntity {
 
 	public void setMaxDisplayed(final Integer maxDisplayed) {
 		this.maxDisplayed = maxDisplayed;
+	}
+
+	@NotNull
+	public Boolean getDeleted() {
+		return this.deleted;
+	}
+
+	public void setDeleted(final Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 

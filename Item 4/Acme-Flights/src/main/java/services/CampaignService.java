@@ -12,7 +12,6 @@ import repositories.CampaignRepository;
 import domain.Banner;
 import domain.Campaign;
 import domain.Manager;
-import domain.MonthlyBill;
 
 @Service
 @Transactional
@@ -25,9 +24,6 @@ public class CampaignService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private BannerService		bannerService;
-
-	@Autowired
-	private MonthlyBillService	monthlyBillService;
 
 	@Autowired
 	private ManagerService		managerService;
@@ -82,18 +78,15 @@ public class CampaignService {
 		Assert.notNull(campaign);
 		//Assert.isTrue(this.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() == 0);
 		Collection<Banner> banners;
-		Collection<MonthlyBill> monthlyBills;
 
 		banners = this.bannerService.findByCampaignId(campaign.getId());
-		monthlyBills = this.monthlyBillService.findByCampaignId(campaign.getId());
 
 		for (final Banner b : banners)
 			this.bannerService.delete(b);
 
-		for (final MonthlyBill m : monthlyBills)
-			this.monthlyBillService.delete(m);
+		campaign.setDeleted(true);
 
-		this.campaignRepository.delete(campaign);
+		this.campaignRepository.save(campaign);
 	}
 
 	// Other business methods -------------------------------------------------
@@ -110,6 +103,14 @@ public class CampaignService {
 		Collection<Campaign> campaigns;
 
 		campaigns = this.campaignRepository.findByAirlineId(airlineId);
+
+		return campaigns;
+	}
+
+	public Collection<Campaign> findNotDeletedByAirlineId(final int airlineId) {
+		Collection<Campaign> campaigns;
+
+		campaigns = this.campaignRepository.findNotDeletedByAirlineId(airlineId);
 
 		return campaigns;
 	}

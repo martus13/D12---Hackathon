@@ -663,6 +663,7 @@
 		<property name="startDate" value="02/01/2017 00:00:01" />
 		<property name="endDate" value="06/30/2017 23:59:59" />
 		<property name="maxDisplayed" value="1"/>
+		<property name="deleted" value="false"/>
 		<property name="airline" ref="airline1"/>
 	</bean>
 	
@@ -670,6 +671,7 @@
 		<property name="startDate" value="04/01/2017 00:00:01" />
 		<property name="endDate" value="08/30/2017 23:59:59" />
 		<property name="maxDisplayed" value="4"/>
+		<property name="deleted" value="false"/>
 		<property name="airline" ref="airline2"/>
 	</bean>
 	
@@ -677,7 +679,16 @@
 		<property name="startDate" value="12/01/2017 00:00:01" />
 		<property name="endDate" value="12/20/2017 23:59:59" />
 		<property name="maxDisplayed" value="2"/>
+		<property name="deleted" value="false"/>
 		<property name="airline" ref="airline3"/>
+	</bean>
+	
+	<bean id="campaign4" class="domain.Campaign">
+		<property name="startDate" value="05/01/2017 00:00:01" />
+		<property name="endDate" value="06/30/2017 23:59:59" />
+		<property name="maxDisplayed" value="1"/>
+		<property name="deleted" value="true"/>
+		<property name="airline" ref="airline1"/>
 	</bean>
 	
 	<!-- Banner -->

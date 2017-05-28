@@ -64,7 +64,7 @@ public class CampaignManagerController extends AbstractController {
 		Collection<Campaign> campaigns;
 
 		manager = this.managerService.findByPrincipal();
-		campaigns = this.campaignService.findByAirlineId(manager.getAirline().getId());
+		campaigns = this.campaignService.findNotDeletedByAirlineId(manager.getAirline().getId());
 
 		result = new ModelAndView("campaign/list");
 		result.addObject("campaigns", campaigns);
