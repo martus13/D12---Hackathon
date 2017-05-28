@@ -52,6 +52,9 @@ public class BookService {
 	@Autowired
 	private PointsCardService			pointsCardService;
 
+	@Autowired
+	private CreditCardService			creditCardService;
+
 
 	// Constructors -----------------------------------------------------------
 	public BookService() {
@@ -99,6 +102,9 @@ public class BookService {
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
+
+		// Comprobamos la validez de la tarjeta de credito
+		Assert.isTrue(this.creditCardService.checkValidation(this.creditCardService.findByUser(user.getId())));
 
 		calendar = Calendar.getInstance();
 		calendar.add(Calendar.MILLISECOND, -10);

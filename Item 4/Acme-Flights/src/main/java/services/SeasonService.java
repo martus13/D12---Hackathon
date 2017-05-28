@@ -71,9 +71,31 @@ public class SeasonService {
 		return result;
 	}
 
+	public Season create(final Season season) {
+		Season result;
+		Manager manager;
+
+		manager = this.managerService.findByPrincipal();
+		Assert.notNull(manager);
+
+		result = new Season();
+		result.setAirline(manager.getAirline());
+		result.setInactive(false);
+		result.setTitle(season.getTitle());
+		result.setStartDay(season.getStartDay());
+		result.setStartMonth(season.getStartMonth());
+		result.setEndDay(season.getEndDay());
+		result.setEndMonth(season.getEndMonth());
+		result.setType(season.getType());
+		result.setPricePercentage(season.getPricePercentage());
+
+		return result;
+	}
+
 	public Season save(Season season) {
 		Assert.notNull(season);
 		Manager manager;
+		Season firstSeason = null;
 
 		manager = this.managerService.findByPrincipal();
 		Assert.notNull(manager);
@@ -92,10 +114,26 @@ public class SeasonService {
 		else
 			Assert.isTrue(season.getEndDay() <= 30);
 
+		// Comprobamos que si la fecha de fin es menor que la de inicio, se tiene que dividir:
+		if (season.getStartMonth() > season.getEndMonth() || (season.getStartMonth() == season.getEndMonth() && season.getStartDay() < season.getEndDay())) {
+
+			firstSeason = this.create(season);
+			firstSeason.setEndDay(31);
+			firstSeason.setEndMonth(12);
+
+			// Comprobamos que no se solapen temporadas
+			Assert.isTrue(this.findOverlappingByAirline(firstSeason.getAirline().getId(), firstSeason.getStartDay(), firstSeason.getStartMonth(), firstSeason.getEndDay(), firstSeason.getEndMonth()).isEmpty());
+
+			season.setStartDay(1);
+			season.setStartMonth(1);
+
+		}
 		// Comprobamos que no se solapen temporadas
 		Assert.isTrue(this.findOverlappingByAirline(season.getAirline().getId(), season.getStartDay(), season.getStartMonth(), season.getEndDay(), season.getEndMonth()).isEmpty());
 
 		season = this.seasonReporitory.save(season);
+		if (firstSeason != null)
+			this.seasonReporitory.save(firstSeason);
 
 		return season;
 	}

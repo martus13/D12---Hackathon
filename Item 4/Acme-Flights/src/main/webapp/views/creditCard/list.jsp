@@ -8,6 +8,9 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<jstl:if test="${validarionError }">
+	<b><font size="3" color="red"><spring:message code="creditCard.validation.error" /></font></b>
+</jstl:if>
 <jstl:choose>
 	<jstl:when test="${not empty creditCard }">
 		<display:table name="creditCard" id="row" requestURI="${requestURI }">

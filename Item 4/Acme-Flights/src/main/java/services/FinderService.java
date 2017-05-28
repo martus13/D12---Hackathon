@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -25,9 +24,6 @@ public class FinderService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private UserService			userService;
-
-	@Autowired
-	private CreditCardService	creditCardService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -100,23 +96,6 @@ public class FinderService {
 		Finder result;
 
 		result = this.finderRepository.findByUserId(userId);
-
-		return result;
-	}
-
-	public Collection<User> findUsersByFinder(Finder finder) {
-		final Collection<User> result = new ArrayList<User>();
-		Calendar calendar;
-		User user;
-
-		calendar = Calendar.getInstance();
-		calendar.set(Calendar.MILLISECOND, -10);
-		user = this.userService.findByPrincipal();
-
-		// primero: comprobar que tiene creditCard y que es valida
-		Assert.isTrue(this.creditCardService.checkValidation(this.creditCardService.findByUser(user.getId())));
-
-		finder = this.finderRepository.save(finder);
 
 		return result;
 	}

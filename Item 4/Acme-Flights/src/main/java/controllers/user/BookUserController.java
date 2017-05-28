@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BookService;
+import services.CreditCardService;
 import services.ExchangeRateService;
 import services.FlightService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Book;
+import domain.CreditCard;
 import domain.ExchangeRate;
 import domain.Flight;
 import domain.User;
@@ -41,6 +43,9 @@ public class BookUserController extends AbstractController {
 
 	@Autowired
 	private ExchangeRateService	exchangeRateService;
+
+	@Autowired
+	private CreditCardService	creditCardService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -106,9 +111,12 @@ public class BookUserController extends AbstractController {
 		Integer seasonDestination;
 		Integer offerFlightDestination;
 		Integer offerAirlineDestination;
+		CreditCard creditCard;
+		User user;
 
 		departure = this.flightService.findOne(departureId);
 		destination = this.flightService.findOne(destinationId);
+		user = this.userService.findByPrincipal();
 
 		if (season1 != "")
 			seasonDeparture = Integer.valueOf(season1);
@@ -135,9 +143,18 @@ public class BookUserController extends AbstractController {
 		else
 			offerAirlineDestination = null;
 
-		book = this.bookService.create(departure, seasonDeparture, offerFlightDeparture, offerAirlineDeparture, destination, seasonDestination, offerFlightDestination, offerAirlineDestination);
+		creditCard = this.creditCardService.findByUser(user.getId());
+		if (!this.creditCardService.checkValidation(creditCard)) {
+			System.out.println("Invalid Credit Card");
+			result = new ModelAndView("creditCard/list");
+			result.addObject("validarionError", true);
 
-		result = this.createEditModelAndView(book);
+		} else {
+
+			book = this.bookService.create(departure, seasonDeparture, offerFlightDeparture, offerAirlineDeparture, destination, seasonDestination, offerFlightDestination, offerAirlineDestination);
+
+			result = this.createEditModelAndView(book);
+		}
 
 		return result;
 	}

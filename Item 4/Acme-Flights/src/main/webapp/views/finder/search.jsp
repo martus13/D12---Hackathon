@@ -86,7 +86,7 @@
 			
 		</display:table>
 		
-		<jstl:if test="${checkBooking }">
+		<jstl:if test="${checkBooking && checkCreditCard }"> 
 			<jstl:choose>
 				<jstl:when test="${finder.returnFlight}">
 					<a href="book/user/create.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }&&destinationId=${flight[1][0].id}&&season2=${flight[1][1].id }&&offerFlight2=${flight[1][2].id }&&offerAirline2=${flight[1][3].id }"><spring:message code="finder.book" /></a>

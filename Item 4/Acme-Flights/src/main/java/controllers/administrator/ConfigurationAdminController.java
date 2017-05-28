@@ -18,7 +18,7 @@ import domain.Configuration;
 
 @Controller
 @RequestMapping("/configuration/administrator")
-public class ConfigurationAdministratorController extends AbstractController {
+public class ConfigurationAdminController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
@@ -28,7 +28,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public ConfigurationAdministratorController() {
+	public ConfigurationAdminController() {
 		super();
 	}
 

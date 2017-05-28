@@ -7,6 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<security:authentication var="principalUserAccount" property="principal" />
 <div>
 	<ul>
 		<li>
@@ -35,6 +36,8 @@
 		</li>
 		
 		<li>
+			<jstl:set var="checkCanComment" value="${true }" />
+			
 			<b><spring:message code="airline.comments"/>:</b>
 			<display:table name="comments" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	
@@ -47,18 +50,23 @@
 				<acme:column code="comment.rating.comfort" property="rating.comfort"/>
 				<acme:column code="comment.sender" property="user.name"/>
 				
+				<jstl:if test="${principalUserAccount.id==row.user.userAccount.id }">
+					<jstl:set var="checkCanComment" value="${false }" />
+				</jstl:if>
+				
 			</display:table>
 			<security:authorize access="hasRole('USER')">
-				<a href="comment/user/create.do?airlineId=${airline.id }">
-					<spring:message code="airline.comment" />
-				</a>
-			
+				<jstl:if test="${checkCanComment }">
+					<a href="comment/user/create.do?airlineId=${airline.id }">
+						<spring:message code="airline.comment" />
+					</a>
+				</jstl:if>
 			</security:authorize>
 		</li>
 		
 		<li>
 			<b><spring:message code="airline.configuration"/>:</b>
-			<display:table name="configurations" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+			<display:table name="airlineConfiguration" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			
 				<acme:column code="airlineConfig.cancellationDays" property="maxCancellationDays"/>
 				<acme:column code="airlineConfig.childrenAge" property="maxChildrenAge"/>
@@ -69,7 +77,31 @@
 			</display:table>
 		</li>
 	
-
+		<li>
+			<b><spring:message code="airline.seasons"/>:</b>
+			<display:table name="seasons" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+				<acme:column code="season.title" property="title" />
+				<acme:column code="season.startDay" property="startDay" />
+				<acme:column code="season.startMonth" property="startMonth" />
+				<acme:column code="season.endDay" property="endDay" />
+				<acme:column code="season.endMonth" property="endMonth" />
+				
+				<spring:message code="season.type" var="typeHeader" />
+				<display:column title="${typeHeader}" sortable="true">
+					<jstl:choose>
+						<jstl:when test="${row.type=='discount' }">
+							<spring:message code="season.discount" />
+						</jstl:when>
+						<jstl:otherwise>
+							<spring:message code="season.increase" />
+						</jstl:otherwise>
+					</jstl:choose>
+				</display:column>
+				
+				<acme:column code="season.pricePercentage" property="pricePercentage" />
+				
+			</display:table>
+		</li>
 	</ul>
 	
 </div>

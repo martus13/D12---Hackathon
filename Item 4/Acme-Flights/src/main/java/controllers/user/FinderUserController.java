@@ -92,6 +92,9 @@ public class FinderUserController extends AbstractController {
 		Finder finder;
 		CreditCard creditCard;
 		User user;
+		Collection<Object[]> flights;
+		Collection<ExchangeRate> exchangeRates;
+		Boolean checkCreditCard;
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
@@ -101,26 +104,17 @@ public class FinderUserController extends AbstractController {
 		Assert.isTrue(finder.getUser().equals(user));
 
 		creditCard = this.creditCardService.findByUser(user.getId());
-		if (this.creditCardService.checkValidation(creditCard) == false || creditCard == null) {
-			System.out.println("Invalid Credit Card");
-			result = new ModelAndView("master.page");
-			result.addObject("message", "finder.commit.errorCC");
 
-		} else {
+		flights = this.flightService.findByFinder(finder);
+		exchangeRates = this.exchangeRateService.findAll();
+		checkCreditCard = this.creditCardService.checkValidation(creditCard);
 
-			Collection<Object[]> flights;
-			Collection<ExchangeRate> exchangeRates;
-
-			flights = this.flightService.findByFinder(finder);
-			exchangeRates = this.exchangeRateService.findAll();
-
-			result = new ModelAndView("finder/search");
-			result.addObject("finder", finder);
-			result.addObject("flights", flights);
-			result.addObject("exchangeRates", exchangeRates);
-			result.addObject("requestURI", "finder/user/findByFinder.do?finderId=" + finderId);
-
-		}
+		result = new ModelAndView("finder/search");
+		result.addObject("finder", finder);
+		result.addObject("flights", flights);
+		result.addObject("exchangeRates", exchangeRates);
+		result.addObject("checkCreditCard", checkCreditCard);
+		result.addObject("requestURI", "finder/user/findByFinder.do?finderId=" + finderId);
 
 		return result;
 	}
