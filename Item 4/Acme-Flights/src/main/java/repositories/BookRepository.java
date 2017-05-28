@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +24,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
 	@Query("select b from Book b where b not in (select i.book from Invoice i) and b.cancelationMoment = null")
 	Collection<Book> findNotCancelledWithoutInvoices();
+
+	@Query("select b from Book b join b.flights f where b.user.id=?1 and ?2 between f.departureDate and f.arrivalDate")
+	Book findOverlappingByUserAndDepartureDate(int userId, Date departureDate);
 }

@@ -37,6 +37,7 @@
 		<value>/views/invoice/tiles.xml</value>
 		<value>/views/manager/tiles.xml</value>
 		<value>/views/offer/tiles.xml</value>
+		<value>/views/pointsCard/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/season/tiles.xml</value>
 	</util:list>

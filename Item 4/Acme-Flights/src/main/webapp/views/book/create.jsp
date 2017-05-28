@@ -35,7 +35,14 @@
 	
 	<li>
 		<b><spring:message code="book.isBusiness" />:</b>
-		<jstl:out value="${book.isBusiness}" />
+		<jstl:choose>
+			<jstl:when test="${book.isBusiness }">
+				<spring:message code="book.yes" />
+			</jstl:when>
+			<jstl:otherwise>
+				<spring:message code="book.no" />
+			</jstl:otherwise>
+		</jstl:choose>
 	</li>
 	
 	<li>

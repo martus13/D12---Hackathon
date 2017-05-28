@@ -78,6 +78,19 @@ public class SeasonService {
 		manager = this.managerService.findByPrincipal();
 		Assert.notNull(manager);
 		Assert.isTrue(season.getAirline().equals(manager.getAirline()));
+		// Comporbamos que los dias esten bien
+		if (season.getStartMonth() == 1 || season.getStartMonth() == 3 || season.getStartMonth() == 5 || season.getStartMonth() == 7 || season.getStartMonth() == 8 || season.getStartMonth() == 10 || season.getStartMonth() == 12)
+			Assert.isTrue(season.getStartDay() <= 31);
+		else if (season.getStartMonth() == 2)
+			Assert.isTrue(season.getStartDay() <= 29);
+		else
+			Assert.isTrue(season.getStartDay() <= 30);
+		if (season.getEndMonth() == 1 || season.getEndMonth() == 3 || season.getEndMonth() == 5 || season.getEndMonth() == 7 || season.getEndMonth() == 8 || season.getEndMonth() == 10 || season.getEndMonth() == 12)
+			Assert.isTrue(season.getEndDay() <= 31);
+		else if (season.getEndMonth() == 2)
+			Assert.isTrue(season.getEndDay() <= 29);
+		else
+			Assert.isTrue(season.getEndDay() <= 30);
 
 		// Comprobamos que no se solapen temporadas
 		Assert.isTrue(this.findOverlappingByAirline(season.getAirline().getId(), season.getStartDay(), season.getStartMonth(), season.getEndDay(), season.getEndMonth()).isEmpty());
@@ -86,7 +99,6 @@ public class SeasonService {
 
 		return season;
 	}
-
 	public void delete(final Season season) {
 		Assert.notNull(season);
 		Manager manager;

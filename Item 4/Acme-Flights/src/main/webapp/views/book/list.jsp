@@ -22,6 +22,17 @@
 	<acme:column code="book.passengersNumber" property="passengersNumber" />
 	<acme:column code="book.childrenNumber" property="childrenNumber" />
 	<acme:column code="book.isBusiness" property="isBusiness" />
+	<spring:message code="book.isBusiness" var="isBusinessHeader" />
+	<display:column title="${isBusinessHeader}" sortable="true">
+		<jstl:choose>
+			<jstl:when test="${row.isBusiness}">
+				<spring:message code="book.yes" />
+			</jstl:when>
+			<jstl:otherwise>
+				<spring:message code="book.no" />
+			</jstl:otherwise>
+		</jstl:choose>
+	</display:column>
 	<acme:column code="book.totalFee" property="totalFee" />
 	<acme:column code="book.comment" property="comment" />
 	<acme:column code="book.cancelationMoment" property="cancelationMoment" format="{0,date,dd/MM/yyyy}" />
@@ -31,6 +42,16 @@
 			<spring:message code="book.display" />
 		</a>
 	</display:column>
+	
+	<security:authorize access="hasRole('USER')">
+		<display:column>
+			<jstl:if test="${row.user.userAccount.id == principalUserAccount.id}">
+				<form:form action="book/user/delete.do?bookId=${row.id}" modelAttribute="book">
+					<acme:submit name="delete" code="book.delete" />
+				</form:form>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 	
 </display:table>
 

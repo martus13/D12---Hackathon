@@ -59,7 +59,7 @@
 		<security:intercept-url pattern="/book/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/create.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/createWithoutReturn.do" access="hasRole('USER')" />
-		<security:intercept-url pattern="/book/user/cancel.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/book/user/delete.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/creditCard/user/list.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/creditCard/user/create.do" access="hasRole('USER')" />
@@ -72,6 +72,8 @@
 		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/findByFinder.do" access="hasRole('USER')" />
+		
+		<security:intercept-url pattern="/pointsCard/user/listByUser.do" access="hasRole('USER')" />
 		
 		<!-- MANAGER -->
 		

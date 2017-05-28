@@ -199,14 +199,29 @@ public class BookUserController extends AbstractController {
 
 	// Delete -----------------------------------------------------------------
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Book book, final BindingResult binding) {
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@RequestParam final int bookId) {
 
 		ModelAndView result;
+		Book book;
 
-		this.bookService.delete(book);
+		book = this.bookService.findOne(bookId);
 
-		result = new ModelAndView("redirect:listByUser.do");
+		try {
+
+			this.bookService.delete(book);
+
+			result = new ModelAndView("redirect:listByUser.do");
+
+		} catch (final Throwable oops) {
+			System.out.println(oops);
+
+			result = new ModelAndView("book/display");
+			result.addObject("requestURI", "book/user/display.do?bookId=" + bookId);
+			result.addObject("book", book);
+			result.addObject("deleteError", true);
+
+		}
 
 		return result;
 

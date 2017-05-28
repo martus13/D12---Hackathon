@@ -32,7 +32,14 @@
 				
 				<li>
 					<b><spring:message code="finder.returnFlight" />:</b>
-					<jstl:out value="${finder.returnFlight}" />
+					<jstl:choose>
+						<jstl:when test="${finder.returnFlight}">
+							<spring:message code="finder.yes" />
+						</jstl:when>
+						<jstl:otherwise>
+							<spring:message code="finder.no" />
+						</jstl:otherwise>
+					</jstl:choose>
 				</li>
 				
 				<jstl:if test="${finder.returnFlight }">
@@ -53,8 +60,15 @@
 				</li>
 				
 				<li>
-					<b><spring:message code="finder.isBusiness"/>:</b>
-					<jstl:out value="${finder.isBusiness}"/>
+					<b><spring:message code="finder.isBusiness" />:</b>
+					<jstl:choose>
+						<jstl:when test="${finder.isBusiness}">
+							<spring:message code="finder.yes" />
+						</jstl:when>
+						<jstl:otherwise>
+							<spring:message code="finder.no" />
+						</jstl:otherwise>
+					</jstl:choose>
 				</li>
 				
 			</ul>

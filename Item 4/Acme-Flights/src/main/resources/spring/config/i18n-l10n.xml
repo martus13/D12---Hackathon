@@ -36,9 +36,10 @@
 		<value>/views/flight/messages</value>
 		<value>/views/invoice/messages</value>
 		<value>/views/manager/messages</value>
+		<value>/views/offer/messages</value>
+		<value>/views/pointsCard/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/season/messages</value>
-		<value>/views/offer/messages</value>
 		
 	</util:list>
 

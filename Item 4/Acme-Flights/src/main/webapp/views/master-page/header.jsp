@@ -30,6 +30,7 @@
 		<security:authorize access="hasRole('USER')">
 			<li><a class="fNiv" href="finder/user/display.do"><spring:message code="master.page.user.finder" /></a></li>
 			<li><a class="fNiv" href="book/user/listByUser.do"><spring:message code="master.page.user.book" /></a></li>
+			<li><a class="fNiv" href="pointsCard/user/listByUser.do"><spring:message code="master.page.user.pointsCard" /></a></li>
 			<li><a class="fNiv" href="creditCard/user/list.do"><spring:message code="master.page.user.creditCard" /></a></li>
 		</security:authorize>
 		

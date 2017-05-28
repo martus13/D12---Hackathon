@@ -9,6 +9,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div>
+	<jstl:if test="${deleteError }">
+		<b><font size="4" color="red"><spring:message code="book.delete.commit.error" /></font></b>
+	</jstl:if>
 	<ul>
 		<li>
 			<b><spring:message code="book.creationMoment" />:</b>
@@ -27,7 +30,14 @@
 		
 		<li>
 			<b><spring:message code="book.isBusiness" />:</b>
-			<jstl:out value="${book.isBusiness}" />
+			<jstl:choose>
+				<jstl:when test="${book.isBusiness }">
+					<spring:message code="book.yes" />
+				</jstl:when>
+				<jstl:otherwise>
+					<spring:message code="book.no" />
+				</jstl:otherwise>
+			</jstl:choose>
 		</li>
 		
 		<li>

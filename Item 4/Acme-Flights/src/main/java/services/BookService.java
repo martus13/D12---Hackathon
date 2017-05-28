@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -121,8 +122,12 @@ public class BookService {
 		Assert.notNull(departure);
 		flights = new ArrayList<Flight>();
 		flights.add(departure);
-		if (finder.getReturnFlight())
+		// Comprobamos el solapamiento
+		Assert.isNull(this.findOverlappingByUserAndDepartureDate(user.getId(), departure.getDepartureDate()));
+		if (finder.getReturnFlight()) {
 			flights.add(destination);
+			Assert.isNull(this.findOverlappingByUserAndDepartureDate(user.getId(), destination.getDepartureDate()));
+		}
 
 		destinationPrice = 0.0;
 		if (finder.getIsBusiness()) {
@@ -220,6 +225,9 @@ public class BookService {
 			for (final Flight f : book.getFlights()) {
 				PointsCard pointsCard;
 
+				// Comprobamos que no haya solapamiento
+				Assert.isNull(this.findOverlappingByUserAndDepartureDate(user.getId(), f.getDepartureDate()));
+
 				if (book.getIsBusiness())
 					Assert.isTrue(f.getAvailableBusinessSeats() >= (book.getChildrenNumber() + book.getPassengersNumber()));
 				else
@@ -245,6 +253,7 @@ public class BookService {
 	public void delete(Book book) {
 		Assert.notNull(book);
 		Actor actor;
+		AirlineConfiguration airlineConfiguration;
 		Calendar calendar;
 
 		actor = this.actorService.findByPrincipal();
@@ -256,10 +265,22 @@ public class BookService {
 		calendar = Calendar.getInstance();
 		calendar.add(Calendar.MILLISECOND, -10);
 
+		for (final Flight f : book.getFlights()) {
+			Calendar expirationDate;
+
+			airlineConfiguration = this.airlineConfigurationService.findByAirlineId(f.getAirline().getId());
+
+			expirationDate = Calendar.getInstance();
+			expirationDate.setTime(f.getDepartureDate());
+			expirationDate.add(Calendar.DAY_OF_MONTH, -airlineConfiguration.getMaxCancellationDays());
+
+			// La fecha de cancelacion debe ser menor o igual que la fecha de salida menos los días máximos de cancelacion de la configuracion de la aerolinea
+			Assert.isTrue(calendar.getTime().after(expirationDate.getTime()) || calendar.getTime() == expirationDate.getTime());
+		}
+
 		book.setCancelationMoment(calendar.getTime());
 		book = this.bookRepository.save(book);
 	}
-
 	// Other business methods -------------------------------------------------
 
 	public Collection<Book> findNotCancelledByFlightId(final int flightId) {
@@ -285,10 +306,22 @@ public class BookService {
 
 		return result;
 	}
-	
-	public Collection<Book> findNotCancelledWithoutInvoices(){
-		
-		return this.findNotCancelledWithoutInvoices();
+
+	public Collection<Book> findNotCancelledWithoutInvoices() {
+
+		Collection<Book> result;
+
+		result = this.findNotCancelledWithoutInvoices();
+
+		return result;
+	}
+
+	public Book findOverlappingByUserAndDepartureDate(final int userId, final Date departureDate) {
+		Book result;
+
+		result = this.bookRepository.findOverlappingByUserAndDepartureDate(userId, departureDate);
+
+		return result;
 	}
 
 }
