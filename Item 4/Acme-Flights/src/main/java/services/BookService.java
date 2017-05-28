@@ -105,11 +105,14 @@ public class BookService {
 
 		finder = this.finderService.findByUserId(user.getId());
 		Assert.notNull(finder);
+
+		// Comprobamos que para la ida hayan asientos libres:
 		if (finder.getIsBusiness())
 			Assert.isTrue(departure.getAvailableBusinessSeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
 		else
 			Assert.isTrue(departure.getAvailableEconomySeats() >= (finder.getChildrenNumber() + finder.getPassengersNumber()));
 
+		// Comprobamos que para la vuelta hayan asientos libres:
 		destinationAirportRate = 0.0;
 		if (finder.getReturnFlight()) {
 			destinationAirportRate = destination.getDeparture().getRate();

@@ -91,11 +91,16 @@ public class FinderUserController extends AbstractController {
 		ModelAndView result;
 		Finder finder;
 		CreditCard creditCard;
+		User user;
+
+		user = this.userService.findByPrincipal();
+		Assert.notNull(user);
 
 		finder = this.finderService.findOne(finderId);
 		Assert.notNull(finder);
+		Assert.isTrue(finder.getUser().equals(user));
 
-		creditCard = this.creditCardService.findByUser(this.userService.findByPrincipal().getId());
+		creditCard = this.creditCardService.findByUser(user.getId());
 		if (this.creditCardService.checkValidation(creditCard) == false || creditCard == null) {
 			System.out.println("Invalid Credit Card");
 			result = new ModelAndView("master.page");

@@ -141,7 +141,6 @@ public class BookUserController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/createWithoutReturn", method = RequestMethod.GET)
 	public ModelAndView createWithoutReturn(@RequestParam final int departureId, @RequestParam final String season1, @RequestParam final String offerFlight1, @RequestParam final String offerAirline1) {
 		ModelAndView result;
@@ -239,9 +238,13 @@ public class BookUserController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Book book, final String message) {
 		ModelAndView result;
+		Collection<Object[]> flights;
+
+		flights = this.flightService.findFlightsOfferAndSeasonByFlightsId(book.getFlights());
 
 		result = new ModelAndView("book/create");
 		result.addObject("book", book);
+		result.addObject("flights", flights);
 		result.addObject("message", message);
 
 		return result;

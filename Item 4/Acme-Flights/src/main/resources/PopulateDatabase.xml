@@ -264,7 +264,7 @@
 		<property name="picture" value="http://blog.studentsville.it/wp-content/uploads/2013/05/Vueling_logo.jpg" />
 		<property name="contactPhone" value="+34 902808005" />
 		<property name="email" value="clientes@vueling.com" />
-		<property name="rating" value="0" />
+		<property name="rating" value="4" />
 		<property name="deleted" value="false" />
 		<property name="seasons">
 			<list>
@@ -282,7 +282,7 @@
 		<property name="picture" value="https://www.ryanair.com/etc/designs/ryanair/favicon/logo.png" />
 		<property name="contactPhone" value="(44) 8712460002" />
 		<property name="email" value="clientes@ryanair.com" />
-		<property name="rating" value="0" />
+		<property name="rating" value="2.5" />
 		<property name="deleted" value="false" />
 		<property name="seasons">
 			<list>
@@ -297,7 +297,7 @@
 		<property name="picture" value="https://www.aeropuertoinfo.com/wp-content/uploads/Logo-Transavia.jpg" />
 		<property name="contactPhone" value="+34 901111500" />
 		<property name="email" value="clientes@transavia.com" />
-		<property name="rating" value="0" />
+		<property name="rating" value="3.5" />
 		<property name="deleted" value="false" />
 		<property name="seasons">
 			<list>

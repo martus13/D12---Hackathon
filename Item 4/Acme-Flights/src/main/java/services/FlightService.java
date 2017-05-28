@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import repositories.FlightRepository;
 import domain.Book;
-import domain.Configuration;
 import domain.Finder;
 import domain.Flight;
 import domain.Manager;
@@ -24,17 +23,14 @@ public class FlightService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private FlightRepository		flightRepository;
+	private FlightRepository	flightRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private ManagerService			managerService;
+	private ManagerService		managerService;
 
 	@Autowired
-	private BookService				bookService;
-
-	@Autowired
-	private ConfigurationService	configurationService;
+	private BookService			bookService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -174,9 +170,7 @@ public class FlightService {
 		Collection<Object[]> departures;
 		Collection<Object[]> destinations;
 		Integer totalPassengersNumber;
-		Configuration configuration;
 		Calendar calendar;
-		final Calendar configurationCalendar;
 
 		totalPassengersNumber = finder.getPassengersNumber() + finder.getChildrenNumber();
 		departures = new ArrayList<Object[]>();
@@ -186,18 +180,14 @@ public class FlightService {
 		calendar = Calendar.getInstance();
 		calendar.add(Calendar.MILLISECOND, -10);
 
-		configuration = this.configurationService.findConfiguration();
-
-		configurationCalendar = Calendar.getInstance();
-
 		if (finder.getIsBusiness()) {
-			departures = this.findEconomyFlightsOfferAndSeasonByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
+			departures = this.findBusinessFlightsOfferAndSeasonByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber, finder.getUser().getId());
 			if (finder.getReturnFlight())
-				destinations = this.findBusinessFlightsOfferAndSeasonByFinder(finder.getDestination().getId(), finder.getDeparture().getId(), finder.getReturnDate(), totalPassengersNumber);
+				destinations = this.findBusinessFlightsOfferAndSeasonByFinder(finder.getDestination().getId(), finder.getDeparture().getId(), finder.getReturnDate(), totalPassengersNumber, finder.getUser().getId());
 		} else {
-			departures = this.findEconomyFlightsOfferAndSeasonByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber);
+			departures = this.findEconomyFlightsOfferAndSeasonByFinder(finder.getDeparture().getId(), finder.getDestination().getId(), finder.getDepartureDate(), totalPassengersNumber, finder.getUser().getId());
 			if (finder.getReturnFlight())
-				destinations = this.findBusinessFlightsOfferAndSeasonByFinder(finder.getDestination().getId(), finder.getDeparture().getId(), finder.getReturnDate(), totalPassengersNumber);
+				destinations = this.findEconomyFlightsOfferAndSeasonByFinder(finder.getDestination().getId(), finder.getDeparture().getId(), finder.getReturnDate(), totalPassengersNumber, finder.getUser().getId());
 		}
 
 		for (final Object[] fDeparture : departures)
@@ -222,6 +212,27 @@ public class FlightService {
 		return result;
 	}
 
+	public Collection<Object[]> findFlightsOfferAndSeasonByFlightsId(final Collection<Flight> flights) {
+		Collection<Object[]> result;
+		ArrayList<Flight> arrayFlights;
+		int flightDepartureId;
+		int flightDestinationId;
+
+		arrayFlights = (ArrayList<Flight>) flights;
+		flightDepartureId = 0;
+		flightDestinationId = 0;
+
+		for (int i = 0; i < arrayFlights.size(); i++)
+			if (i == 0)
+				flightDepartureId = arrayFlights.get(i).getId();
+			else if (i == 1)
+				flightDestinationId = arrayFlights.get(i).getId();
+
+		result = this.flightRepository.findFlightsOfferAndSeasonByFlightsId(flightDepartureId, flightDestinationId);
+
+		return result;
+	}
+
 	public Integer findAvailableBusinessSeatByFlightId(final int flightId) {
 		Integer result;
 
@@ -238,18 +249,18 @@ public class FlightService {
 		return result;
 	}
 
-	public Collection<Object[]> findEconomyFlightsOfferAndSeasonByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
+	public Collection<Object[]> findEconomyFlightsOfferAndSeasonByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber, final int userId) {
 		Collection<Object[]> result;
 
-		result = this.flightRepository.findEconomyFlightsOfferAndSeasonByFinder(departureId, destinationId, departureDate, totalPassengersNumber);
+		result = this.flightRepository.findEconomyFlightsOfferAndSeasonByFinder(departureId, destinationId, departureDate, totalPassengersNumber, userId);
 
 		return result;
 	}
 
-	public Collection<Object[]> findBusinessFlightsOfferAndSeasonByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber) {
+	public Collection<Object[]> findBusinessFlightsOfferAndSeasonByFinder(final int departureId, final int destinationId, final Date departureDate, final Integer totalPassengersNumber, final int userId) {
 		Collection<Object[]> result;
 
-		result = this.flightRepository.findBusinessFlightsOfferAndSeasonByFinder(departureId, destinationId, departureDate, totalPassengersNumber);
+		result = this.flightRepository.findBusinessFlightsOfferAndSeasonByFinder(departureId, destinationId, departureDate, totalPassengersNumber, userId);
 
 		return result;
 	}

@@ -9,8 +9,8 @@
 
 <display:table name="flights" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="flight.departureDate" property="departureDate" format="{0,date,dd/MM/yyyy}" />
-	<acme:column code="flight.arrivalDate" property="arrivalDate" format="{0,date,dd/MM/yyyy}" />
+	<acme:column code="flight.departureDate" property="departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />
+	<acme:column code="flight.arrivalDate" property="arrivalDate" format="{0,date,dd/MM/yyyy HH:mm}" />
 	
 	<spring:message code="flight.departure" var="departureHeader" />
 	<display:column title="${departureHeader}" sortable="true" >

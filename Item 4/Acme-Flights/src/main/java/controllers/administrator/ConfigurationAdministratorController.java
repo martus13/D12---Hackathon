@@ -1,3 +1,4 @@
+
 package controllers.administrator;
 
 import javax.validation.Valid;
@@ -13,59 +14,54 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationService;
 import controllers.AbstractController;
-import domain.Airline;
-import domain.AirlineConfiguration;
 import domain.Configuration;
-import domain.Manager;
 
 @Controller
 @RequestMapping("/configuration/administrator")
-public class ConfigurationAdminController extends AbstractController{
-	
+public class ConfigurationAdministratorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
 	private ConfigurationService	configurationService;
 
+
 	// Constructors -----------------------------------------------------------
 
-	public ConfigurationAdminController() {
+	public ConfigurationAdministratorController() {
 		super();
 	}
 
-	
 	//Display-----------------------------------------------------------
-	
+
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
 		ModelAndView result;
-		Configuration configuration = this.configurationService.findConfiguration();
+		final Configuration configuration = this.configurationService.findConfiguration();
 
 		result = new ModelAndView("configuration/display");
 		result.addObject("configuration", configuration);
 
 		return result;
 	}
-	
+
 	//Edit ----------------------------------------------------------------
-		
-	@RequestMapping(value="/edit", method=RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int configurationId){
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int configurationId) {
 		ModelAndView result;
 		Configuration configuration;
-		
+
 		configuration = this.configurationService.findOne(configurationId);
 		Assert.notNull(configuration);
-		
-		result=this.createEditModelAndView(configuration);
-		
+
+		result = this.createEditModelAndView(configuration);
+
 		return result;
 	}
-	
+
 	//Save ------------------------------------------------------------------
-	
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Configuration configuration, final BindingResult binding) {
 
@@ -88,7 +84,7 @@ public class ConfigurationAdminController extends AbstractController{
 			}
 		return result;
 	}
-	
+
 	// Ancillary methods ----------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Configuration configuration) {

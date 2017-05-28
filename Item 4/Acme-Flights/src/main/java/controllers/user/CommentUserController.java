@@ -1,3 +1,4 @@
+
 package controllers.user;
 
 import javax.validation.Valid;
@@ -24,14 +25,15 @@ public class CommentUserController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private CommentService commentService;
-	
+	private CommentService	commentService;
+
 	@Autowired
-	private UserService userService;
-	
+	private UserService		userService;
+
 	@Autowired
-	private AirlineService airlineService;
-	
+	private AirlineService	airlineService;
+
+
 	// Constructors -----------------------------------------------------------
 
 	public CommentUserController() {
@@ -40,29 +42,28 @@ public class CommentUserController extends AbstractController {
 
 	// Create ----------------------------------------------------------------		
 
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public ModelAndView create(@RequestParam int airlineId){
-		
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int airlineId) {
+
 		ModelAndView result;
 		Comment comment;
 		Airline airline;
-		
+
 		airline = this.airlineService.findOne(airlineId);
-		
-		comment= this.commentService.create(airline);
-		result=this.createEditModelAndView(comment);
-		
+
+		comment = this.commentService.create(airline);
+		result = this.createEditModelAndView(comment);
+
 		return result;
 	}
-	
+
 	//Save---------------------------------------------------------------
-	
-	@RequestMapping(value="/create", method=RequestMethod.POST, params="save")
-	public ModelAndView save(@Valid Comment comment, BindingResult binding){
-		
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid Comment comment, final BindingResult binding) {
+
 		ModelAndView result;
 
-		
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
 			result = this.createEditModelAndView(comment);
@@ -70,7 +71,7 @@ public class CommentUserController extends AbstractController {
 		} else
 			try {
 				comment = this.commentService.save(comment);
-				result = new ModelAndView("redirect:../../airline/display.do?airlineId="+comment.getAirline().getId());
+				result = new ModelAndView("redirect:../../airline/display.do?airlineId=" + comment.getAirline().getId());
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);
@@ -80,9 +81,9 @@ public class CommentUserController extends AbstractController {
 			}
 		return result;
 	}
-	
+
 	//Ancillary Methods-----------------------------------------------------
-	
+
 	protected ModelAndView createEditModelAndView(final Comment comment) {
 		ModelAndView result;
 

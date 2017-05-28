@@ -70,12 +70,12 @@
 		
 		<security:intercept-url pattern="/comment/user/create.do" access="hasRole('USER')" />
 		
-		<security:intercept-url pattern="/invoice/user/list.do" access="hasRole('USER')" />
-
 		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/create.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/findByFinder.do" access="hasRole('USER')" />
+		
+		<security:intercept-url pattern="/invoice/user/list.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/pointsCard/user/listByUser.do" access="hasRole('USER')" />
 		
@@ -84,7 +84,8 @@
 		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/airlineConfiguration/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
-		
+		<security:intercept-url pattern="/airlineConfiguration/manager/delete.do" access="hasRole('MANAGER')" /> 
+
 		<security:intercept-url pattern="/banner/manager/list.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/banner/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/banner/manager/edit.do" access="hasRole('MANAGER')" /> 
@@ -100,33 +101,25 @@
 		<security:intercept-url pattern="/flight/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/delete.do" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/invoice/manager/list.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/invoice/manager/markAsPaid.do" access="hasRole('MANAGER')" />
+		
 		<security:intercept-url pattern="/monthlyBill/manager/list.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/monthlyBill/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/monthlyBill/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/monthlyBill/manager/delete.do" access="hasRole('MANAGER')" />
-		
-		<security:intercept-url pattern="/season/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/season/manager/display.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/season/manager/create.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/season/manager/delete.do" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/offer/manager/list.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/delete.do" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/season/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/season/manager/display.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/season/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/season/manager/delete.do" access="hasRole('MANAGER')" />
 		
 		
-		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/airlineConfiguration/manager/edit.do" access="hasRole('MANAGER')" /> 
-
-		<security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/airlineConfiguration/manager/delete.do" access="hasRole('MANAGER')" /> 
-
-		<security:intercept-url pattern="/airlineConfiguration/manager/create.do" access="hasRole('MANAGER')" /> 
-		
-		<security:intercept-url pattern="/invoice/manager/list.do" access="hasRole('MANAGER')" />
-		<security:intercept-url pattern="/invoice/manager/markAsPaid.do" access="hasRole('MANAGER')" />
 		<!-- ADMIN -->
 		
 		<security:intercept-url pattern="/airline/administrator/list.do" access="hasRole('ADMIN')" />

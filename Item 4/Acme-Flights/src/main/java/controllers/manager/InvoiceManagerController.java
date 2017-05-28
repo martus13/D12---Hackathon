@@ -1,3 +1,4 @@
+
 package controllers.manager;
 
 import java.util.Collection;
@@ -19,64 +20,61 @@ import domain.Manager;
 
 @Controller
 @RequestMapping("/invoice/manager")
-public class InvoiceManagerController extends AbstractController{
-	
-	
+public class InvoiceManagerController extends AbstractController {
+
 	// Services ---------------------------------------------------------------
 
-		@Autowired
-		private BookService			bookService;
+	@Autowired
+	private BookService		bookService;
 
-		@Autowired
-		private ManagerService		managerService;
+	@Autowired
+	private ManagerService	managerService;
 
-		@Autowired
-		private InvoiceService		invoiceService;
+	@Autowired
+	private InvoiceService	invoiceService;
 
 
+	// Constructors -----------------------------------------------------------
 
-		// Constructors -----------------------------------------------------------
+	public InvoiceManagerController() {
+		super();
+	}
 
-		public InvoiceManagerController() {
-			super();
-		}
+	// Listing ----------------------------------------------------------------	
 
-		// Listing ----------------------------------------------------------------	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Manager principal;
+		Collection<Invoice> invoices;
 
-		
-		@RequestMapping(value="/list", method=RequestMethod.GET)
-		public ModelAndView list(){
-			ModelAndView result;
-			Manager principal;
-			Collection<Invoice> invoices;
-			
-			principal=this.managerService.findByPrincipal();
-			invoices=this.invoiceService.findByManager(principal.getId());
-			
-			result= new ModelAndView("invoice/list");
-			result.addObject("invoices",invoices);
-			
-			return result;
-		}
-	
-		//Mark as paid
-		
-		@RequestMapping(value="/markAsPaid", method=RequestMethod.POST, params="paid")
-		public ModelAndView markAsPaid(@RequestParam int invoiceId){
-			ModelAndView result;
-			Manager principal;
-			Collection<Invoice> invoices;
-			Invoice invoice;
-			
-			invoice = this.invoiceService.findOne(invoiceId);
-			principal=this.managerService.findByPrincipal();
-			invoices=this.invoiceService.findByManager(principal.getId());
-			Assert.isTrue(invoices.contains(invoice));
-			
-			this.invoiceService.markAsPaid(invoice);
-			
-			result= new ModelAndView("redirect:list.do");
-			return result;
-		}
-	
+		principal = this.managerService.findByPrincipal();
+		invoices = this.invoiceService.findByManager(principal.getId());
+
+		result = new ModelAndView("invoice/list");
+		result.addObject("invoices", invoices);
+
+		return result;
+	}
+
+	//Mark as paid
+
+	@RequestMapping(value = "/markAsPaid", method = RequestMethod.POST, params = "paid")
+	public ModelAndView markAsPaid(@RequestParam final int invoiceId) {
+		ModelAndView result;
+		Manager principal;
+		Collection<Invoice> invoices;
+		Invoice invoice;
+
+		invoice = this.invoiceService.findOne(invoiceId);
+		principal = this.managerService.findByPrincipal();
+		invoices = this.invoiceService.findByManager(principal.getId());
+		Assert.isTrue(invoices.contains(invoice));
+
+		this.invoiceService.markAsPaid(invoice);
+
+		result = new ModelAndView("redirect:list.do");
+		return result;
+	}
+
 }

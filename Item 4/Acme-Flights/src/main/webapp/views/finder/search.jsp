@@ -28,6 +28,7 @@
 			<spring:message code="finder.option" />&nbsp;<jstl:out value="${i }" />
 		</legend>
 		
+		<jstl:set var="checkBooking" value="${true }" />
 		<display:table name="${flight }" id="row" requestURI="${requestURI }" class="displaytag">
 			
 			<acme:column code="finder.departureDate" property="[0].departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />
@@ -43,7 +44,10 @@
 				<jstl:out value="${row[0].destination.iataCode }" /> - <jstl:out value="${row[0].destination.city }" />
 			</display:column> 
 			
-			<acme:column code="finder.airline" property="[0].airline.name" />
+			<spring:message code="finder.airline" var="airlineHeader" />
+			<display:column title="${airlineHeader}" sortable="true" >
+				<a href="airline/display.do?airlineId=${row[0].airline.id }"><jstl:out value="${row[0].airline.name }" /></a>
+			</display:column> 
 			
 			<spring:message code="finder.price" var="priceHeader" />
 			<display:column title="${priceHeader }" sortable="true" >
@@ -69,26 +73,30 @@
 			</display:column> 
 			<display:column>
 				<jstl:if test="${not empty row[2] }">
-					<b>-<jstl:out value="${row[2].discount } %" /></b>
+					<font size="4" color="black"><b>-<jstl:out value="${row[2].discount } %" /></b></font>
 				</jstl:if>
 				<jstl:if test="${empty row[2] && not empty row[3] }">
-					<b>-<jstl:out value="${row[3].discount } %" /></b>
+					<font size="4" color="black"><b>-<jstl:out value="${row[3].discount } %" /></b></font>
 				</jstl:if>
 			</display:column>
 			
+			<jstl:if test="${row[4]!=0 }">
+				<jstl:set var="checkBooking" value="${false }" />
+			</jstl:if>
+			
 		</display:table>
 		
-		<jstl:choose>
-			<jstl:when test="${finder.returnFlight}">
-				<a href="book/user/create.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }&&destinationId=${flight[1][0].id}&&season2=${flight[1][1].id }&&offerFlight2=${flight[1][2].id }&&offerAirline2=${flight[1][3].id }"><spring:message code="finder.book" /></a>
-			</jstl:when>
-			<jstl:otherwise>
-				<a href="book/user/createWithoutReturn.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }"><spring:message code="finder.book" /></a>
-			</jstl:otherwise>
-		</jstl:choose>
-		<jstl:if test="${finder.returnFlight }">
-			
+		<jstl:if test="${checkBooking }">
+			<jstl:choose>
+				<jstl:when test="${finder.returnFlight}">
+					<a href="book/user/create.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }&&destinationId=${flight[1][0].id}&&season2=${flight[1][1].id }&&offerFlight2=${flight[1][2].id }&&offerAirline2=${flight[1][3].id }"><spring:message code="finder.book" /></a>
+				</jstl:when>
+				<jstl:otherwise>
+					<a href="book/user/createWithoutReturn.do?departureId=${flight[0][0].id}&&season1=${flight[0][1].id }&&offerFlight1=${flight[0][2].id }&&offerAirline1=${flight[0][3].id }"><spring:message code="finder.book" /></a>
+				</jstl:otherwise>
+			</jstl:choose>
 		</jstl:if>
+		
 		
 		<jstl:set var="i" value="${i+1 }" />
 	</fieldset>

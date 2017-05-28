@@ -72,9 +72,8 @@ public class CommentService {
 	public Comment save(final Comment comment) {
 		Assert.notNull(comment);
 
-		Assert.isTrue(comment.getType().equals("Neutral")||comment.getType().equals("Positive")||comment.getType().equals("Negative"));
-		
-		
+		Assert.isTrue(comment.getType().equals("Neutral") || comment.getType().equals("Positive") || comment.getType().equals("Negative"));
+
 		final User principal = this.userService.findByPrincipal();
 		Assert.isTrue(principal.equals(comment.getUser()));
 
@@ -82,14 +81,12 @@ public class CommentService {
 
 		//Recalcular el rating de la aerolína afectada
 		final Airline airline = comment.getAirline();
-		double rating = 0.0;
+		Double rating;
 
-		final Collection<Comment> comentarios = this.commentRepository.findByAirline(airline.getId());
+		rating = this.findRatingCommetsByAirlineId(airline.getId());
 
-		for (final Comment c : comentarios)
-			rating = rating + c.getRating().getAirline();
+		rating = Math.round(rating * 100.0) / 100.0;
 
-		rating = rating / comentarios.size();
 		airline.setRating(rating);
 		this.airlineService.save(airline);
 
@@ -110,5 +107,9 @@ public class CommentService {
 	public Collection<Comment> findByAirlineId(final int airlineId) {
 
 		return this.commentRepository.findByAirline(airlineId);
+	}
+
+	public Double findRatingCommetsByAirlineId(final int airlineId) {
+		return this.commentRepository.findRatingCommetsByAirlineId(airlineId);
 	}
 }
