@@ -29,6 +29,7 @@
 		<value>/views/airport/tiles.xml</value>
 		<value>/views/banner/tiles.xml</value>
 		<value>/views/book/tiles.xml</value>
+		<value>/views/campaign/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
 		<value>/views/creditCard/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>

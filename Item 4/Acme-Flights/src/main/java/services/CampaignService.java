@@ -72,4 +72,19 @@ public class CampaignService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<Campaign> findActiveCampaigns() {
+		Collection<Campaign> campaigns;
+
+		campaigns = this.campaignRepository.findActiveCampaigns();
+
+		return campaigns;
+	}
+
+	public Collection<Campaign> findByAirlineId(final int airlineId) {
+		Collection<Campaign> campaigns;
+
+		campaigns = this.campaignRepository.findByAirlineId(airlineId);
+
+		return campaigns;
+	}
 }
