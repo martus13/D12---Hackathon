@@ -103,4 +103,13 @@ public class BannerService {
 
 		return res;
 	}
+
+	public Collection<Banner> findByCampaignId(final int campaignId) {
+		Collection<Banner> res;
+
+		res = this.bannerRepository.findByCampaignId(campaignId);
+
+		return res;
+	}
+
 }

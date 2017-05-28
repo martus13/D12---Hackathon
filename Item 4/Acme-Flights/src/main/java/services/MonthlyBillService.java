@@ -81,4 +81,11 @@ public class MonthlyBillService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<MonthlyBill> findByCampaignId(final int campaignId) {
+		Collection<MonthlyBill> res;
+
+		res = this.monthlyBillRepository.findByCampaignId(campaignId);
+
+		return res;
+	}
 }

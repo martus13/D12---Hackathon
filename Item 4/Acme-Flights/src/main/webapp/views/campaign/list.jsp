@@ -34,3 +34,4 @@
 	</display:column>
 		
 </display:table>
+<a href="campaign/manager/create.do"><spring:message code="campaign.create" /></a>

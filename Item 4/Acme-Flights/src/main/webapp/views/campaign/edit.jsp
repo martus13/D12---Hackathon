@@ -17,15 +17,17 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="campaign/sponsor/edit.do" modelAttribute="campaign">
+<form:form action="campaign/manager/edit.do" modelAttribute="campaign">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="campaign" />
+	<form:hidden path="airline"/>
+	
 
-	<acme:input code="campaign.startDate" path="returnDate" disabled="${disabledReturnDate }" placeholder="dd/mm/yyyy"/>
-	<acme:input code="campaign.endDate" path="returnDate" disabled="${disabledReturnDate }" placeholder="dd/mm/yyyy"/>
+	<acme:input code="campaign.startDate" path="startDate" disabled="${disabledReturnDate }" placeholder="dd/MM/yyyy HH:mm:ss"/>
+	<acme:input code="campaign.endDate" path="endDate" disabled="${disabledReturnDate }" placeholder="dd/MM/yyyy HH:mm:ss"/>
 	<acme:input code="campaign.maxDisplayed" path="maxDisplayed"/>
+	
 	<acme:submit name="save" code="campaign.save" />
 	<jstl:if test="${campaign.id!=0 }">
 		<acme:submit name="delete" code="campaign.delete" />

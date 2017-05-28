@@ -116,16 +116,18 @@ public class CampaignManagerController extends AbstractController {
 
 	// Delete -----------------------------------------------------
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public ModelAndView delete(@RequestParam final int campaignId) {
 		ModelAndView result;
-		final Campaign campaign = this.campaignService.findOne(campaignId);
+		Campaign campaign;
+
+		campaign = this.campaignService.findOne(campaignId);
 
 		try {
 			this.campaignService.delete(campaign);
 			result = new ModelAndView("redirect:../manager/list.do?");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(campaign, "message.commit.error");
+			result = this.createEditModelAndView(campaign, "campaign.commit.error");
 		}
 
 		return result;

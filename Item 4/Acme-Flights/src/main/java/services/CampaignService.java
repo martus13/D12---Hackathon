@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.CampaignRepository;
+import domain.Banner;
 import domain.Campaign;
+import domain.Manager;
+import domain.MonthlyBill;
 
 @Service
 @Transactional
@@ -19,8 +22,16 @@ public class CampaignService {
 	@Autowired
 	private CampaignRepository	campaignRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private BannerService		bannerService;
+
+	@Autowired
+	private MonthlyBillService	monthlyBillService;
+
+	@Autowired
+	private ManagerService		managerService;
+
 
 	// Constructors -----------------------------------------------------------
 	public CampaignService() {
@@ -48,9 +59,12 @@ public class CampaignService {
 
 	public Campaign create() {
 		Campaign result;
-
+		Manager manager;
 		result = new Campaign();
 
+		manager = this.managerService.findByPrincipal();
+
+		result.setAirline(manager.getAirline());
 		result.setMaxDisplayed(0);
 
 		return result;
@@ -66,6 +80,17 @@ public class CampaignService {
 
 	public void delete(final Campaign campaign) {
 		Assert.notNull(campaign);
+		Collection<Banner> banners;
+		Collection<MonthlyBill> monthlyBills;
+
+		banners = this.bannerService.findByCampaignId(campaign.getId());
+		monthlyBills = this.monthlyBillService.findByCampaignId(campaign.getId());
+
+		for (final Banner b : banners)
+			this.bannerService.delete(b);
+
+		for (final MonthlyBill m : monthlyBills)
+			this.monthlyBillService.delete(m);
 
 		this.campaignRepository.delete(campaign);
 	}
