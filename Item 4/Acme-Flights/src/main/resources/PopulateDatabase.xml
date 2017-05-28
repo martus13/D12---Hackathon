@@ -684,20 +684,50 @@
 	
 	<bean id="banner1" class="domain.Banner">
 		<property name="numDisplayed" value="2" />
-		<property name="picture" value="https://pbs.twimg.com/media/C8Pj_l8XcAAOyjG.jpg" />
+		<property name="picture" value="http://ultimallamada.com/wp-content/uploads/2016/09/Vueling-680x350.jpg" />
 		<property name="campaign" ref="campaign1"/>
 	</bean>
 	
 	<bean id="banner2" class="domain.Banner">
 		<property name="numDisplayed" value="0" />
-		<property name="picture" value="https://pbs.twimg.com/media/C8PjXs6XsAI1qoi.png" />
+		<property name="picture" value="http://jubbaairways.com/images/schedules-banner-img.jpg" />
 		<property name="campaign" ref="campaign2"/>
 	</bean>
 	
 	<bean id="banner3" class="domain.Banner">
 		<property name="numDisplayed" value="3" />
-		<property name="picture" value="https://pbs.twimg.com/media/C8PjEe9XoAAeJC6.jpg" />
+		<property name="picture" value="http://img.net-v.ca/images/en/flights_banner.jpg" />
 		<property name="campaign" ref="campaign3"/>
+	</bean>
+	
+	<bean id="banner4" class="domain.Banner">
+		<property name="numDisplayed" value="2" />
+		<property name="picture" value="http://recursos.anuncios.com/files/781/55.jpg" />
+		<property name="campaign" ref="campaign1"/>
+	</bean>
+	
+	<bean id="banner5" class="domain.Banner">
+		<property name="numDisplayed" value="2" />
+		<property name="picture" value="http://3.bp.blogspot.com/-5ZlFlC5qsFc/VVwgeILPVpI/AAAAAAAAZd8/C80F-tnLh3U/s1600/vueling5.jpg" />
+		<property name="campaign" ref="campaign1"/>
+	</bean>
+	
+	<bean id="banner6" class="domain.Banner">
+		<property name="numDisplayed" value="2" />
+		<property name="picture" value="https://img.blogs.es/zenithmedia/wp-content/uploads/2015/07/vueling1.jpg" />
+		<property name="campaign" ref="campaign1"/>
+	</bean>
+	
+	<bean id="banner7" class="domain.Banner">
+		<property name="numDisplayed" value="2" />
+		<property name="picture" value="http://cdn.airportthai.co.th/uploads/profiles/0000000007/filemanager/images/banner_flight_schedule%281%29.jpg" />
+		<property name="campaign" ref="campaign2"/>
+	</bean>
+	
+	<bean id="banner8" class="domain.Banner">
+		<property name="numDisplayed" value="2" />
+		<property name="picture" value="http://skykingtravel.in/wp-content/uploads/2016/04/flight-booking-banner-1.jpg" />
+		<property name="campaign" ref="campaign2"/>
 	</bean>
 	
 	<!-- MonthlyBill -->
