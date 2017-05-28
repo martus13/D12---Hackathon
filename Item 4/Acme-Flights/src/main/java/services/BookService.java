@@ -320,7 +320,7 @@ public class BookService {
 
 		Collection<Book> result;
 
-		result = this.findNotCancelledWithoutInvoices();
+		result = this.bookRepository.findNotCancelledWithoutInvoices();
 
 		return result;
 	}

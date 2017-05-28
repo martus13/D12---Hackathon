@@ -280,4 +280,9 @@ public class FlightService {
 
 		return result;
 	}
+	
+	public Collection<Flight> findByUserAndAirline(int userId, int airlineId){
+		
+		return this.flightRepository.findByUserAndAirline(userId, airlineId);
+	}
 }

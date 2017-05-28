@@ -7,8 +7,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="invoices" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
+<security:authorize access="hasRole('ADMIN')">
+		<form:form action="invoice/administrator/generateInvoices.do" modelAttribute="invoice">
+			<acme:submit name="generate" code="invoice.generate" />
+		</form:form>
+	</security:authorize>
+
+<display:table name="invoices" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
+	
 	<acme:column code="invoice.totalFee" property="totalFee"/>
 	<spring:message code="invoice.paidMoment" var="paidMomentHeader"/>
 	<display:column title="${paidMomentHeader}" sortable="true" >
@@ -33,3 +40,4 @@
 	</display:column> 
 	</security:authorize>
 </display:table>
+

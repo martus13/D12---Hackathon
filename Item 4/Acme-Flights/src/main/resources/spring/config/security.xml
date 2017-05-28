@@ -69,6 +69,7 @@
 		<security:intercept-url pattern="/creditCard/user/delete.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/comment/user/create.do" access="hasRole('USER')" />
+		<security:intercept-url pattern="/comment/user/edit.do" access="hasRole('USER')" />
 		
 		<security:intercept-url pattern="/finder/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/finder/user/edit.do" access="hasRole('USER')" />
@@ -133,6 +134,7 @@
 		<security:intercept-url pattern="/airport/administrator/edit.do" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/invoice/administrator/list.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/invoice/administrator/generateInvoices.do" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/managerUser/administrator/register.do" access="hasRole('ADMIN')" />
 		

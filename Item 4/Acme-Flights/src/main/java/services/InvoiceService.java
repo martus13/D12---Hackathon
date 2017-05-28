@@ -71,23 +71,16 @@ public class InvoiceService {
 
 		return invoice;
 	}
-
-	public void delete(final Invoice invoice) {
-		Assert.notNull(invoice);
-
-		this.invoiceRepository.delete(invoice);
-	}
 	
 	// Other business methods--------------------------------------------------------
 	
 	public void generateInvoices(){
 		
-
 		Collection<Book> books = this.bookService.findNotCancelledWithoutInvoices();
 		
 		for(Book b:books){
-			
-				this.create(b);
+				Invoice invoice = this.create(b);
+				this.save(invoice);
 		}
 	}
 	

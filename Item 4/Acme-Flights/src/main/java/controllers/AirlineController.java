@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.AirlineConfigurationService;
 import services.AirlineService;
 import services.CommentService;
+import domain.Actor;
 import services.SeasonService;
 import domain.Airline;
 import domain.AirlineConfiguration;
@@ -32,10 +34,14 @@ public class AirlineController extends AbstractController {
 	private CommentService				commentService;
 
 	@Autowired
-	private AirlineConfigurationService	airlineConfigurationService;
+	private ActorService actorService;
+	
+	@Autowired
+	private AirlineConfigurationService airlineConfigurationService;
 
 	@Autowired
 	private SeasonService				seasonService;
+
 
 
 	// Constructors -----------------------------------------------------------
@@ -50,11 +56,25 @@ public class AirlineController extends AbstractController {
 	public ModelAndView display(@RequestParam final int airlineId) {
 		ModelAndView result;
 		Airline airline;
+		AirlineConfiguration configurations;
+		Boolean hasCommented = false;
+		Boolean hasFlight = false;
+		Actor principal;
+		
+	
 		Collection<Comment> comments;
 		AirlineConfiguration airlineConfiguration;
 		Collection<Season> seasons;
 
 		airline = this.airlineService.findOne(airlineId);
+
+		Collection<Comment> comentarios = this.commentService.findByAirlineId(airlineId);
+		configurations= this.airlineConfigurationService.findByAirlineId(airlineId);
+		
+		principal = this.actorService.findByPrincipal();
+		hasCommented = this.commentService.hasCommented(principal.getId(), airline.getId());
+		hasFlight = this.commentService.hasFlight(principal.getId(), airline.getId());
+		
 		comments = this.commentService.findByAirlineId(airlineId);
 		airlineConfiguration = this.airlineConfigurationService.findByAirlineId(airlineId);
 		seasons = this.seasonService.findActiveByAirlineId(airlineId);
@@ -65,7 +85,9 @@ public class AirlineController extends AbstractController {
 		result.addObject("comments", comments);
 		result.addObject("airlineConfiguration", airlineConfiguration);
 		result.addObject("seasons", seasons);
-
+		result.addObject("hasCommented", hasCommented);
+		result.addObject("hasFlight", hasFlight);
+		
 		return result;
 	}
 }

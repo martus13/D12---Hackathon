@@ -34,6 +34,14 @@
 			<b><spring:message code="airline.rating"/>:</b>
 			<jstl:out value="${airline.rating}"/>
 		</li>
+		<display:column>
+			<jstl:if test="${principalUserAccount.id==row.user.userAccount.id}">
+				<form:form action="comment/user/edit.do?commentId=${row.id}" modelAttribute="comment">
+					<acme:submit name="edit" code="airline.edit" />
+				</form:form>
+			</jstl:if>
+		</display:column>
+	
 		
 		<li>
 			<jstl:set var="checkCanComment" value="${true }" />
@@ -76,7 +84,17 @@
 			
 			</display:table>
 		</li>
+</ul>
+	<security:authorize access="hasRole('USER')">
 	
+<<<<<<< .mine
+		<jstl:if test="${hasFlight and !hasCommented}">
+			<a href="comment/user/create.do?airlineId=${airline.id }">
+				<spring:message code="airline.comment" />
+			</a>
+		</jstl:if>
+	</security:authorize>
+=======
 		<li>
 			<b><spring:message code="airline.seasons"/>:</b>
 			<display:table name="seasons" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
@@ -103,6 +121,8 @@
 			</display:table>
 		</li>
 	</ul>
+>>>>>>> .r99
 	
+
 </div>
 	

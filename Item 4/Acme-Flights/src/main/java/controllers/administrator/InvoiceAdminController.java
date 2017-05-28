@@ -41,5 +41,18 @@ public class InvoiceAdminController extends AbstractController {
 
 		return result;
 	}
+		
+		//Generate invoices
+		
+		@RequestMapping(value="/generateInvoices", method=RequestMethod.POST, params="generate")
+		public ModelAndView generateInvoices(){
+			ModelAndView result;
+			
+			this.invoiceService.generateInvoices();
+			
+			result = new ModelAndView("redirect:list.do");
+		
+			return result;
+		}
 
 }

@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +58,22 @@ public class CommentUserController extends AbstractController {
 		return result;
 	}
 
+	//Edit--------------------------------------------------------------
+	
+	@RequestMapping(value="/edit", method=RequestMethod.POST, params="edit")
+		public ModelAndView edit(@RequestParam int commentId){
+			ModelAndView result;
+			Comment comment;
+			
+			comment = this.commentService.findOne(commentId);
+			Assert.notNull(comment);
+			result = this.createEditModelAndView(comment);
+			 
+			return result;
+		}
+	
+	
+	
 	//Save---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
