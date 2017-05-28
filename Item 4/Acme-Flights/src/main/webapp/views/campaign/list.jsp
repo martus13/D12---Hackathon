@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="campaigns" id="row" requestURI="campaign/sponsor/list.do">
+<display:table name="campaigns" id="row" requestURI="campaign/manager/list.do">
 
 	<acme:column code="campaign.startDate" property="startDate" format="{0,date,dd/MM/yyyy}" />
 	<acme:column code="campaign.endDate" property="endDate" format="{0,date,dd/MM/yyyy}" />

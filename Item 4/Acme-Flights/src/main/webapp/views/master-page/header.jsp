@@ -54,6 +54,7 @@
 			<li><a class="fNiv" href="banner/manager/list.do"><spring:message code="master.page.manager.banner" /></a></li>
 			<li><a class="fNiv" href="offer/manager/list.do"><spring:message code="master.page.manager.offer" /></a></li>
 			<li><a class="fNiv" href="campaign/manager/list.do"><spring:message code="master.page.manager.campaign" /></a></li>
+			<li><a class="fNiv" href="monthlyBill/manager/list.do"><spring:message code="master.page.manager.monthlyBill" /></a></li>
 			<li><a class="fNiv"><spring:message code="master.page.manager.configuration" /></a>
 				<ul>
 					<li class="arrow"></li>				

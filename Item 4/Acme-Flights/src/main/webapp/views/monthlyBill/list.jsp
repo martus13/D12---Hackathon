@@ -15,39 +15,17 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="monthlyBills" id="row" requestURI="${requestURI}">
+<display:table name="monthlyBills" id="row" requestURI="${requestURI }" >
 	
-	<spring:message code="monthlyBill.creationMoment" var="creationMomentHeader" />
-	<display:column property="creationMoment" title="${creationMomentHeader}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
-	
-	<spring:message code="monthlyBill.description" var="descriptionHeader" />
-	<display:column property="description" title="${descriptionHeader}" sortable="true" />
-	
-	<spring:message code="monthlyBill.cost" var="costHeader" />
-	<display:column property="cost" title="${costHeader}" sortable="true" />
-	
-	<spring:message code="monthlyBill.paidMoment" var="paidMomentHeader" />
-	<display:column property="paidMoment" title="${paidMomentHeader}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
-	
-	<security:authorize access="hasRole('SPONSOR')">
-		<display:column>
-			<a href="monthlyBill/sponsor/display.do?monthlyBillId=${row.id}" >
-				<spring:message code="monthlyBill.display" />
-			</a>
-		</display:column>
+	<acme:column code="monthlyBill.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy}" />
+	<acme:column code="monthlyBill.paidMoment" property="paidMoment" format="{0,date,dd/MM/yyyy}" />
+	<acme:column code="monthlyBill.totalFee" property="totalFee" />
+	<acme:column code="monthlyBill.description" property="description" />
 		
-		<display:column>
-			<jstl:if test="${empty row.paidMoment}">
-				<form:form action="monthlyBill/sponsor/pay.do?monthlyBillId=${row.id}" modelAttribute="monthlyBill">
-					<input type="submit" name="pay" value="<spring:message code="monthlyBill.pay" />" />
-				</form:form>
-			</jstl:if>
-		</display:column>
-	</security:authorize>
-	
 </display:table>
-<security:authorize access="hasRole('ADMIN')">
+<%-- <security:authorize access="hasRole('ADMIN')">
 	<form:form action="message/administrator/bulkMessage.do" modelAttribute="message">
 		<input type="submit" name="bulkMessage" value="<spring:message code="monthlyBill.message.bulkMessage" />" />
 	</form:form>
@@ -55,3 +33,4 @@
 		<input type="submit" name="monthlyBills" value="<spring:message code="monthlyBill.compute" />" />
 	</form:form>
 </security:authorize>
+ --%>

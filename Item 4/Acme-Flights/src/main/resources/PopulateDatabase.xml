@@ -704,8 +704,8 @@
 	<!-- MonthlyBill -->
 	
 	<bean id="monthlyBill1" class="domain.MonthlyBill">
-		<property name="creationMoment" value="03/02/2017 22:30:23" />
-		<property name="paidMoment" value="03/02/2017 22:30:56" />
+		<property name="creationMoment" value="03/01/2017 22:30:23" />
+		<property name="paidMoment" value="03/01/2017 22:30:56" />
 		<property name="description" value="description monthlyBill 1" />
 		<property name="totalFee" value="18.76" />
 		<property name="airline" ref="airline1" />
@@ -713,8 +713,7 @@
 	</bean>
 	
 	<bean id="monthlyBill2" class="domain.MonthlyBill">
-		<property name="creationMoment" value="04/02/2017 22:30:23" />
-		<property name="paidMoment" value="04/02/2017 22:30:56" />
+		<property name="creationMoment" value="04/01/2017 22:30:23" />
 		<property name="description" value="description monthlyBill 2" />
 		<property name="totalFee" value="18.76" />
 		<property name="airline" ref="airline1" />
@@ -722,12 +721,12 @@
 	</bean>
 	
 	<bean id="monthlyBill3" class="domain.MonthlyBill">
-		<property name="creationMoment" value="05/06/2017 12:20:43" />
-		<property name="paidMoment" value="05/06/2017 12:21:56" />
+		<property name="creationMoment" value="05/01/2017 12:20:43" />
+		<property name="paidMoment" value="05/01/2017 12:21:56" />
 		<property name="description" value="description monthlyBill 2" />
 		<property name="totalFee" value="26.97" />
 		<property name="airline" ref="airline2" />
-		<property name="campaign" ref="campaign1" />
+		<property name="campaign" ref="campaign2" />
 	</bean>
 	
 	<!-- User -->

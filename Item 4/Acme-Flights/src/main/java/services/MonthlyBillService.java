@@ -88,4 +88,12 @@ public class MonthlyBillService {
 
 		return res;
 	}
+
+	public Collection<MonthlyBill> findByAirlineId(final int airlineId) {
+		Collection<MonthlyBill> res;
+
+		res = this.monthlyBillRepository.findByAirlineId(airlineId);
+
+		return res;
+	}
 }

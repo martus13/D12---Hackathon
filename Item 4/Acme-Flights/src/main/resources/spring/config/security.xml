@@ -86,10 +86,20 @@
 		<security:intercept-url pattern="/banner/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/banner/manager/delete.do" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/campaign/manager/list.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/campaign/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/campaign/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/campaign/manager/delete.do" access="hasRole('MANAGER')" />
+		
 		<security:intercept-url pattern="/flight/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/display.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/delete.do" access="hasRole('MANAGER')" />
+		
+		<security:intercept-url pattern="/monthlyBill/manager/list.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/monthlyBill/manager/create.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/monthlyBill/manager/edit.do" access="hasRole('MANAGER')" /> 
+		<security:intercept-url pattern="/monthlyBill/manager/delete.do" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/season/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/season/manager/display.do" access="hasRole('MANAGER')" /> 
@@ -101,10 +111,6 @@
 		<security:intercept-url pattern="/offer/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/delete.do" access="hasRole('MANAGER')" />
 		
-		<security:intercept-url pattern="/campaign/manager/list.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/campaign/manager/create.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/campaign/manager/edit.do" access="hasRole('MANAGER')" /> 
-		<security:intercept-url pattern="/campaign/manager/delete.do" access="hasRole('MANAGER')" />
 		
 		
 		<security:intercept-url pattern="/airlineConfiguration/manager/display.do" access="hasRole('MANAGER')" /> 
