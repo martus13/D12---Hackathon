@@ -27,6 +27,7 @@
 		<value>/views/airline/messages</value>
 		<value>/views/airlineConfiguration/messages</value>
 		<value>/views/airport/messages</value>
+		<value>/views/applies/messages</value>
 		<value>/views/banner/messages</value>
 		<value>/views/book/messages</value>
 		<value>/views/campaign/messages</value>

@@ -201,7 +201,7 @@ public class BookUserController extends AbstractController {
 		} else
 			try {
 				book = this.bookService.save(book);
-				result = new ModelAndView("redirect:listByUser.do");
+				result = new ModelAndView("redirect:../../applies/user/create.do?bookId=" + book.getId());
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);

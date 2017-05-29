@@ -27,6 +27,7 @@
 		<value>/views/airline/tiles.xml</value>
 		<value>/views/airlineConfiguration/tiles.xml</value>
 		<value>/views/airport/tiles.xml</value>
+		<value>/views/applies/tiles.xml</value>
 		<value>/views/banner/tiles.xml</value>
 		<value>/views/book/tiles.xml</value>
 		<value>/views/campaign/tiles.xml</value>

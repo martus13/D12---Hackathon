@@ -38,4 +38,6 @@ public class OffertableService {
 		return this.offertableRepository.findAll();
 	}
 
+	// Other business methods -------------------------------------------------
+
 }

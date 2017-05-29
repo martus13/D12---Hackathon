@@ -20,4 +20,7 @@ public interface AppliesRepository extends JpaRepository<Applies, Integer> {
 
 	@Query("select a from Applies a where a.book.id=?1 and a.pointsCard.id=?2 and a.flight.id=?3")
 	Applies findByBookAndPointsCardId(int bookId, int pointsCardId, int flightId);
+
+	@Query("select a from Applies a where a.book.id=?1 and a.flight.id=?2")
+	Applies findByBookAndPointsCardId(int bookId, int flightId);
 }

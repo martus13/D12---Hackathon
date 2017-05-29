@@ -147,6 +147,7 @@ public class OfferManagerController extends AbstractController {
 		result = new ModelAndView("offer/edit");
 		result.addObject("offer", offer);
 		result.addObject("flights", flights);
+		result.addObject("airline", manager.getAirline());
 		result.addObject("message", message);
 
 		return result;

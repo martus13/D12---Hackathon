@@ -78,6 +78,25 @@ public class AppliesService {
 		return result;
 	}
 
+	public Applies create(final Book book, final Flight flight) {
+		Applies result;
+		User user;
+		PointsCard pointsCard;
+
+		user = this.userService.findByPrincipal();
+		Assert.notNull(user);
+		Assert.isTrue(user.getId() == book.getUser().getId());
+
+		pointsCard = this.pointsCardService.findByUserAndAirlineId(user.getId(), flight.getAirline().getId());
+
+		result = new Applies();
+		result.setBook(book);
+		result.setFlight(flight);
+		result.setPointsCard(pointsCard);
+
+		return result;
+	}
+
 	public Applies save(Applies applies) {
 		Assert.notNull(applies);
 		User user;
@@ -165,6 +184,15 @@ public class AppliesService {
 		Collection<Applies> result;
 
 		result = this.appliesRepository.findByPointsCardId(pointsCardId);
+
+		return result;
+	}
+
+	public Applies findByBookAndPointsCardId(final int bookId, final int flightId) {
+		Assert.isTrue(bookId != 0);
+		Applies result;
+
+		result = this.appliesRepository.findByBookAndPointsCardId(bookId, flightId);
 
 		return result;
 	}

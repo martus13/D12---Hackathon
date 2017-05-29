@@ -57,6 +57,8 @@
 		
 		<!-- USER -->
 		
+		<security:intercept-url pattern="/applies/user/create.do" access="hasRole('USER')" />
+		
 		<security:intercept-url pattern="/book/user/listByUser.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/display.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/book/user/create.do" access="hasRole('USER')" />
