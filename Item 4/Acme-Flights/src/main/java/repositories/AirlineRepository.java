@@ -19,8 +19,8 @@ public interface AirlineRepository extends JpaRepository<Airline, Integer> {
 	Airline findByManager(int managerId);
 
 	// 2. Las aerolíneas con menos reservas
-	@Query("select s.airline.name from Book b join b.seasons s where b.cancelationMoment is null group by s.airline having count (b) <= ALL (select count(b1) from Book b1 join b1.seasons s1 where b1.cancelationMoment is null group by s1.airline)")
-	Collection<String> findAirlineLessBooks();
+	@Query("select s.airline.name, count(b) from Book b join b.seasons s where b.cancelationMoment is null group by s.airline having count (b) <= ALL (select count(b1) from Book b1 join b1.seasons s1 where b1.cancelationMoment is null group by s1.airline)")
+	Collection<Object[]> findAirlineLessBooks();
 
 	//5. Las aerolíneas con más y menos vuelos
 	@Query("select f.airline.name from Flight f where cancelled='false' group by f.airline having count(f) >= ALL ( select count(f1) from Flight f1 where cancelled='false' group by f1.airline)")

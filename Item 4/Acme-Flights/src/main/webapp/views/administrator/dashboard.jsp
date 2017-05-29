@@ -15,5 +15,18 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="f" uri="http://example.com/functions" %>
 
-<p><spring:message code="administrator.action.1" /></p>
+<p><spring:message code="admin.dashboard.airlinesLessBooks" /></p>
+<display:table name="airlineLessBooks" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+	
+	<acme:column code="admin.dashboard.airline" property="[0]" />
+	
+	<acme:column code="admin.dashboard.books" property="[1]" />
+	
+</display:table>
+
+
+
+

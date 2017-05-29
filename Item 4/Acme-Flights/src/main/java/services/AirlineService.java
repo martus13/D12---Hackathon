@@ -124,5 +124,10 @@ public class AirlineService {
 		
 		return this.airlineRepository.findByManager(managerId);
 	}
+	
+	public Collection<Object[]> findAirlineLessBooks(){
+		
+		return this.airlineRepository.findAirlineLessBooks();
+	}
 
 }

@@ -84,6 +84,7 @@
 			</li>
 			<li><a class="fNiv" href="invoice/administrator/list.do"><spring:message code="master.page.invoices" /></a></li>	
 			
+			<li><a class="fNiv" href="administrator/dashboard.do"><spring:message code="master.page.dashboard" /></a></li>	
 			
 			<li><a class="fNiv" href="managerUser/administrator/register.do"><spring:message code="master.page.admin.manager" /></a></li>
 			<li><a class="fNiv" href="configuration/administrator/display.do"><spring:message code="master.page.config" /></a></li>
