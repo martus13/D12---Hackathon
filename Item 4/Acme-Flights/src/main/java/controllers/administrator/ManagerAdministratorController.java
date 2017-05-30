@@ -71,7 +71,7 @@ public class ManagerAdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				System.out.println(oops);
 
-				result = this.createEditModelAndView(managerForm, "manager.commit.error");
+				result = this.createEditModelAndView(managerForm, "profile.commit.error");
 
 			}
 		return result;
@@ -97,7 +97,7 @@ public class ManagerAdministratorController extends AbstractController {
 
 		result = new ModelAndView("profile/registerManager");
 		result.addObject("managerForm", managerForm);
-		result.addObject("registerForm", "managerForm");
+		result.addObject("actorForm", "managerForm");
 		result.addObject("airlines", airlines);
 		result.addObject("isManager", true);
 		result.addObject("requestURI", "managerUser/administrator/register.do");

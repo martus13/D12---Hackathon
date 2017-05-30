@@ -65,7 +65,11 @@ public class AppliesUserController extends AbstractController {
 
 		} else
 			try {
-				applies = this.appliesService.save(applies);
+				if (applies.getUsedPoints() == 0) {
+					applies = this.appliesService.findOne(applies.getId());
+					book = this.appliesService.delete(applies);
+				} else
+					applies = this.appliesService.save(applies);
 				result = new ModelAndView("redirect:create.do?bookId=" + book.getId());
 
 			} catch (final Throwable oops) {

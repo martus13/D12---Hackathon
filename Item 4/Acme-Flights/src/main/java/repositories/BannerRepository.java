@@ -18,4 +18,7 @@ public interface BannerRepository extends JpaRepository<Banner, Integer> {
 	@Query("select b from Banner b where b.campaign.id=?1")
 	Collection<Banner> findByCampaignId(int campaignId);
 
+	@Query("select b from Banner b where b.numDisplayed>0")
+	Collection<Banner> findAllCanBeDisplayed();
+
 }

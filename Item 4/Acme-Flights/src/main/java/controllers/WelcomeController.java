@@ -11,15 +11,30 @@
 package controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BannerService;
+import services.FlightService;
+import domain.Banner;
+
 @Controller
 @RequestMapping("/welcome")
 public class WelcomeController extends AbstractController {
+
+	// Services ---------------------------------------------------------------
+
+	@Autowired
+	private BannerService	bannerService;
+
+	@Autowired
+	private FlightService	flightService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -34,12 +49,19 @@ public class WelcomeController extends AbstractController {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
+		Banner banner;
+		Collection<Object[]> flightsMostBooked;
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 
+		banner = this.bannerService.display();
+		flightsMostBooked = this.flightService.findFlightsOfferAndSeasonNotCancelledMostBook();
+
 		result = new ModelAndView("welcome/index");
 		result.addObject("moment", moment);
+		result.addObject("banner", banner);
+		result.addObject("flightsMostBooked", flightsMostBooked);
 
 		return result;
 	}

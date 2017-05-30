@@ -14,9 +14,11 @@ import org.springframework.util.Assert;
 import repositories.BookRepository;
 import domain.Actor;
 import domain.AirlineConfiguration;
+import domain.Applies;
 import domain.Book;
 import domain.Finder;
 import domain.Flight;
+import domain.Manager;
 import domain.Offer;
 import domain.PointsCard;
 import domain.Season;
@@ -38,6 +40,9 @@ public class BookService {
 	private ActorService				actorService;
 
 	@Autowired
+	private ManagerService				managerService;
+
+	@Autowired
 	private FinderService				finderService;
 
 	@Autowired
@@ -54,6 +59,12 @@ public class BookService {
 
 	@Autowired
 	private CreditCardService			creditCardService;
+
+	@Autowired
+	private AppliesService				appliesService;
+
+	@Autowired
+	private FlightService				flightService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -86,7 +97,6 @@ public class BookService {
 		Finder finder;
 		Calendar calendar;
 		Collection<Flight> flights;
-		Double originalFee;
 		Double totalFee;
 		Season seasonDeparture;
 		Season seasonDestination;
@@ -148,7 +158,6 @@ public class BookService {
 			if (finder.getReturnFlight())
 				destinationPrice = destination.getEconomyPrice();
 		}
-		originalFee = departurePrice + destinationPrice;
 
 		seasons = new ArrayList<Season>();
 		if (seasonDepartureId != null) {
@@ -196,7 +205,7 @@ public class BookService {
 			childrenPrice = departurePrice - (departurePrice * airlineConfiguration.getChildrenDiscount() / 100);
 
 			if (finder.getReturnFlight()) {
-				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(departure.getAirline().getId());
+				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(destination.getAirline().getId());
 				childrenPrice += destinationPrice - (destinationPrice * airlineConfiguration.getChildrenDiscount() / 100);
 			}
 		} else
@@ -217,7 +226,6 @@ public class BookService {
 		result.setIsBusiness(finder.getIsBusiness());
 		result.setSeasons(seasons);
 		result.setOffers(offers);
-		result.setOriginalPrice(originalFee);
 		result.setTotalFee(totalFee);
 
 		return result;
@@ -229,6 +237,7 @@ public class BookService {
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
 		Assert.isTrue(book.getUser().equals(user));
+		Assert.isNull(book.getCancelationMoment());
 
 		if (book.getId() == 0)
 			for (final Flight f : book.getFlights()) {
@@ -264,31 +273,56 @@ public class BookService {
 		Actor actor;
 		AirlineConfiguration airlineConfiguration;
 		Calendar calendar;
+		ArrayList<Flight> flights;
+
+		calendar = Calendar.getInstance();
+		calendar.add(Calendar.MILLISECOND, -10);
+		flights = new ArrayList<Flight>(book.getFlights());
 
 		actor = this.actorService.findByPrincipal();
 		Assert.notNull(actor);
 		Assert.isTrue(this.actorService.checkAuthority(actor, "USER") || this.actorService.checkAuthority(actor, "MANAGER"));
-		if (this.actorService.checkAuthority(actor, "USER"))
+
+		if (this.actorService.checkAuthority(actor, "USER")) {
+			// Comprobamos que el usuario que lo elimina sea el mismo que lo creo
 			Assert.isTrue(book.getUser().getId() == actor.getId());
 
-		calendar = Calendar.getInstance();
-		calendar.add(Calendar.MILLISECOND, -10);
-
-		for (final Flight f : book.getFlights()) {
-			Calendar expirationDate;
-
-			airlineConfiguration = this.airlineConfigurationService.findByAirlineId(f.getAirline().getId());
-
-			expirationDate = Calendar.getInstance();
-			expirationDate.setTime(f.getDepartureDate());
-			expirationDate.add(Calendar.DAY_OF_MONTH, -airlineConfiguration.getMaxCancellationDays());
-
 			// La fecha de cancelacion debe ser menor o igual que la fecha de salida menos los días máximos de cancelacion de la configuracion de la aerolinea
-			Assert.isTrue(calendar.getTime().after(expirationDate.getTime()) || calendar.getTime() == expirationDate.getTime());
+			for (final Flight f : book.getFlights()) {
+				Calendar expirationDate;
+
+				airlineConfiguration = this.airlineConfigurationService.findByAirlineId(f.getAirline().getId());
+
+				expirationDate = Calendar.getInstance();
+				expirationDate.setTime(f.getDepartureDate());
+				expirationDate.add(Calendar.DAY_OF_MONTH, -airlineConfiguration.getMaxCancellationDays());
+
+				Assert.isTrue(calendar.getTime().after(expirationDate.getTime()) || calendar.getTime() == expirationDate.getTime());
+			}
+		} else if (this.actorService.checkAuthority(actor, "MANAGER")) {
+			Manager manager;
+
+			manager = this.managerService.findOne(actor.getId());
+			// comprobamos que el manager pueda eliminar la reserva
+			Assert.notNull(this.findOneWithAirline(book.getId(), manager.getAirline().getId()));
+
+			// eliminamos los applies relacionados
+			for (final Applies a : this.appliesService.findByBookId(book.getId()))
+				book = this.appliesService.delete(a);
+
+		}
+
+		for (final Flight f : flights) {
+			if (book.getIsBusiness())
+				f.setAvailableBusinessSeats(f.getAvailableBusinessSeats() - (book.getPassengersNumber() + book.getChildrenNumber()));
+			else
+				f.setAvailableEconomySeats(f.getAvailableEconomySeats() - (book.getPassengersNumber() + book.getChildrenNumber()));
+			this.flightService.save(f);
 		}
 
 		book.setCancelationMoment(calendar.getTime());
 		book = this.bookRepository.save(book);
+
 	}
 	// Other business methods -------------------------------------------------
 
@@ -329,6 +363,14 @@ public class BookService {
 		Book result;
 
 		result = this.bookRepository.findOverlappingByUserAndDepartureDate(userId, departureDate);
+
+		return result;
+	}
+
+	public Book findOneWithAirline(final int bookId, final int airlineId) {
+		Book result;
+
+		result = this.bookRepository.findOneWithAirline(bookId, airlineId);
 
 		return result;
 	}

@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${requestURI }" modelAttribute="${registerForm }">
+<form:form action="${requestURI }" modelAttribute="${actorForm }">
 	
 	<fieldset>
 		<legend>
@@ -39,6 +39,17 @@
 			
 	</fieldset>
 	<br>
+	
+	<jstl:if test="${!isManager }">
+		<security:authorize access="isAnonymous()">
+			<form:checkbox path="isAgree"/>
+			<form:label path="isAgree">
+				<spring:message code="profile.acceptConditions" />
+				<a href="misc/conditions.do" target="_blank"><spring:message code="profile.conditions" /></a>
+			</form:label>
+			<br />
+		</security:authorize>
+	</jstl:if>
 	
 	<acme:submit name="save" code="profile.save" />
 	<acme:cancel url="welcome/index.do" code="profile.cancel" />

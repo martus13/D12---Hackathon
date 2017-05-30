@@ -233,6 +233,14 @@ public class FlightService {
 		return result;
 	}
 
+	public Collection<Object[]> findFlightsOfferAndSeasonNotCancelledMostBook() {
+		Collection<Object[]> result;
+
+		result = this.flightRepository.findFlightsOfferAndSeasonNotCancelledMostBook();
+
+		return result;
+	}
+
 	public Integer findAvailableBusinessSeatByFlightId(final int flightId) {
 		Integer result;
 
@@ -280,9 +288,9 @@ public class FlightService {
 
 		return result;
 	}
-	
-	public Collection<Flight> findByUserAndAirline(int userId, int airlineId){
-		
+
+	public Collection<Flight> findByUserAndAirline(final int userId, final int airlineId) {
+
 		return this.flightRepository.findByUserAndAirline(userId, airlineId);
 	}
 }

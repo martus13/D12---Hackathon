@@ -135,22 +135,19 @@ public class AppliesService {
 		}
 
 		totalFee = book.getTotalFee();
-		totalFee += applies.getUsedPoints() * (-book.getPassengersNumber() - book.getChildrenNumber() + book.getChildrenNumber() * airlineConfiguration.getChildrenDiscount() / 100);
+		totalFee -= applies.getUsedPoints();
 		book.setTotalFee(totalFee);
 		this.bookService.save(book);
 
 		return applies;
 	}
-	public void delete(final Applies applies) {
+	public Book delete(final Applies applies) {
 		Assert.notNull(applies);
 		User user;
 		PointsCard pointsCard;
 		Book book;
-		Double totalFee;
-		AirlineConfiguration airlineConfiguration;
 
 		book = applies.getBook();
-		airlineConfiguration = this.airlineConfigurationService.findByAirlineId(applies.getFlight().getAirline().getId());
 		pointsCard = applies.getPointsCard();
 
 		user = this.userService.findByPrincipal();
@@ -158,17 +155,18 @@ public class AppliesService {
 		Assert.isTrue(user.getId() == book.getUser().getId() && user.getId() == pointsCard.getUser().getId());
 
 		pointsCard.setPoints(pointsCard.getPoints() + applies.getUsedPoints());
+		book.setTotalFee(book.getTotalFee() + applies.getUsedPoints());
 
 		this.appliesRepository.delete(applies);
 
 		this.pointsCardService.save(pointsCard);
 
-		totalFee = book.getTotalFee();
-		totalFee -= applies.getUsedPoints() * (-book.getPassengersNumber() - book.getChildrenNumber() + book.getChildrenNumber() * airlineConfiguration.getChildrenDiscount() / 100);
-		book.setTotalFee(totalFee);
-		this.bookService.save(book);
+		book = this.bookService.save(book);
+
+		return book;
 
 	}
+
 	// Other business methods -------------------------------------------------
 	public Collection<Applies> findByBookId(final int bookId) {
 		Assert.isTrue(bookId != 0);

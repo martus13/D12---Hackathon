@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,19 +98,47 @@ public class BannerService {
 	}
 
 	public Collection<Banner> findByAirlineId(final int airlineId) {
-		Collection<Banner> res;
+		Collection<Banner> result;
 
-		res = this.bannerRepository.findByAirlineId(airlineId);
+		result = this.bannerRepository.findByAirlineId(airlineId);
 
-		return res;
+		return result;
 	}
 
 	public Collection<Banner> findByCampaignId(final int campaignId) {
-		Collection<Banner> res;
+		Collection<Banner> result;
 
-		res = this.bannerRepository.findByCampaignId(campaignId);
+		result = this.bannerRepository.findByCampaignId(campaignId);
 
-		return res;
+		return result;
+	}
+
+	public Collection<Banner> findAllCanBeDisplayed() {
+		Collection<Banner> result;
+
+		result = this.bannerRepository.findAllCanBeDisplayed();
+
+		return result;
+	}
+
+	public Banner display() {
+		Banner result;
+		ArrayList<Banner> bannersCanBeDisplayed;
+
+		bannersCanBeDisplayed = new ArrayList<Banner>(this.findAllCanBeDisplayed());
+
+		if (bannersCanBeDisplayed.size() > 0) {
+			Random random;
+
+			random = new Random();
+			result = bannersCanBeDisplayed.get(random.nextInt(bannersCanBeDisplayed.size()));
+
+			result.setNumDisplayed(result.getNumDisplayed() - 1);
+			result = this.save(result);
+		} else
+			result = null;
+
+		return result;
 	}
 
 }

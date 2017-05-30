@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
-public class UserForm {
+public class ActorForm {
 
 	private String	username;
 	private String	password;
@@ -19,6 +19,7 @@ public class UserForm {
 	private String	surname;
 	private String	email;
 	private String	contactPhone;
+	private boolean	isAgree;
 
 
 	@Size(min = 5, max = 32)
@@ -97,6 +98,14 @@ public class UserForm {
 
 	public void setContactPhone(final String contactPhone) {
 		this.contactPhone = contactPhone;
+	}
+
+	public boolean getIsAgree() {
+		return this.isAgree;
+	}
+
+	public void setIsAgree(final boolean isAgree) {
+		this.isAgree = isAgree;
 	}
 
 }

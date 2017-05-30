@@ -14,6 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -101,6 +102,43 @@ public class ActorService {
 			result = result || (a.getAuthority().equals(authority));
 
 		return result;
+	}
+
+	public Actor reconstructProfile(final ActorForm actorForm) {
+		Assert.notNull(actorForm);
+
+		Actor actor;
+		String password;
+
+		Assert.isTrue(actorForm.getPassword().equals(actorForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+
+		actor = this.findByPrincipal();
+		password = this.encryptPassword(actorForm.getPassword());
+
+		actor.getUserAccount().setUsername(actorForm.getUsername());
+		actor.getUserAccount().setPassword(password);
+		actor.setName(actorForm.getName());
+		actor.setSurname(actorForm.getSurname());
+		actor.setEmail(actorForm.getEmail());
+		actor.setContactPhone(actorForm.getContactPhone());
+
+		return actor;
+	}
+
+	public ActorForm desreconstructProfile() {
+		ActorForm actorForm;
+		Actor actor;
+
+		actorForm = new ActorForm();
+		actor = this.findByPrincipal();
+
+		actorForm.setUsername(actor.getUserAccount().getUsername());
+		actorForm.setName(actor.getName());
+		actorForm.setSurname(actor.getSurname());
+		actorForm.setEmail(actor.getEmail());
+		actorForm.setContactPhone(actor.getContactPhone());
+
+		return actorForm;
 	}
 
 	public String encryptPassword(String password) {

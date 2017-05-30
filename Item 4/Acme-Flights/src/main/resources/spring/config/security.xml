@@ -47,6 +47,11 @@
 		
 		<security:intercept-url pattern="/user/register.do" access="isAnonymous()" />
 		
+		<!-- isAuthenticated -->
+		
+		<security:intercept-url pattern="/profile/actor/display.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/profile/actor/edit.do" access="isAuthenticated()" />
+		
 		<!-- permitAll -->
 		
 		<security:intercept-url pattern="/airline/display.do" access="permitAll" />

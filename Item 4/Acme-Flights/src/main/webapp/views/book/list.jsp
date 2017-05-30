@@ -57,7 +57,7 @@
 
 <script>
 	 var z=[];
-	 var currencyColumn=4;
+	 var currencyColumn=5;
 	 
 	 function getValorIni(){
 		var iniVal = document.getElementById("row").rows;

@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.actor;
 
 import javax.validation.Valid;
 
@@ -10,46 +10,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.UserService;
-import domain.User;
+import services.ActorService;
+import controllers.AbstractController;
+import domain.Actor;
 import forms.ActorForm;
 
 @Controller
-@RequestMapping("/user")
-public class UserController extends AbstractController {
+@RequestMapping("/profile/actor")
+public class ProfileActorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private UserService	userService;
+	private ActorService	actorService;
 
 
 	// Constructors -----------------------------------------------------------
 
-	public UserController() {
+	public ProfileActorController() {
 		super();
 	}
 
+	// Displaying -------------------------------------------------------------
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display() {
+		ModelAndView result;
+		Actor actor;
+
+		actor = this.actorService.findByPrincipal();
+
+		result = new ModelAndView("profile/display");
+		result.addObject("requestURI", "profile/actor/display.do");
+		result.addObject("actor", actor);
+		result.addObject("isManager", this.actorService.checkAuthority(actor, "MANAGER"));
+
+		return result;
+	}
+
 	// Register ---------------------------------------------------------------		
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public ModelAndView register() {
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
 		ModelAndView result;
 		ActorForm actorForm;
-		User user;
 
-		user = this.userService.create();
-		actorForm = this.userService.desreconstructCreate(user);
+		actorForm = this.actorService.desreconstructProfile();
 
 		result = this.createEditModelAndView(actorForm);
 
 		return result;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
 
 		ModelAndView result;
-		User user;
+		Actor actor;
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
@@ -57,9 +73,9 @@ public class UserController extends AbstractController {
 
 		} else
 			try {
-				user = this.userService.reconstructCreate(actorForm);
-				this.userService.save(user);
-				result = new ModelAndView("redirect:/security/login.do");
+				actor = this.actorService.reconstructProfile(actorForm);
+				this.actorService.save(actor);
+				result = new ModelAndView("redirect:display.do");
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);
@@ -84,11 +100,11 @@ public class UserController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
 		final ModelAndView result;
 
-		result = new ModelAndView("profile/registerUser");
-		result.addObject("userForm", actorForm);
-		result.addObject("actorForm", "userForm");
+		result = new ModelAndView("profile/edit");
+		result.addObject("editProfileForm", actorForm);
+		result.addObject("actorForm", "editProfileForm");
 		result.addObject("isManager", false);
-		result.addObject("requestURI", "user/register.do");
+		result.addObject("requestURI", "profile/actor/edit.do");
 		result.addObject("message", message);
 
 		return result;

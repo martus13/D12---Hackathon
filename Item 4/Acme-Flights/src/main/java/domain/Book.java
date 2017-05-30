@@ -36,7 +36,6 @@ public class Book extends DomainEntity {
 	private Integer	childrenNumber;
 	private Boolean	isBusiness;
 	private Double	totalFee;
-	private Double	originalPrice;
 	private String	comment;
 	private Date	cancelationMoment;
 
@@ -90,16 +89,6 @@ public class Book extends DomainEntity {
 
 	public void setTotalFee(final Double totalFee) {
 		this.totalFee = totalFee;
-	}
-
-	@NotNull
-	@Min(0)
-	public Double getOriginalPrice() {
-		return this.originalPrice;
-	}
-
-	public void setOriginalPrice(final Double originalPrice) {
-		this.originalPrice = originalPrice;
 	}
 
 	public String getComment() {

@@ -13,7 +13,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,7 +35,6 @@ public class Finder extends DomainEntity {
 	private Integer	passengersNumber;
 	private Integer	childrenNumber;
 	private Boolean	returnFlight;
-	private Date	updatedMoment;
 
 
 	@NotNull
@@ -95,18 +93,6 @@ public class Finder extends DomainEntity {
 
 	public void setReturnFlight(final Boolean returnFlight) {
 		this.returnFlight = returnFlight;
-	}
-
-	@NotNull
-	@Past
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	public Date getUpdatedMoment() {
-		return this.updatedMoment;
-	}
-
-	public void setUpdatedMoment(final Date updatedMoment) {
-		this.updatedMoment = updatedMoment;
 	}
 
 

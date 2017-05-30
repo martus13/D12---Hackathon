@@ -21,7 +21,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
 	@Query("select distinct b from Book b join b.flights f where f.airline.id=?1 and f.departureDate>=DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', ?3, '/', ?2), '%Y-%m-%d') and f.departureDate<=DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', ?5, '/', ?4), '%Y-%m-%d')")
 	Collection<Book> findOfNotPassedFlightsBySeason(int airlineId, Integer startDay, Integer startMonth, Integer endDay, Integer endMonth);
-	
 
 	@Query("select b from Book b join b.flights f where b.user.id=?1 and ?2 between f.departureDate and f.arrivalDate")
 	Book findOverlappingByUserAndDepartureDate(int userId, Date departureDate);
@@ -29,4 +28,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	@Query("select b from Book b where b not in (select i.book from Invoice i) and b.cancelationMoment =null and 1<=ALL(select DATEDIFF(current_timestamp, f.arrivalDate) from Book b1 join b1.flights f where b1=b)")
 	Collection<Book> findNotCancelledWithoutInvoices();
 
+	@Query("select distinct b from Book b join b.flights f where b.id=?1 and f.airline.id=?2")
+	Book findOneWithAirline(int bookId, int airlineId);
 }

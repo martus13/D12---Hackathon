@@ -16,7 +16,6 @@
 	<form:hidden path="passengersNumber" />
 	<form:hidden path="childrenNumber" />
 	<form:hidden path="isBusiness" />
-	<form:hidden path="originalPrice" />
 	<form:hidden path="totalFee" />
 	<form:hidden path="cancelationMoment" />
 	<form:hidden path="user" />

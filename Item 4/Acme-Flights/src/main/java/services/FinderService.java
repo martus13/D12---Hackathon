@@ -67,8 +67,10 @@ public class FinderService {
 	public Finder save(Finder finder) {
 		Assert.notNull(finder);
 		Assert.isTrue(!finder.getDeparture().equals(finder.getDestination()));
-		Assert.isTrue(!(finder.getReturnFlight() && finder.getReturnDate() == null));
-		Assert.isTrue(finder.getReturnDate() == null || finder.getReturnDate().after(finder.getDepartureDate()) || finder.getReturnDate() == finder.getDepartureDate());
+		if (finder.getReturnFlight()) {
+			Assert.notNull(finder.getReturnDate());
+			Assert.isTrue(finder.getReturnDate().equals(finder.getDepartureDate()) || finder.getReturnDate().after(finder.getDepartureDate()));
+		}
 
 		Calendar calendar;
 

@@ -414,8 +414,8 @@
 		<property name="title" value="Season 1" />
 		<property name="startDay" value="27" />
 		<property name="startMonth" value="4" />
-		<property name="endDay" value="27" />
-		<property name="endMonth" value="5" />
+		<property name="endDay" value="25" />
+		<property name="endMonth" value="06" />
 		<property name="type" value="increase" />
 		<property name="pricePercentage" value="80.0" />
 		<property name="inactive" value="false" />
@@ -450,8 +450,8 @@
 	
 	<bean id="flight1" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="05/28/2017 11:55" />
-		<property name="arrivalDate" value="05/31/2017 15:30" />
+		<property name="departureDate" value="06/15/2017 11:55" />
+		<property name="arrivalDate" value="06/15/2017 15:30" />
 		<property name="businessPrice" value="60.6" />
 		<property name="economyPrice" value="32.97" />
 		<property name="businessSeats" value="10" />
@@ -466,8 +466,8 @@
 	
 	<bean id="flight2" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="06/05/2017 16:15" />
-		<property name="arrivalDate" value="06/05/2017 19:40" />
+		<property name="departureDate" value="06/22/2017 16:15" />
+		<property name="arrivalDate" value="06/22/2017 19:40" />
 		<property name="businessPrice" value="54.6" />
 		<property name="economyPrice" value="26.05" />
 		<property name="businessSeats" value="10" />
@@ -482,8 +482,8 @@
 	
 	<bean id="flight3" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="06/15/2017 20:05" />
-		<property name="arrivalDate" value="06/15/2017 23:00" />
+		<property name="departureDate" value="09/12/2017 20:05" />
+		<property name="arrivalDate" value="09/12/2017 23:00" />
 		<property name="businessPrice" value="92.8" />
 		<property name="economyPrice" value="49.5" />
 		<property name="businessSeats" value="40" />
@@ -498,8 +498,8 @@
 	
 	<bean id="flight4" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="05/28/2017 11:55" />
-		<property name="arrivalDate" value="05/31/2017 15:30" />
+		<property name="departureDate" value="06/15/2017 11:55" />
+		<property name="arrivalDate" value="06/15/2017 15:30" />
 		<property name="businessPrice" value="100.7" />
 		<property name="economyPrice" value="44.75" />
 		<property name="businessSeats" value="30" />
@@ -514,8 +514,8 @@
 	
 	<bean id="flight5" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="06/05/2017 16:15" />
-		<property name="arrivalDate" value="06/05/2017 19:40" />
+		<property name="departureDate" value="06/22/2017 16:15" />
+		<property name="arrivalDate" value="06/22/2017 19:40" />
 		<property name="businessPrice" value="59.82" />
 		<property name="economyPrice" value="30.99" />
 		<property name="businessSeats" value="24" />
@@ -530,8 +530,8 @@
 	
 	<bean id="flight6" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="05/26/2017 11:35" />
-		<property name="arrivalDate" value="05/26/2017 13:35" />
+		<property name="departureDate" value="05/23/2017 11:35" />
+		<property name="arrivalDate" value="05/23/2017 13:35" />
 		<property name="businessPrice" value="70.0" />
 		<property name="economyPrice" value="20.5" />
 		<property name="businessSeats" value="20" />
@@ -546,8 +546,8 @@
 	
 	<bean id="flight7" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="05/29/2017 22:35" />
-		<property name="arrivalDate" value="05/30/2017 0:30" />
+		<property name="departureDate" value="06/26/2017 22:35" />
+		<property name="arrivalDate" value="06/27/2017 0:30" />
 		<property name="businessPrice" value="69.9" />
 		<property name="economyPrice" value="44.98" />
 		<property name="businessSeats" value="20" />
@@ -592,11 +592,27 @@
 		<property name="destination" ref="airport4" />
 	</bean>
 	
+	<bean id="flight10" class="domain.Flight">
+		<property name="creationMoment" value="01/01/2017 22:15" />
+		<property name="departureDate" value="06/18/2017 11:55" />
+		<property name="arrivalDate" value="06/18/2017 15:30" />
+		<property name="businessPrice" value="60.6" />
+		<property name="economyPrice" value="32.97" />
+		<property name="businessSeats" value="10" />
+		<property name="economySeats" value="100" />
+		<property name="availableBusinessSeats" value="10" />
+		<property name="availableEconomySeats" value="100" />
+		<property name="cancelled" value="false" />
+		<property name="airline" ref="airline1" />
+		<property name="departure" ref="airport1" />
+		<property name="destination" ref="airport3" />
+	</bean>
+	
 	<!-- Offer -->
 	
 	<bean id="offer1" class="domain.Offer">
-		<property name="startMoment" value="01/01/2017 00:01"/>
-		<property name="endMoment" value="01/09/2017 23:59"/>
+		<property name="startMoment" value="05/15/2017 00:01"/>
+		<property name="endMoment" value="05/23/2017 23:59"/>
 		<property name="discount" value="2.5"/>
 		<property name="offertables">
 			<list>
@@ -606,8 +622,8 @@
 	</bean>
 	
 	<bean id="offer2" class="domain.Offer">
-		<property name="startMoment" value="05/18/2017 00:01"/>
-		<property name="endMoment" value="06/18/2017 23:59"/>
+		<property name="startMoment" value="05/25/2017 00:01"/>
+		<property name="endMoment" value="06/10/2017 23:59"/>
 		<property name="discount" value="5.0"/>
 		<property name="offertables">
 			<list>
@@ -830,25 +846,23 @@
 	<!-- Finder -->
 	
 	<bean id="finder1" class="domain.Finder">
-		<property name="departureDate" value="05/28/2017" />
+		<property name="departureDate" value="06/15/2017" />
 		<property name="isBusiness" value="false" />
 		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="0" />
 		<property name="returnFlight" value="true" />
-		<property name="returnDate" value="06/05/2017" />
-		<property name="updatedMoment" value="05/22/2017 21:37:00" />
+		<property name="returnDate" value="06/22/2017" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport3" />
 		<property name="user" ref="user1" />
 	</bean>
 	
 	<bean id="finder2" class="domain.Finder">
-		<property name="departureDate" value="05/29/2017" />
+		<property name="departureDate" value="06/26/2017" />
 		<property name="isBusiness" value="false" />
 		<property name="passengersNumber" value="1" />
 		<property name="childrenNumber" value="0" />
 		<property name="returnFlight" value="false" />
-		<property name="updatedMoment" value="05/22/2017 21:37:00" />
 		<property name="departure" ref="airport2" />
 		<property name="destination" ref="airport1" />
 		<property name="user" ref="user2" />
@@ -860,7 +874,6 @@
 		<property name="passengersNumber" value="1" />
 		<property name="childrenNumber" value="0" />
 		<property name="returnFlight" value="false" />
-		<property name="updatedMoment" value="05/22/2017 21:37:00" />
 		<property name="departure" ref="airport1" />
 		<property name="destination" ref="airport4" />
 		<property name="user" ref="user3" />
@@ -913,12 +926,11 @@
 	<!-- Book -->
 	
 	<bean id="book1" class="domain.Book">
-		<property name="creationMoment" value="04/11/2017 12:30:00" />
+		<property name="creationMoment" value="05/11/2017 12:30:00" />
 		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
 		<property name="totalFee" value="191.68" />
-		<property name="originalPrice" value="158.88" />
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
@@ -942,8 +954,7 @@
 		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="1" />
 		<property name="isBusiness" value="true" />
-		<property name="totalFee" value="272.022" />
-		<property name="originalPrice" value="420.292" />
+		<property name="totalFee" value="270.47" />
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
@@ -963,12 +974,11 @@
 	</bean>
 	
 	<bean id="book3" class="domain.Book">
-		<property name="creationMoment" value="01/02/2017 10:34:00" />
+		<property name="creationMoment" value="05/20/2017 10:34:00" />
 		<property name="passengersNumber" value="3" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="237.25" />
-		<property name="originalPrice" value="233.04" />
+		<property name="totalFee" value="223.15" />
 		<property name="user" ref="user2" />
 		<property name="flights">
 			<list>
@@ -995,8 +1005,7 @@
 		<property name="passengersNumber" value="3" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="172.908" />
-		<property name="originalPrice" value="274.14" />
+		<property name="totalFee" value="172.91" />
 		<property name="cancelationMoment" value="08/02/2016 10:34:00" />
 		<property name="user" ref="user2" />
 		<property name="flights">
@@ -1017,12 +1026,11 @@
 	</bean>
 	
 	<bean id="book5" class="domain.Book">
-		<property name="creationMoment" value="03/02/2017 22:34:10" />
+		<property name="creationMoment" value="05/28/2017 22:34:10" />
 		<property name="passengersNumber" value="4" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
 		<property name="totalFee" value="219.7" />
-		<property name="originalPrice" value="215" />
 		<property name="user" ref="user2" />
 		<property name="flights">
 			<list>

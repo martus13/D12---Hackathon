@@ -24,7 +24,7 @@ public class Applies extends DomainEntity {
 
 
 	@NotNull
-	@Min(1)
+	@Min(0)
 	public Integer getUsedPoints() {
 		return this.usedPoints;
 	}

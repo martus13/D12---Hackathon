@@ -14,7 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.User;
-import forms.UserForm;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -110,39 +110,40 @@ public class UserService {
 		return result;
 	}
 
-	public User reconstructCreate(final UserForm userForm) {
-		Assert.notNull(userForm);
+	public User reconstructCreate(final ActorForm actorForm) {
+		Assert.notNull(actorForm);
 
 		User user;
 		String password;
 
-		Assert.isTrue(userForm.getPassword().equals(userForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+		Assert.isTrue(actorForm.getPassword().equals(actorForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
+		Assert.isTrue(actorForm.getIsAgree());
 
 		user = this.create();
-		password = this.encryptPassword(userForm.getPassword());
+		password = this.encryptPassword(actorForm.getPassword());
 
-		user.getUserAccount().setUsername(userForm.getUsername());
+		user.getUserAccount().setUsername(actorForm.getUsername());
 		user.getUserAccount().setPassword(password);
-		user.setName(userForm.getName());
-		user.setSurname(userForm.getSurname());
-		user.setEmail(userForm.getEmail());
-		user.setContactPhone(userForm.getContactPhone());
+		user.setName(actorForm.getName());
+		user.setSurname(actorForm.getSurname());
+		user.setEmail(actorForm.getEmail());
+		user.setContactPhone(actorForm.getContactPhone());
 
 		return user;
 	}
 
-	public UserForm desreconstructCreate(final User user) {
-		UserForm userForm;
+	public ActorForm desreconstructCreate(final User user) {
+		ActorForm actorForm;
 
-		userForm = new UserForm();
+		actorForm = new ActorForm();
 
-		userForm.setUsername(user.getUserAccount().getUsername());
-		userForm.setName(user.getName());
-		userForm.setSurname(user.getSurname());
-		userForm.setEmail(user.getEmail());
-		userForm.setContactPhone(user.getContactPhone());
+		actorForm.setUsername(user.getUserAccount().getUsername());
+		actorForm.setName(user.getName());
+		actorForm.setSurname(user.getSurname());
+		actorForm.setEmail(user.getEmail());
+		actorForm.setContactPhone(user.getContactPhone());
 
-		return userForm;
+		return actorForm;
 	}
 
 	public String encryptPassword(String password) {
