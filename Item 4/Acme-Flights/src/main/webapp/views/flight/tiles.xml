@@ -26,4 +26,9 @@
 		<put-attribute name="body" value="/views/flight/create.jsp" />
 	</definition>
 	
+	<definition name="flight/display" extends="master.page">	
+		<put-attribute name="title" value="Flight: Display" />
+		<put-attribute name="body" value="/views/flight/display.jsp" />
+	</definition>
+	
 </tiles-definitions>

@@ -51,23 +51,26 @@
 				<acme:column code="comment.rating.comfort" property="rating.comfort"/>
 				<acme:column code="comment.sender" property="user.name"/>
 				
-				<display:column>
-					<jstl:if test="${principalUserAccount.id==row.user.userAccount.id}">
-					<form:form action="comment/user/edit.do?commentId=${row.id}" modelAttribute="comment">
-						<acme:submit name="edit" code="airline.edit" />
-					</form:form>
+				<security:authorize access="hasRole('USER')">
+					<display:column>
+						<jstl:if test="${principalUserAccount.id==row.user.userAccount.id}">
+							<form:form action="comment/user/edit.do?commentId=${row.id}" modelAttribute="comment">
+								<acme:submit name="edit" code="airline.edit" />
+							</form:form>
+						</jstl:if>
+					</display:column>
+				</security:authorize>
+			</display:table>
+		 
+			<security:authorize access="hasRole('USER')">
+				<jstl:if test="${hasFlight and !hasCommented}">
+					<a href="comment/user/create.do?airlineId=${airline.id }">
+						<spring:message code="airline.comment" />
+					</a>
 				</jstl:if>
-		</display:column>
-		 </display:table>
-		 
-	<security:authorize access="hasRole('USER')">
-		<jstl:if test="${hasFlight and !hasCommented}">
-			<a href="comment/user/create.do?airlineId=${airline.id }">
-				<spring:message code="airline.comment" />
-			</a>
-		</jstl:if>
-	</security:authorize>
-		 
+			</security:authorize>
+		</li>
+		
 		<li>
 			<b><spring:message code="airline.configuration"/>:</b>
 			<display:table name="airlineConfiguration" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
@@ -107,8 +110,6 @@
 			</display:table>
 		</li>
 	</ul>
-	
-
 
 </div>
 	

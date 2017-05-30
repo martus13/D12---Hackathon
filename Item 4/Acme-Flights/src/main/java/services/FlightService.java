@@ -218,7 +218,7 @@ public class FlightService {
 		int flightDepartureId;
 		int flightDestinationId;
 
-		arrayFlights = (ArrayList<Flight>) flights;
+		arrayFlights = new ArrayList<Flight>(flights);
 		flightDepartureId = 0;
 		flightDestinationId = 0;
 
@@ -232,7 +232,6 @@ public class FlightService {
 
 		return result;
 	}
-
 	public Collection<Object[]> findFlightsOfferAndSeasonNotCancelledMostBook() {
 		Collection<Object[]> result;
 

@@ -108,6 +108,7 @@
 		<security:intercept-url pattern="/flight/manager/display.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/flight/manager/delete.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/flight/manager/edit.do" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/invoice/manager/list.do" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/invoice/manager/markAsPaid.do" access="hasRole('MANAGER')" />

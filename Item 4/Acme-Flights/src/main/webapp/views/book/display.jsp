@@ -57,20 +57,58 @@
 		
 		<li>
 			<b><spring:message code="book.flights"/>:</b>
-			<display:table name="${book.flights }" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+			<display:table name="${flights }" id="row" requestURI="${requestURI }" class="displaytag">
+			
+				<acme:column code="finder.departureDate" property="[0].departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />
+				<acme:column code="finder.arrivalDate" property="[0].arrivalDate" format="{0,date,dd/MM/yyyy HH:mm}" />
 				
-				<acme:column code="book.flight.departureDate" property="departureDate" format="{0,date,dd/MM/yyyy}" />
-				<acme:column code="book.flight.arrivalDate" property="arrivalDate" format="{0,date,dd/MM/yyyy}" />
-				
-				<spring:message code="book.flight.departure" var="departureHeader" />
+				<spring:message code="finder.departure" var="departureHeader" />
 				<display:column title="${departureHeader}" sortable="true" >
-					<jstl:out value="${row.departure.iataCode }" /> - <jstl:out value="${row.departure.city }" />
+					<jstl:out value="${row[0].departure.iataCode }" /> - <jstl:out value="${row[0].departure.city }" />
 				</display:column> 
 				
-				<spring:message code="book.flight.destination" var="destinationHeader" />
+				<spring:message code="finder.destination" var="destinationHeader" />
 				<display:column title="${destinationHeader}" sortable="true" >
-					<jstl:out value="${row.destination.iataCode }" /> - <jstl:out value="${row.destination.city }" />
+					<jstl:out value="${row[0].destination.iataCode }" /> - <jstl:out value="${row[0].destination.city }" />
 				</display:column> 
+				
+				<spring:message code="finder.airline" var="airlineHeader" />
+				<display:column title="${airlineHeader}" sortable="true" >
+					<a href="airline/display.do?airlineId=${row[0].airline.id }"><jstl:out value="${row[0].airline.name }" /></a>
+				</display:column> 
+				
+				<spring:message code="finder.price" var="priceHeader" />
+				<display:column title="${priceHeader }" sortable="true" >
+					<jstl:choose>
+						<jstl:when test="${book.isBusiness}">
+							<jstl:set var="flightPrice" value="${row[0].businessPrice }" />
+						</jstl:when>
+						<jstl:otherwise>
+							<jstl:set var="flightPrice" value="${row[0].economyPrice }" />
+						</jstl:otherwise>
+					</jstl:choose>
+					<jstl:if test="${not empty row[1]}">
+						<jstl:choose>
+							<jstl:when test="${row[1].type=='increase' }">
+								<jstl:set var="flightPrice" value="${flightPrice+(flightPrice*row[1].pricePercentage/100) }" />
+							</jstl:when>
+							<jstl:otherwise>
+								<jstl:set var="flightPrice" value="${flightPrice-(flightPrice*row[1].pricePercentage/100) }" />
+							</jstl:otherwise>
+						</jstl:choose>
+					</jstl:if>
+					<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${flightPrice}" />
+				</display:column> 
+				
+				<display:column>
+					<jstl:if test="${not empty row[2] }">
+						<font size="4" color="black"><b>-<jstl:out value="${row[2].discount } %" /></b></font>
+					</jstl:if>
+					<jstl:if test="${empty row[2] && not empty row[3] }">
+						<font size="4" color="black"><b>-<jstl:out value="${row[3].discount } %" /></b></font>
+					</jstl:if>
+				</display:column>
+				
 			</display:table>
 		</li>
 		

@@ -74,4 +74,28 @@ public class LoginService implements UserDetailsService {
 		return result;
 	}
 
+	public static Boolean checkiPrincipal() {
+		Boolean result;
+		SecurityContext context;
+		Authentication authentication;
+		Object principal;
+
+		// If the asserts in this method fail, then you're
+		// likely to have your Tomcat's working directory
+		// corrupt. Please, clear your browser's cache, stop
+		// Tomcat, update your Maven's project configuration,
+		// clean your project, clean Tomcat's working directory,
+		// republish your project, and start it over.
+
+		context = SecurityContextHolder.getContext();
+		Assert.notNull(context);
+		authentication = context.getAuthentication();
+		Assert.notNull(authentication);
+		principal = authentication.getPrincipal();
+
+		result = principal instanceof UserAccount;
+
+		return result;
+	}
+
 }

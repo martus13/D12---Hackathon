@@ -51,5 +51,19 @@
 		</li>
 		
 	</ul>
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<jstl:if test="${flight.airline.id==manager.airline.id }">
+			<jstl:if test="${hasBooks }">
+				<a href="flight/manager/edit.do?flightId=${flight.id}"><spring:message code="flight.edit" /></a>
+			</jstl:if>
+			<jstl:set var="now" value="<%=new java.util.Date()%>" />
+			<jstl:if test="${flight.departureDate gt now}">
+				<form:form action="flight/manager/delete.do?flightId=${flight.id}" modelAttribute="flight">
+					<acme:submit name="delete" code="flight.delete" />
+				</form:form>
+			</jstl:if>
+		</jstl:if>
+	</security:authorize>
 </div>
 	

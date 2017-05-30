@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AirportService;
+import services.BookService;
 import services.FlightService;
 import services.ManagerService;
 import controllers.AbstractController;
 import domain.Airport;
+import domain.Book;
 import domain.Flight;
 import domain.Manager;
 
@@ -36,6 +38,9 @@ public class FlightManagerController extends AbstractController {
 
 	@Autowired
 	private AirportService	airportService;
+
+	@Autowired
+	private BookService		bookService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -70,12 +75,18 @@ public class FlightManagerController extends AbstractController {
 	public ModelAndView display(@RequestParam final int flightId) {
 		ModelAndView result;
 		Flight flight;
+		Manager manager;
+		Collection<Book> books;
 
 		flight = this.flightService.findOne(flightId);
+		manager = this.managerService.findByPrincipal();
+		books = this.bookService.findNotCancelledByFlightId(flightId);
 
 		result = new ModelAndView("flight/display");
 		result.addObject("requestURI", "flight/manager/display.do?flightId=" + flightId);
 		result.addObject("flight", flight);
+		result.addObject("manager", manager);
+		result.addObject("hasBooks", books.isEmpty());
 
 		return result;
 	}

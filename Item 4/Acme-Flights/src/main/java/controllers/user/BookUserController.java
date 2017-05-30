@@ -83,16 +83,19 @@ public class BookUserController extends AbstractController {
 		ModelAndView result;
 		Book book;
 		User user;
+		Collection<Object[]> flights;
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
 
 		book = this.bookService.findOne(bookId);
 		Assert.isTrue(book.getUser().equals(user));
+		flights = this.flightService.findFlightsOfferAndSeasonByFlightsId(book.getFlights());
 
 		result = new ModelAndView("book/display");
 		result.addObject("requestURI", "book/user/display.do?bookId=" + bookId);
 		result.addObject("book", book);
+		result.addObject("flights", flights);
 
 		return result;
 	}
