@@ -50,7 +50,7 @@
 		
 		<li>
 			<b><spring:message code="book.totalFee"/>:</b>
-			<jstl:out value="${book.totalFee}"/>
+			<font id="totalFee"><jstl:out value="${book.totalFee}"/></font>
 		</li>
 		
 		<li>
@@ -125,14 +125,18 @@
 
 <script>
 	 var z=[];
+	 var w;
 	 var currencyColumn=5;
 	 
 	 function getValorIni(){
 		var iniVal = document.getElementById("row").rows;
+		var iniVal2 = document.getElementById("totalFee");
 		var j;
 		
+		w = iniVal2.innerHTML.replace(',', '.');
+		
 		for(j=0;j<iniVal.length;j++){
-			z[j] = iniVal[j+1].cells[currencyColumn].innerHTML;
+			z[j] = iniVal[j+1].cells[currencyColumn].innerHTML.replace(',', '.');
 		}
 		
 	}
@@ -140,7 +144,12 @@
 	
 	function selectRate(value1EUR){
 		var x = document.getElementById("row").rows;
+		var vTotalFee = document.getElementById("totalFee");
 		var i;
+		
+		var v1 = Math.round(w*value1EUR * 100.0) / 100.0;
+		
+		vTotalFee.innerHTML = v1;
 		
 		for(i=0; i<z.length; i++){
 			var y = z[i];

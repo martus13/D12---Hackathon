@@ -1,6 +1,8 @@
 
 package controllers.administrator;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationService;
+import services.ExchangeRateService;
 import controllers.AbstractController;
 import domain.Configuration;
+import domain.ExchangeRate;
 
 @Controller
 @RequestMapping("/configuration/administrator")
@@ -24,6 +28,9 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 	@Autowired
 	private ConfigurationService	configurationService;
+
+	@Autowired
+	private ExchangeRateService		exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -37,10 +44,13 @@ public class ConfigurationAdministratorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
 		ModelAndView result;
+		Collection<ExchangeRate> exchangeRates;
 		final Configuration configuration = this.configurationService.findConfiguration();
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("configuration/display");
 		result.addObject("configuration", configuration);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}
