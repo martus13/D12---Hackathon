@@ -111,4 +111,9 @@ public class AirportService {
 
 		return result;
 	}
+	
+	public Collection<Object[]> findLessVisitedCities() {
+		
+		return this.airportRepository.findLessVisitedCities();
+	}
 }

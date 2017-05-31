@@ -129,5 +129,42 @@ public class AirlineService {
 		
 		return this.airlineRepository.findAirlineLessBooks();
 	}
+	
+	public Collection<Object[]> findAirlineMostBooks(){
+		return this.airlineRepository.findAirlineMostBooks();
+	}
+	
+	public Collection<Object[]> findAirlineMostFlights(){
+		
+		return this.airlineRepository.findAirlineMostFlights();
+	}
+	
+	public Collection<Object[]> findAirlineLessFlights(){
+		
+		return this.airlineRepository.findAirlineLessFlights();
+	}
+	
+	public Collection<Object[]> findAirlinesOrderByNumberOfBills(){
+		return this.airlineRepository.findAirlinesOrderByNumberOfBills();
+	}
 
+	public Collection<Object[]> findPercentagePaidBills(){
+		return this.airlineRepository.findPercentagePaidBills();
+	}
+	
+	public Collection<Object[]> findMostPercentageDiscount(){
+		return this.airlineRepository.findMostPercentageDiscount();
+	}
+	
+	public Collection<Object[]> findLessPercentageDiscount(){
+		return this.airlineRepository.findLessPercentageDiscount();
+	
+	}
+	 public Collection<Object[]> findPositiveComments(){
+		 return this.airlineRepository.findPositiveComments();
+	 }
+	 
+	 public Collection<Object[]> findMinMaxAvgServiceRatingByAirline(){
+		 return this.airlineRepository.findMinMaxAvgServiceRatingByAirline();
+	 }
 }

@@ -54,8 +54,12 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
 
 	// 9. El porcentaje de vuelos ofertados por cada aerolínea en las temporadas altas.
 	@Query("select a, 100*(select count(distinct f) from Flight f join f.airline.seasons s where s.type='increase' and f.departureDate>=DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.startMonth, '/', s.startDay), '%Y-%m-%d') and f.departureDate<=DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.endMonth, '/', s.endDay), '%Y-%m-%d') and f.airline=a)/(select count(f1) from Flight f1 where f1.airline=a) from Airline a")
-	Collection<Object[]> findPercentFlightsPerAirline();
+	Collection<Object[]> findPercentFlightsPerAirlineHigh();
 
+	// 10. El porcentaje de vuelos ofertados por cada aerolínea en las temporadas bajas.
+	@Query("select a.name, 100*(select count(distinct f) from Flight f join f.airline.seasons s where s.type='discount' and f.departureDate>=DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.startMonth, '/', s.startDay), '%Y-%m-%d') and f.departureDate<=DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.endMonth, '/', s.endDay), '%Y-%m-%d') and f.airline=a)/(select count(f1) from Flight f1 where f1.airline=a) from Airline a")
+	Collection<Object[]> findPercentFlightsPerAirlineLow();
+	
 	@Query("select f from Book b join b.flights f where b.user.id=?1 and f.airline.id=?2")
 	Collection<Flight> findByUserAndAirline(int userId, int airlineId);
 }

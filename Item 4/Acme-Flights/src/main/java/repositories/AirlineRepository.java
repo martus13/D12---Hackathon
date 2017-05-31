@@ -18,21 +18,29 @@ public interface AirlineRepository extends JpaRepository<Airline, Integer> {
 	@Query("select m.airline from Manager m where m.id=?1")
 	Airline findByManager(int managerId);
 
+	//1. Las aeorlíneas con más reservas 
+	@Query("select f.airline.name, count(b) from Book b join b.flights f where b.cancelationMoment is null group by f.airline having count(b)>=ALL(select count(b1) from Book b1 join b1.flights f1 where b1.cancelationMoment is null group by f1.airline)")
+	Collection<Object[]> findAirlineMostBooks();
+	
 	// 2. Las aerolíneas con menos reservas
 	@Query("select s.airline.name, count(b) from Book b join b.seasons s where b.cancelationMoment is null group by s.airline having count (b) <= ALL (select count(b1) from Book b1 join b1.seasons s1 where b1.cancelationMoment is null group by s1.airline)")
 	Collection<Object[]> findAirlineLessBooks();
 
 	//5. Las aerolíneas con más y menos vuelos
-	@Query("select f.airline.name from Flight f where cancelled='false' group by f.airline having count(f) >= ALL ( select count(f1) from Flight f1 where cancelled='false' group by f1.airline)")
-	Collection<String> findAirlineMostFlights();
+	@Query("select f.airline.name, count(f) from Flight f where cancelled='false' group by f.airline having count(f) >= ALL ( select count(f1) from Flight f1 where cancelled='false' group by f1.airline)")
+	Collection<Object[]> findAirlineMostFlights();
 
-	@Query("select f.airline.name from Flight f where cancelled='false' group by f.airline having count(f) <= ALL ( select count(f1) from Flight f1 where cancelled='false' group by f1.airline)")
-	Collection<String> findAirlineLessFlights();
-
+	@Query("select f.airline.name, count(f) from Flight f where cancelled='false' group by f.airline having count(f) <= ALL ( select count(f1) from Flight f1 where cancelled='false' group by f1.airline)")
+	Collection<Object[]> findAirlineLessFlights();
+	
+	//7. Aerolíneas ordenadas por facturas 
+	@Query("select a, (select count(m) from MonthlyBill m where m.airline=a) as numFacturas from Airline a order by numFacturas")
+	Collection<Object[]> findAirlinesOrderByNumberOfBills();
+	
 	//8. El porcentaje de facturas pagadas por cada aerolínea 
 	@Query("select mb.airline.name, 100.0*count(mb)/(select count(mb1) from MonthlyBill mb1 where mb1.airline=mb.airline)  from MonthlyBill mb where paidMoment is not null group by mb.airline")
 	Collection<Object[]> findPercentagePaidBills();
-
+	
 	// 11. Las aerolíneas que han realizado el mayor y menor porcentaje de descuento en sus vuelos
 	@Query("select o2, max(o.discount) from Offer o join o.offertables o2 where o2 in (select a from Airline a) group by o2")
 	Collection<Object[]> findMostPercentageDiscount();
@@ -41,9 +49,13 @@ public interface AirlineRepository extends JpaRepository<Airline, Integer> {
 	Collection<Object[]> findLessPercentageDiscount();
 
 	// 12. Una lista de aerolíneas con la media, el mínimo y el máximo número de las puntuaciones generales otorgadas por los usuarios en sus comentarios
-	@Query("select c.airline, min(c.rating.airline), max(c.rating.airline), avg(c.rating.airline) from Comment c group by c.airline")
+	@Query("select c.airline.name, min(c.rating.airline), max(c.rating.airline), avg(c.rating.airline) from Comment c group by c.airline")
 	Collection<Object[]> findMinMaxAvgRatingByAirline();
 
+	// 13. El porcentaje de comentarios positivos por cada aerolinea
+	@Query("select a.name, 100*(select count(c) from Comment c where c.airline=a and c.type='Positive')/(select count(c1) from Comment c1 where c1.airline=a) from Airline a")
+	Collection<Object[]> findPositiveComments();
+	
 	// 14. El mínimo, el máximo y la media de las valoraciones proporcionadas por los usuarios al servicio ofrecido por cada aerolínea
 	@Query("select c.airline.name, min(c.rating.service),max(c.rating.service),avg(c.rating.service) from Comment c group by c.airline")
 	Collection<Object[]> findMinMaxAvgServiceRatingByAirline();

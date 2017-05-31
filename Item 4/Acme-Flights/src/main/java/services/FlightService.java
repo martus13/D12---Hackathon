@@ -280,14 +280,19 @@ public class FlightService {
 		return result;
 	}
 
-	public Collection<Object[]> findPercentFlightsPerAirline() {
+	public Collection<Object[]> findPercentFlightsPerAirlineHigh() {
 		Collection<Object[]> result;
 
-		result = this.flightRepository.findPercentFlightsPerAirline();
+		result = this.flightRepository.findPercentFlightsPerAirlineHigh();
 
 		return result;
 	}
 
+	public 	Collection<Object[]> findPercentFlightsPerAirlineLow(){
+		
+		return this.flightRepository.findPercentFlightsPerAirlineLow();
+	}
+	
 	public Collection<Flight> findByUserAndAirline(final int userId, final int airlineId) {
 
 		return this.flightRepository.findByUserAndAirline(userId, airlineId);
