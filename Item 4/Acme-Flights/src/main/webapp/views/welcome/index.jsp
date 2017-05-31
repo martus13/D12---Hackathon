@@ -18,6 +18,16 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<security:authorize access="isAuthenticated()">
+	<spring:message code="book.exchangeRate" />
+	<select name="selectExchangeRate" onchange="selectRate(this.value)">
+		<option value="1.0" label="Euros (EUR)" />
+		<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+			<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+		</jstl:forEach>
+	</select>
+</security:authorize>
+
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
 
 <p><spring:message code="welcome.cookies" /></p>
@@ -83,3 +93,39 @@
 		
 	</display:table>
 </security:authorize>
+
+<script>
+	 var z=[];
+	 var currencyColumn=5;
+	 
+	 function getValorIni(){
+		var iniVal = document.getElementById("row").rows;
+		var j;
+		
+		for(j=0;j<iniVal.length;j++){
+			//alert(iniVal[j+1].cells[currencyColumn].innerHTML);
+			var varZ = iniVal[j+1].cells[currencyColumn].innerHTML.replace(',', '.');
+			z[j] = varZ;
+		}
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var x = document.getElementById("row").rows;
+		var i;
+		
+		for(i=0; i<z.length; i++){
+			var y = z[i];
+			
+			y = Math.round(y*parseFloat(value1EUR) * 100.0) / 100.0;
+			
+			var y1 = y+"";
+			y1 = y1.replace('.', ',');
+		
+			x[i+1].cells[currencyColumn].innerHTML = y1;
+		
+		}
+	
+	}
+</script>

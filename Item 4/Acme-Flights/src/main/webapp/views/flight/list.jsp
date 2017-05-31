@@ -143,14 +143,20 @@
 
 <script>
 	 var z=[];
+	 var z2=[];
 	 var currencyColumn=5;
+	 var currencyColumn2=6;
 	 
 	 function getValorIni(){
 		var iniVal = document.getElementById("row").rows;
 		var j;
 		
 		for(j=0;j<iniVal.length;j++){
-			z[j] = iniVal[j+1].cells[currencyColumn].innerHTML;
+			//alert(iniVal[j+1].cells[currencyColumn].innerHTML);
+			var varZ = iniVal[j+1].cells[currencyColumn].innerHTML.replace(',', '.');
+			var varZ2 = iniVal[j+1].cells[currencyColumn2].innerHTML.replace(',', '.');
+			z[j] = varZ;
+			z2[j] = varZ2;
 		}
 		
 	}
@@ -162,10 +168,18 @@
 		
 		for(i=0; i<z.length; i++){
 			var y = z[i];
+			var y2 = z2[i];
 			
-			y = Math.round(y*value1EUR * 100.0) / 100.0;
+			y = Math.round(y*parseFloat(value1EUR) * 100.0) / 100.0;
+			y2 = Math.round(y2*parseFloat(value1EUR) * 100.0) / 100.0;
+			
+			var y1 = y+"";
+			var y3 = y2+"";
+			y1 = y1.replace('.', ',');
+			y3 = y3.replace('.', ',');
 		
-			x[i+1].cells[currencyColumn].innerHTML = y;
+			x[i+1].cells[currencyColumn].innerHTML = y1;
+			x[i+1].cells[currencyColumn2].innerHTML = y3;
 		
 		}
 	
