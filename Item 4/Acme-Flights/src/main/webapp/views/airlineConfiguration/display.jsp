@@ -7,18 +7,24 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
+<jstl:choose>
+	<jstl:when test="${empty airlineConfiguration}">
+		<a href="airlineConfiguration/manager/edit.do">
+			<spring:message code="airlineConfig.create" />
+		</a>
+	</jstl:when>
 
 
-	<jstl:choose>
-		<jstl:when test="${empty airlineConfiguration}">
-			<a href="airlineConfiguration/manager/edit.do">
-				<spring:message code="airlineConfig.create" />
-			</a>
-		</jstl:when>
-	
-	
-	<jstl:otherwise>
-	<div>
+<jstl:otherwise>
+<div>
 	<ul>
 		<li>
 			<b><spring:message code="airlineConfig.cancellationDays" />:</b>
@@ -42,7 +48,7 @@
 		
 		<li>
 			<b><spring:message code="airlineConfig.overweightBagPrice" />:</b>
-			<jstl:out value="${airlineConfiguration.overweightBagPrice}" />
+			<font id="overweightBagPrice"><jstl:out value="${airlineConfiguration.overweightBagPrice}" /></font>
 		</li>
 	</ul>
 	</div>	
@@ -53,5 +59,28 @@
 		
 	</jstl:otherwise>
 </jstl:choose>
+
+<script>
+	 var z;
+	 
+	 function getValorIni(){
+		var iniVal = document.getElementById("overweightBagPrice");
+		z = iniVal.innerHTML.replace(',', '.');
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var iniVal = document.getElementById("overweightBagPrice");
+		var y = Math.round(z*parseFloat(value1EUR) * 100.0) / 100.0;
+		var y1 = y+"";
+		y1 = y1.replace('.', ',');
+		
+		iniVal.innerHTML = y1;
+		
+	}
+</script>
+
+
 	
 	

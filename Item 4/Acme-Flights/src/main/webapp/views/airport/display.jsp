@@ -7,6 +7,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
 <div>
 	<ul>
 		<li>
@@ -44,9 +52,30 @@
 		
 		<li>
 			<b><spring:message code="airport.rate"/>:</b>
-			<jstl:out value="${airport.rate}" />
+			<font id="airportRate"><jstl:out value="${airport.rate}" /></font>
 		</li>
 		
 	</ul>
 </div>
+
+<script>
+	 var z;
+	 
+	 function getValorIni(){
+		var iniVal = document.getElementById("airportRate");
+		z = iniVal.innerHTML.replace(',', '.');
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var iniVal = document.getElementById("airportRate");
+		var y = Math.round(z*parseFloat(value1EUR) * 100.0) / 100.0;
+		var y1 = y+"";
+		y1 = y1.replace('.', ',');
+		
+		iniVal.innerHTML = y1;
+		
+	}
+</script>
 	

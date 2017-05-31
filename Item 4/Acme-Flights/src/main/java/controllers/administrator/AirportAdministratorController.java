@@ -63,12 +63,15 @@ public class AirportAdministratorController extends AbstractController {
 	public ModelAndView display(@RequestParam final int airportId) {
 		ModelAndView result;
 		Airport airport;
+		Collection<ExchangeRate> exchangeRates;
 
 		airport = this.airportService.findOne(airportId);
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("airport/display");
 		result.addObject("requestURI", "airport/administrator/display.do?airportId=" + airportId);
 		result.addObject("airport", airport);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

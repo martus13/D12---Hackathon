@@ -1,6 +1,8 @@
 
 package controllers.manager;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AirlineConfigurationService;
 import services.AirlineService;
+import services.ExchangeRateService;
 import services.ManagerService;
 import controllers.AbstractController;
 import domain.Airline;
 import domain.AirlineConfiguration;
+import domain.ExchangeRate;
 import domain.Manager;
 
 @Controller
@@ -35,6 +39,9 @@ public class AirlineConfigurationManagerController extends AbstractController {
 	@Autowired
 	private AirlineService				airlineService;
 
+	@Autowired
+	private ExchangeRateService			exchangeRateService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -49,12 +56,15 @@ public class AirlineConfigurationManagerController extends AbstractController {
 		ModelAndView result;
 		AirlineConfiguration airlineConfiguration;
 		Manager principal;
+		Collection<ExchangeRate> exchangeRates;
 
 		principal = this.managerService.findByPrincipal();
 		airlineConfiguration = this.airlineConfigurationService.findByManager(principal.getId());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("airlineConfiguration/display");
 		result.addObject("airlineConfiguration", airlineConfiguration);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}
