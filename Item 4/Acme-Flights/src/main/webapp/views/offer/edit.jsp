@@ -17,9 +17,17 @@
 	<acme:input code="offer.endMoment" path="endMoment" placeholder="dd/MM/yyyy HH:mm:ss"/>
 	<acme:input code="offer.discount" path="discount" />
 	
-	<form:select multiple="true" path="offertables">
+	<jstl:forEach items="${flights}" var="flight">
+		<div class="form-group">
+			<!--<form:checkbox path="offertables" name="offertables" value="${flight.id }" />-->
+			<form:checkbox path="offertables" value="${flight}"/>
+			<jstl:out value="${flight.id }" />
+		</div>
+	</jstl:forEach>
+	<form:errors path="offertables" cssClass="error" />
+	<!--<form:select multiple="true" path="offertables">
     	<form:options items="${flights}" itemValue="id"/>
-	</form:select>
+	</form:select>-->
 	
 	<acme:submit name="save" code="offer.save" />
 	<acme:cancel url="offer/manager/list.do" code="offer.cancel" />

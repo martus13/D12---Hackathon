@@ -7,17 +7,22 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "startMoment"), @Index(columnList = "endMoment")
+})
 public class Offer extends DomainEntity {
 
 	// Constructors -----------------------------------------------------------
@@ -55,7 +60,7 @@ public class Offer extends DomainEntity {
 		this.endMoment = endMoment;
 	}
 
-	@Min(0)
+	@Range(min = 0, max = 100)
 	public Double getDiscount() {
 		return this.discount;
 	}

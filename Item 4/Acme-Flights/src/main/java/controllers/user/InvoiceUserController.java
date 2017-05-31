@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BookService;
 import services.InvoiceService;
 import services.UserService;
 import controllers.AbstractController;
@@ -21,9 +20,6 @@ import domain.User;
 public class InvoiceUserController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
-
-	@Autowired
-	private BookService		bookService;
 
 	@Autowired
 	private UserService		userService;

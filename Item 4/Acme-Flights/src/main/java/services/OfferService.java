@@ -52,10 +52,13 @@ public class OfferService {
 
 	public Offer create() {
 		Offer result;
+		Collection<Offertable> offertables;
 
 		result = new Offer();
+		offertables = new ArrayList<Offertable>();
 
 		result.setDiscount(0.0);
+		result.setOffertables(offertables);
 
 		return result;
 	}
@@ -76,29 +79,10 @@ public class OfferService {
 
 	// Other business methods -------------------------------------------------
 
-	public Collection<Offer> findByOffertableId(final int offertableId) {
-		Assert.isTrue(offertableId != 0);
+	public Collection<Offer> findByAirlineId(final int airlineId) {
 		Collection<Offer> result;
-		result = this.offerRepository.findByOffertableId(offertableId);
-		return result;
-	}
 
-	public Collection<Offer> findByOffertableIdFlight(final int offertableId) {
-		Assert.isTrue(offertableId != 0);
-		Collection<Offer> result;
-		result = this.offerRepository.findByOffertableIdFlight(offertableId);
-		return result;
-	}
-
-	public Collection<Offer> findByOffertableIdAll(final int airlineId) {
-		Collection<Offer> result;
-		Collection<Offer> aux;
-
-		result = this.findByOffertableId(airlineId);
-		aux = this.findByOffertableIdFlight(airlineId);
-
-		for (final Offer e : aux)
-			result.add(e);
+		result = this.offerRepository.findByAirlineId(airlineId);
 
 		return result;
 	}

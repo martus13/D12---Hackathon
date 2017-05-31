@@ -10,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.AdministratorRepository;
-import repositories.BookRepository;
 import repositories.InvoiceRepository;
-import domain.Administrator;
 import domain.Book;
-import domain.Flight;
 import domain.Invoice;
 
 @Service
@@ -26,15 +22,15 @@ public class InvoiceService {
 	@Autowired
 	private InvoiceRepository	invoiceRepository;
 
-
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private BookService bookService;
-	
-//	@Autowired
-//	private AdministratorService adminService;
-	
+	private BookService			bookService;
+
+
+	//	@Autowired
+	//	private AdministratorService adminService;
+
 	// Constructors -----------------------------------------------------------
 	public InvoiceService() {
 		super();
@@ -71,35 +67,35 @@ public class InvoiceService {
 
 		return invoice;
 	}
-	
+
 	// Other business methods--------------------------------------------------------
-	
-	public void generateInvoices(){
-		
-		Collection<Book> books = this.bookService.findNotCancelledWithoutInvoices();
-		
-		for(Book b:books){
-				Invoice invoice = this.create(b);
-				this.save(invoice);
+
+	public void generateInvoices() {
+
+		final Collection<Book> books = this.bookService.findNotCancelledWithoutInvoices();
+
+		for (final Book b : books) {
+			final Invoice invoice = this.create(b);
+			this.save(invoice);
 		}
 	}
-	
-	public Collection<Invoice> findByUser(int userId){
+
+	public Collection<Invoice> findByUser(final int userId) {
 		return this.invoiceRepository.findByUser(userId);
 	}
-	
-	public Collection<Invoice> findByManager(int managerId){
+
+	public Collection<Invoice> findByManager(final int managerId) {
 		return this.invoiceRepository.findByManager(managerId);
 	}
-	
-	public void markAsPaid(Invoice invoice){
-		
+
+	public void markAsPaid(final Invoice invoice) {
+
 		final Calendar paidMoment = Calendar.getInstance();
 		paidMoment.set(Calendar.MILLISECOND, -10);
-		
+
 		invoice.setPaidMoment(paidMoment.getTime());
 		this.save(invoice);
-		
+
 	}
-	
+
 }

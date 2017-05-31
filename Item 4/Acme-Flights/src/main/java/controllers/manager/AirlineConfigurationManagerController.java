@@ -1,3 +1,4 @@
+
 package controllers.manager;
 
 import javax.validation.Valid;
@@ -17,14 +18,11 @@ import services.ManagerService;
 import controllers.AbstractController;
 import domain.Airline;
 import domain.AirlineConfiguration;
-import domain.CreditCard;
 import domain.Manager;
-import forms.CreditCardForm;
 
 @Controller
 @RequestMapping("/airlineConfiguration/manager")
-public class AirlineConfigurationManagerController extends AbstractController{
-	
+public class AirlineConfigurationManagerController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
@@ -32,10 +30,10 @@ public class AirlineConfigurationManagerController extends AbstractController{
 	private AirlineConfigurationService	airlineConfigurationService;
 
 	@Autowired
-	private ManagerService	managerService;
-	
+	private ManagerService				managerService;
+
 	@Autowired
-	private AirlineService	airlineService;
+	private AirlineService				airlineService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -44,9 +42,8 @@ public class AirlineConfigurationManagerController extends AbstractController{
 		super();
 	}
 
-	
 	//Display-----------------------------------------------------------
-	
+
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display() {
 		ModelAndView result;
@@ -61,40 +58,39 @@ public class AirlineConfigurationManagerController extends AbstractController{
 
 		return result;
 	}
-	
+
 	//Create ----------------------------------------------------------------
-	
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public ModelAndView create(){
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		ModelAndView result;
 		AirlineConfiguration airlineConfiguration;
-		
-		Manager principal = this.managerService.findByPrincipal();
-		Airline airline = this.airlineService.findByManager(principal.getId());
-		
+
+		final Manager principal = this.managerService.findByPrincipal();
+		final Airline airline = this.airlineService.findByManager(principal.getId());
+
 		airlineConfiguration = this.airlineConfigurationService.create(airline);
-		
-		result=this.createEditModelAndView(airlineConfiguration);
-		
+
+		result = this.createEditModelAndView(airlineConfiguration);
+
 		return result;
 	}
-	
-	@RequestMapping(value="/edit", method=RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int airlineConfigurationId){
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int airlineConfigurationId) {
 		ModelAndView result;
 		AirlineConfiguration airlineConfiguration;
-		
+
 		airlineConfiguration = this.airlineConfigurationService.findOne(airlineConfigurationId);
 		Assert.notNull(airlineConfiguration);
-		
-		result=this.createEditModelAndView(airlineConfiguration);
-		
+
+		result = this.createEditModelAndView(airlineConfiguration);
+
 		return result;
 	}
-	
+
 	//Save ------------------------------------------------------------------
-	
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final AirlineConfiguration airlineConfiguration, final BindingResult binding) {
 
@@ -117,7 +113,7 @@ public class AirlineConfigurationManagerController extends AbstractController{
 			}
 		return result;
 	}
-	
+
 	// Ancillary methods ----------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final AirlineConfiguration airlineConfiguration) {

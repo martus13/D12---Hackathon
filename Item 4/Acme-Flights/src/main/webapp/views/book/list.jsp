@@ -21,7 +21,6 @@
 	<acme:column code="book.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy}" />
 	<acme:column code="book.passengersNumber" property="passengersNumber" />
 	<acme:column code="book.childrenNumber" property="childrenNumber" />
-	<acme:column code="book.isBusiness" property="isBusiness" />
 	<spring:message code="book.isBusiness" var="isBusinessHeader" />
 	<display:column title="${isBusinessHeader}" sortable="true">
 		<jstl:choose>

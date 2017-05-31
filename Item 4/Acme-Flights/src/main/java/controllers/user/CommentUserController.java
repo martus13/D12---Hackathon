@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AirlineService;
 import services.CommentService;
-import services.UserService;
 import controllers.AbstractController;
 import domain.Airline;
 import domain.Comment;
@@ -27,9 +26,6 @@ public class CommentUserController extends AbstractController {
 
 	@Autowired
 	private CommentService	commentService;
-
-	@Autowired
-	private UserService		userService;
 
 	@Autowired
 	private AirlineService	airlineService;
@@ -59,21 +55,19 @@ public class CommentUserController extends AbstractController {
 	}
 
 	//Edit--------------------------------------------------------------
-	
-	@RequestMapping(value="/edit", method=RequestMethod.POST, params="edit")
-		public ModelAndView edit(@RequestParam int commentId){
-			ModelAndView result;
-			Comment comment;
-			
-			comment = this.commentService.findOne(commentId);
-			Assert.notNull(comment);
-			result = this.createEditModelAndView(comment);
-			 
-			return result;
-		}
-	
-	
-	
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "edit")
+	public ModelAndView edit(@RequestParam final int commentId) {
+		ModelAndView result;
+		Comment comment;
+
+		comment = this.commentService.findOne(commentId);
+		Assert.notNull(comment);
+		result = this.createEditModelAndView(comment);
+
+		return result;
+	}
+
 	//Save---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")

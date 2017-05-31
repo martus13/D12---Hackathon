@@ -16,10 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import services.FlightService;
 import services.ManagerService;
 import services.OfferService;
+import services.OffertableService;
 import controllers.AbstractController;
+import domain.Airline;
 import domain.Flight;
 import domain.Manager;
 import domain.Offer;
+import domain.Offertable;
 
 @Controller
 @RequestMapping("/offer/manager")
@@ -27,13 +30,16 @@ public class OfferManagerController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 	@Autowired
-	private OfferService	offerService;
+	private OfferService		offerService;
 
 	@Autowired
-	private ManagerService	managerService;
+	private ManagerService		managerService;
 
 	@Autowired
-	private FlightService	flightService;
+	private FlightService		flightService;
+
+	@Autowired
+	private OffertableService	offertableService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -51,7 +57,7 @@ public class OfferManagerController extends AbstractController {
 		Manager manager;
 
 		manager = this.managerService.findByPrincipal();
-		offers = this.offerService.findByOffertableIdAll(manager.getAirline().getId());
+		offers = this.offerService.findByAirlineId(manager.getAirline().getId());
 
 		result = new ModelAndView("offer/list");
 		result.addObject("requestURI", "offer/manager/list.do");
@@ -60,6 +66,34 @@ public class OfferManagerController extends AbstractController {
 		return result;
 	}
 
+	// Displaying -------------------------------------------------------------
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int offerId) {
+		ModelAndView result;
+		Offer offer;
+		Manager manager;
+		Offertable offertable;
+		Airline airline;
+		Collection<Object[]> flights;
+
+		offer = this.offerService.findOne(offerId);
+		manager = this.managerService.findByPrincipal();
+		airline = null;
+		offertable = manager.getAirline();
+		if (this.offertableService.findByOfferId(offerId).contains(offertable))
+			airline = manager.getAirline();
+
+		flights = this.flightService.findNotCancelledNotPassedSeasonByOffer(offerId);
+
+		result = new ModelAndView("offer/display");
+		result.addObject("requestURI", "offerId/manager/display.do?offerId=" + offerId);
+		result.addObject("offer", offer);
+		result.addObject("airline", airline);
+		result.addObject("flights", flights);
+
+		return result;
+	}
 	// Creation ---------------------------------------------------------------		
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView register() {
@@ -142,7 +176,7 @@ public class OfferManagerController extends AbstractController {
 		Manager manager;
 
 		manager = this.managerService.findByPrincipal();
-		flights = this.flightService.findNotCancelledByAirline(manager.getAirline().getId());
+		flights = this.flightService.findNotCancelledByAirlineId(manager.getAirline().getId());
 
 		result = new ModelAndView("offer/edit");
 		result.addObject("offer", offer);

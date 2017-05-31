@@ -133,18 +133,26 @@ public class FlightService {
 		return result;
 	}
 
-	public Collection<Flight> findNotCancelledNotPassed() {
-		Collection<Flight> result;
+	public Collection<Object[]> findNotCancelledNotPassedOfferAndSeason() {
+		Collection<Object[]> result;
 
-		result = this.flightRepository.findNotCancelledNotPassed();
+		result = this.flightRepository.findNotCancelledNotPassedOfferAndSeason();
 
 		return result;
 	}
 
-	public Collection<Flight> findNotCancelledByAirline(final int airlineId) {
+	public Collection<Flight> findNotCancelledByAirlineId(final int airlineId) {
 		Collection<Flight> result;
 
-		result = this.flightRepository.findNotCancelledByAirline(airlineId);
+		result = this.flightRepository.findNotCancelledByAirlineId(airlineId);
+
+		return result;
+	}
+
+	public Collection<Object[]> findNotCancelledByAirlineIdOfferAndSeason(final int airlineId) {
+		Collection<Object[]> result;
+
+		result = this.flightRepository.findNotCancelledByAirlineIdOfferAndSeason(airlineId);
 
 		return result;
 	}
@@ -240,6 +248,14 @@ public class FlightService {
 		return result;
 	}
 
+	public Collection<Object[]> findNotCancelledNotPassedSeasonByOffer(final int offerId) {
+		Collection<Object[]> result;
+
+		result = this.flightRepository.findNotCancelledNotPassedSeasonByOffer(offerId);
+
+		return result;
+	}
+
 	public Integer findAvailableBusinessSeatByFlightId(final int flightId) {
 		Integer result;
 
@@ -288,11 +304,11 @@ public class FlightService {
 		return result;
 	}
 
-	public 	Collection<Object[]> findPercentFlightsPerAirlineLow(){
-		
+	public Collection<Object[]> findPercentFlightsPerAirlineLow() {
+
 		return this.flightRepository.findPercentFlightsPerAirlineLow();
 	}
-	
+
 	public Collection<Flight> findByUserAndAirline(final int userId, final int airlineId) {
 
 		return this.flightRepository.findByUserAndAirline(userId, airlineId);

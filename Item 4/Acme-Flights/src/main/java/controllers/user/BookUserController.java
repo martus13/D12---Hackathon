@@ -84,6 +84,7 @@ public class BookUserController extends AbstractController {
 		Book book;
 		User user;
 		Collection<Object[]> flights;
+		Collection<ExchangeRate> exchangeRates;
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
@@ -91,11 +92,13 @@ public class BookUserController extends AbstractController {
 		book = this.bookService.findOne(bookId);
 		Assert.isTrue(book.getUser().equals(user));
 		flights = this.flightService.findFlightsOfferAndSeasonByFlightsId(book.getFlights());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("book/display");
 		result.addObject("requestURI", "book/user/display.do?bookId=" + bookId);
 		result.addObject("book", book);
 		result.addObject("flights", flights);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}
@@ -259,12 +262,15 @@ public class BookUserController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Book book, final String message) {
 		ModelAndView result;
 		Collection<Object[]> flights;
+		Collection<ExchangeRate> exchangeRates;
 
 		flights = this.flightService.findFlightsOfferAndSeasonByFlightsId(book.getFlights());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("book/create");
 		result.addObject("book", book);
 		result.addObject("flights", flights);
+		result.addObject("exchangeRates", exchangeRates);
 		result.addObject("message", message);
 
 		return result;

@@ -122,6 +122,7 @@
 		<security:intercept-url pattern="/offer/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/delete.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/offer/manager/display.do" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/season/manager/listByAirline.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/season/manager/display.do" access="hasRole('MANAGER')" /> 

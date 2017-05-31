@@ -54,17 +54,18 @@ public class FlightManagerController extends AbstractController {
 	@RequestMapping(value = "/listByAirline", method = RequestMethod.GET)
 	public ModelAndView listByAirline() {
 		ModelAndView result;
-		Collection<Flight> flights;
+		Collection<Object[]> flights;
 		Manager manager;
 
 		manager = this.managerService.findByPrincipal();
 		Assert.notNull(manager);
 
-		flights = this.flightService.findNotCancelledByAirline(manager.getAirline().getId());
+		flights = this.flightService.findNotCancelledByAirlineIdOfferAndSeason(manager.getAirline().getId());
 
 		result = new ModelAndView("flight/list");
 		result.addObject("requestURI", "flight/manager/listByAirline.do");
 		result.addObject("flights", flights);
+		result.addObject("manager", manager);
 
 		return result;
 	}
@@ -86,7 +87,8 @@ public class FlightManagerController extends AbstractController {
 		result.addObject("requestURI", "flight/manager/display.do?flightId=" + flightId);
 		result.addObject("flight", flight);
 		result.addObject("manager", manager);
-		result.addObject("hasBooks", books.isEmpty());
+		result.addObject("hasBooks", !books.isEmpty());
+		result.addObject("books", books);
 
 		return result;
 	}

@@ -21,9 +21,9 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		
-		<!-- permitAll -->
-		<security:authorize access="permitAll">
-			<li><a class="fNiv" href="flight/list.do"><spring:message code="master.page.flight.list" /></a></li>
+		<!-- permitAll menos manager -->
+		<security:authorize access="!hasRole('MANAGER')">
+			<li><a class="fNiv" href="flight/list.do"><spring:message code="master.page.flight.listAll" /></a></li>
 		</security:authorize>
 		
 		<!-- USER -->
@@ -41,6 +41,7 @@
 			<li><a class="fNiv"><spring:message code="master.page.manager.flight" /></a>
 				<ul>
 					<li class="arrow"></li>				
+					<li><a href="flight/list.do"><spring:message code="master.page.flight.listAll" /></a></li>
 					<li><a href="flight/manager/listByAirline.do"><spring:message code="master.page.manager.flight.list" /> </a></li>
 					<li><a href="flight/manager/create.do"><spring:message code="master.page.manager.flight.create" /> </a></li>
 				</ul>
@@ -84,10 +85,10 @@
 			</li>
 			<li><a class="fNiv" href="invoice/administrator/list.do"><spring:message code="master.page.invoices" /></a></li>	
 			
-			<li><a class="fNiv" href="administrator/dashboard.do"><spring:message code="master.page.dashboard" /></a></li>	
-			
 			<li><a class="fNiv" href="managerUser/administrator/register.do"><spring:message code="master.page.admin.manager" /></a></li>
 			<li><a class="fNiv" href="configuration/administrator/display.do"><spring:message code="master.page.config" /></a></li>
+		
+			<li><a class="fNiv" href="administrator/dashboard.do"><spring:message code="master.page.dashboard" /></a></li>
 		</security:authorize>
 		
 		<!-- isAnonymous -->

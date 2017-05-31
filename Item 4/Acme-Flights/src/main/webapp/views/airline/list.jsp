@@ -9,7 +9,7 @@
 
 <display:table name="airlines" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:columnImages properties="picture" code="airline.picture" maxHeight="120px" />
+	<acme:columnImages properties="${row.picture }" code="airline.picture" maxHeight="120px" />
 	<acme:column code="airline.name" property="name" />
 	<acme:column code="airline.contactPhone" property="contactPhone" />
 	<acme:column code="airline.email" property="email" />

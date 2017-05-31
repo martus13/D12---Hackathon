@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<fieldset id="profileData">
+<fieldset>
 	<legend>
 		<spring:message code="applies.pointsCard" />1
 	</legend>
@@ -81,3 +81,4 @@
 </fieldset>
 <b><spring:message code="book.totalFee" />=<jstl:out value="${book.totalFee }"></jstl:out><br></b>
 <acme:cancel url="book/user/listByUser.do" code="applies.terminate" />
+

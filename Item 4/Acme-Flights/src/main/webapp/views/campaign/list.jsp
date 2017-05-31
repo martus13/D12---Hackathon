@@ -22,7 +22,7 @@
 	<acme:column code="campaign.startDate" property="startDate" format="{0,date,dd/MM/yyyy}" />
 	<acme:column code="campaign.endDate" property="endDate" format="{0,date,dd/MM/yyyy}" />
 	<acme:column code="campaign.maxDisplayed" property="maxDisplayed" />
-	<acme:column code="campaign.airline" property="airline" />
+	<acme:column code="campaign.airline" property="airline.name" />
 
 	<display:column>
 		<a href="campaign/manager/edit.do?campaignId=${row.id }"><spring:message code="campaign.edit" /></a>

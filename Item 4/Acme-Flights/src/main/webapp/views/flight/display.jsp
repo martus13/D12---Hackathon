@@ -32,7 +32,7 @@
 		
 		<li>
 			<b><spring:message code="flight.economySeats" />:</b>
-			<jstl:out value="${flight.economySeats}" />
+			<jstl:out value="${flight.availableEconomySeats}" />
 		</li>
 		
 		<li>
@@ -42,13 +42,41 @@
 		
 		<li>
 			<b><spring:message code="flight.businessSeats"/>:</b>
-			<jstl:out value="${flight.businessSeats}"/>
+			<jstl:out value="${flight.availableBusinessSeats}"/>
 		</li>
 		
 		<li>
 			<b><spring:message code="flight.businessPrice"/>:</b>
 			<jstl:out value="${flight.businessPrice}"/>
 		</li>
+		
+		<security:authorize access="hasRole('MANAGER')">
+			<jstl:if test="${flight.airline.id==manager.airline.id }">
+				<li>
+					<b><spring:message code="flight.books"/>:</b>
+					<display:table name="books" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+						<acme:column code="flight.book.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy}" />
+						<acme:column code="flight.book.passengersNumber" property="passengersNumber" />
+						<acme:column code="flight.book.childrenNumber" property="childrenNumber" />
+						<spring:message code="flight.book.isBusiness" var="isBusinessHeader" />
+						<display:column title="${isBusinessHeader}" sortable="true">
+							<jstl:choose>
+								<jstl:when test="${row.isBusiness}">
+									<spring:message code="flight.book.yes" />
+								</jstl:when>
+								<jstl:otherwise>
+									<spring:message code="flight.book.no" />
+								</jstl:otherwise>
+							</jstl:choose>
+						</display:column>
+						<acme:column code="flight.book.totalFee" property="totalFee" />
+						<acme:column code="flight.book.comment" property="comment" />
+						<acme:column code="flight.book.cancelationMoment" property="cancelationMoment" format="{0,date,dd/MM/yyyy}" />
+						<acme:column code="flight.book.user" property="user.name"/>
+					</display:table>
+				</li>
+			</jstl:if>
+		</security:authorize>
 		
 	</ul>
 	

@@ -8,6 +8,14 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
 <form:form action="book/user/create.do" modelAttribute="book">
 	
 	<form:hidden path="id" />
@@ -102,7 +110,7 @@
 	
 	<li>
 		<b><spring:message code="book.totalFee"/>:</b>
-		<jstl:out value="${book.totalFee}"/>
+		<font id="bookTotalFee"><jstl:out value="${book.totalFee}"/></font>
 	</li>
 	
 	<acme:textarea code="book.comment" path="comment" rows="3" />
@@ -111,3 +119,37 @@
 	<acme:cancel url="book/user/listByUser.do" code="book.cancel" />
 		
 </form:form>
+
+<script>
+	 var z=[];
+	 var currencyColumn=5;
+	 
+	 function getValorIni(){
+		var totalFee = document.getElementById("bookTotalFee").innerHTML;
+		var iniVal = document.getElementById("row").rows;
+		var j;
+		
+		z[0] = totalFee;
+		for(j=1;j<=iniVal.length;j++){
+			z[j] = iniVal[j].cells[currencyColumn].innerHTML;
+		}
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var x = document.getElementById("row").rows;
+		var i;
+		
+		document.getElementById("bookTotalFee").innerHTML = Math.round(z[0]*value1EUR * 100.0) / 100.0;
+		for(i=1; i<z.length; i++){
+			var y = z[i];
+			
+			y = Math.round(y*value1EUR * 100.0) / 100.0;
+		
+			x[i].cells[currencyColumn].innerHTML = y;
+		
+		}
+	
+	}
+</script>

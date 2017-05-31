@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BookService;
 import services.InvoiceService;
 import services.ManagerService;
 import controllers.AbstractController;
@@ -23,9 +22,6 @@ import domain.Manager;
 public class InvoiceManagerController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
-
-	@Autowired
-	private BookService		bookService;
 
 	@Autowired
 	private ManagerService	managerService;

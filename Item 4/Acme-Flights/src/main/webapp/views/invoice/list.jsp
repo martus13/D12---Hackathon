@@ -6,6 +6,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <security:authorize access="hasRole('ADMIN')">
@@ -24,11 +25,11 @@
 			<jstl:out value="---" />
 		</jstl:when>
 		<jstl:otherwise>
-			<jstl:out value="${row.paidMoment}" />
+			<fmt:formatDate value="${row.paidMoment}" pattern="dd/MM/yyyy HH:mm:ss" />
 		</jstl:otherwise>
 		</jstl:choose>
 	</display:column> 
-	<acme:column code="invoice.creationMoment" property="creationMoment"/>
+	<acme:column code="invoice.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 	
 	<security:authorize access="hasRole('MANAGER')">
 	<display:column>

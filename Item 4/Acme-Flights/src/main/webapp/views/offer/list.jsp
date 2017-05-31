@@ -9,10 +9,15 @@
 
 <display:table name="offers" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="offer.startMoment" property="startMoment" />
-	<acme:column code="offer.endMoment" property="endMoment" />
+	<acme:column code="offer.startMoment" property="startMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
+	<acme:column code="offer.endMoment" property="endMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 	<acme:column code="offer.discount" property="discount" />
 	
+	<display:column>
+		<a href="offer/manager/display.do?offerId=${row.id}">
+			<spring:message code="offer.display" />
+		</a>
+	</display:column>
 	
 	<display:column>
 		<a href="offer/manager/edit.do?offerId=${row.id}">

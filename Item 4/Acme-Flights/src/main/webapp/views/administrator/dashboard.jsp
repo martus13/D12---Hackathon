@@ -21,7 +21,7 @@
 <p><b><spring:message code="admin.dashboard.airlinesMostBooks" /></b></p>
 <display:table name="airlineMostBooks" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.books" property="[1]" />
 	
@@ -30,7 +30,7 @@
 <p><b><spring:message code="admin.dashboard.airlinesLessBooks" /></b></p>
 <display:table name="airlineLessBooks" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.books" property="[1]" />
 	
@@ -45,25 +45,25 @@
 </display:table>
 
 <p><b><spring:message code="admin.dashboard.LessVisitedCities" /></b></p>
-<display:table name="mostVisitedCities" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+<display:table name="lessVisitedCities" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
 	<acme:column code="admin.dashboard.city" property="[0]" />
 	
 	<acme:column code="admin.dashboard.visits" property="[1]" />
 </display:table>
 
-<p><b><spring:message code="admin.dashboard.lessFlightsPerAirline" /></b></p>
-<display:table name="lessFlightsPerAirline" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+<p><b><spring:message code="admin.dashboard.mostFlightsPerAirline" /></b></p>
+<display:table name="mostFlightsPerAirline" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.flights" property="[1]" />
 </display:table>
 
-<p><b><spring:message code="admin.dashboard.mostFlightsPerAirline" /></b></p>
-<display:table name="mostFlightsPerAirline" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+<p><b><spring:message code="admin.dashboard.lessFlightsPerAirline" /></b></p>
+<display:table name="lessFlightsPerAirline" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.flights" property="[1]" />
 </display:table>
@@ -72,11 +72,11 @@
 	<b><spring:message code="admin.dashboard.minMaxAvgFlightsOrigin" /></b>
 	<ul>
 		<li>
-			<b><spring:message code="admin.dashboard.min"/>:</b>
+			<b><spring:message code="admin.dashboard.max"/>:</b>
 			<jstl:out value="${minMaxAvgFlightsOrigin[0]}"/>
 		</li>
 		<li>
-			<b><spring:message code="admin.dashboard.max"/>:</b>
+			<b><spring:message code="admin.dashboard.min"/>:</b>
 			<jstl:out value="${minMaxAvgFlightsOrigin[1]}"/>
 		</li>
 		<li>
@@ -97,7 +97,7 @@
 <p><b><spring:message code="admin.dashboard.percentageBillsPaid" /></b></p>
 <display:table name="percentageBillsPaid" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.billsPaid" property="[1]" /> 
 </display:table>
@@ -113,15 +113,15 @@
 <p><b><spring:message code="admin.dashboard.percentageOffertedFlightsLow" /></b></p>
 <display:table name="percentageOffertedFlightsLow" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.flights" property="[1]" /> 
 </display:table>
 
 <p><b><spring:message code="admin.dashboard.findMostPercentageDiscount" /></b></p>
-<display:table name="percentageOffertedFlightsLow" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+<display:table name="findMostPercentageDiscount" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.discount" property="[1]" />
 </display:table>
@@ -137,7 +137,7 @@
 <p><b><spring:message code="admin.dashboard.findMinMaxAvgRatingByAirline" /></b></p>
 <display:table name="findMinMaxAvgRatingByAirline" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.min" property="[1]" />
 	
@@ -149,7 +149,7 @@
 <p><b><spring:message code="admin.dashboard.findPositiveComments" /></b></p>
 <display:table name="findPositiveComments" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.comments" property="[1]" /> 
 </display:table>
@@ -157,7 +157,7 @@
 <p><b><spring:message code="admin.dashboard.findMinMaxAvgServiceRatingByAirline" /></b></p>
 <display:table name="findMinMaxAvgServiceRatingByAirline" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
-	<acme:column code="admin.dashboard.airline" property="[0]" />
+	<acme:column code="admin.dashboard.airline" property="[0].name" />
 	
 	<acme:column code="admin.dashboard.min" property="[1]" />
 	

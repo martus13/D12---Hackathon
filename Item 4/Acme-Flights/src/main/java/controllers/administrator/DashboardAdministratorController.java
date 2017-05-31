@@ -16,7 +16,7 @@ import controllers.AbstractController;
 
 @Controller
 @RequestMapping("/administrator")
-public class DashboardAdministrator extends AbstractController {
+public class DashboardAdministratorController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 	
@@ -31,7 +31,7 @@ public class DashboardAdministrator extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public DashboardAdministrator() {
+	public DashboardAdministratorController() {
 		super();
 	}
 

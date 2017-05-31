@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.AppliesRepository;
-import domain.AirlineConfiguration;
 import domain.Applies;
 import domain.Book;
 import domain.Flight;
@@ -22,20 +21,17 @@ public class AppliesService {
 
 	// Managed repository -----------------------------------------------------
 	@Autowired
-	private AppliesRepository			appliesRepository;
+	private AppliesRepository	appliesRepository;
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private UserService					userService;
+	private UserService			userService;
 
 	@Autowired
-	private PointsCardService			pointsCardService;
+	private PointsCardService	pointsCardService;
 
 	@Autowired
-	private BookService					bookService;
-
-	@Autowired
-	private AirlineConfigurationService	airlineConfigurationService;
+	private BookService			bookService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -104,10 +100,8 @@ public class AppliesService {
 		Applies auxApplies;
 		Book book;
 		Double totalFee;
-		AirlineConfiguration airlineConfiguration;
 
 		book = applies.getBook();
-		airlineConfiguration = this.airlineConfigurationService.findByAirlineId(applies.getFlight().getAirline().getId());
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);

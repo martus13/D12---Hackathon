@@ -8,6 +8,14 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
 <div>
 	<jstl:if test="${deleteError }">
 		<b><font size="4" color="red"><spring:message code="book.delete.commit.error" /></font></b>
@@ -114,4 +122,35 @@
 		
 	</ul>
 </div>
+
+<script>
+	 var z=[];
+	 var currencyColumn=5;
+	 
+	 function getValorIni(){
+		var iniVal = document.getElementById("row").rows;
+		var j;
+		
+		for(j=0;j<iniVal.length;j++){
+			z[j] = iniVal[j+1].cells[currencyColumn].innerHTML;
+		}
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var x = document.getElementById("row").rows;
+		var i;
+		
+		for(i=0; i<z.length; i++){
+			var y = z[i];
+			
+			y = Math.round(y*value1EUR * 100.0) / 100.0;
+		
+			x[i+1].cells[currencyColumn].innerHTML = y;
+		
+		}
+	
+	}
+</script>
 	

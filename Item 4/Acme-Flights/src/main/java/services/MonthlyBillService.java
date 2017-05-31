@@ -19,17 +19,8 @@ public class MonthlyBillService {
 	@Autowired
 	private MonthlyBillRepository	monthlyBillRepository;
 
+
 	// Supporting services ----------------------------------------------------
-
-	@Autowired
-	private AdministratorService	administratorService;
-
-	@Autowired
-	private AirlineService			airlineService;
-
-	@Autowired
-	private CampaignService			campaignService;
-
 
 	// Constructors -----------------------------------------------------------
 	public MonthlyBillService() {

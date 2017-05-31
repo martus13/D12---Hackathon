@@ -40,4 +40,11 @@ public class OffertableService {
 
 	// Other business methods -------------------------------------------------
 
+	public Collection<Offertable> findByOfferId(final int offerId) {
+		Collection<Offertable> result;
+
+		result = this.offertableRepository.findByOfferId(offerId);
+
+		return result;
+	}
 }
