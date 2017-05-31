@@ -16,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AirportService;
 import services.BookService;
+import services.ExchangeRateService;
 import services.FlightService;
 import services.ManagerService;
 import controllers.AbstractController;
 import domain.Airport;
 import domain.Book;
+import domain.ExchangeRate;
 import domain.Flight;
 import domain.Manager;
 
@@ -31,16 +33,19 @@ public class FlightManagerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private FlightService	flightService;
+	private FlightService		flightService;
 
 	@Autowired
-	private ManagerService	managerService;
+	private ManagerService		managerService;
 
 	@Autowired
-	private AirportService	airportService;
+	private AirportService		airportService;
 
 	@Autowired
-	private BookService		bookService;
+	private BookService			bookService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -56,16 +61,19 @@ public class FlightManagerController extends AbstractController {
 		ModelAndView result;
 		Collection<Object[]> flights;
 		Manager manager;
+		Collection<ExchangeRate> exchangeRates;
 
 		manager = this.managerService.findByPrincipal();
 		Assert.notNull(manager);
 
 		flights = this.flightService.findNotCancelledByAirlineIdOfferAndSeason(manager.getAirline().getId());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("flight/list");
 		result.addObject("requestURI", "flight/manager/listByAirline.do");
 		result.addObject("flights", flights);
 		result.addObject("manager", manager);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

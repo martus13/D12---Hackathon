@@ -8,6 +8,14 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
 <display:table name="${flights }" id="row" requestURI="${requestURI }" class="displaytag">
 			
 	<acme:column code="finder.departureDate" property="[0].departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />
@@ -26,18 +34,42 @@
 	<spring:message code="finder.airline" var="airlineHeader" />
 	<display:column title="${airlineHeader}" sortable="true" >
 		<a href="airline/display.do?airlineId=${row[0].airline.id }"><jstl:out value="${row[0].airline.name }" /></a>
-	</display:column> 
+	</display:column>
 	
-	<spring:message code="flight.price" var="priceHeader" />
+	<spring:message code="flight.businessPrice" var="priceHeader" />
 	<display:column title="${priceHeader }" sortable="true" >
-		<jstl:choose>
-			<jstl:when test="${finder.isBusiness}">
-				<jstl:set var="flightPrice" value="${row[0].businessPrice }" />
-			</jstl:when>
-			<jstl:otherwise>
-				<jstl:set var="flightPrice" value="${row[0].economyPrice }" />
-			</jstl:otherwise>
-		</jstl:choose>
+		<jstl:set var="flightPrice" value="${row[0].businessPrice }" />
+		<security:authorize access="!hasRole('MANAGER')">
+			<jstl:if test="${not empty row[1]}">
+				<jstl:choose>
+					<jstl:when test="${row[1].type=='increase' }">
+						<jstl:set var="flightPrice" value="${flightPrice+(flightPrice*row[1].pricePercentage/100) }" />
+					</jstl:when>
+					<jstl:otherwise>
+						<jstl:set var="flightPrice" value="${flightPrice-(flightPrice*row[1].pricePercentage/100) }" />
+					</jstl:otherwise>
+				</jstl:choose>
+			</jstl:if>
+		</security:authorize>
+		<security:authorize access="hasRole('MANAGER')">
+			<jstl:if test="${(empty manager || manager.airline.id!=row[0].airline.id) && not empty row[1] }">
+				<jstl:choose>
+					<jstl:when test="${row[1].type=='increase' }">
+						<jstl:set var="flightPrice" value="${flightPrice+(flightPrice*row[1].pricePercentage/100) }" />
+					</jstl:when>
+					<jstl:otherwise>
+						<jstl:set var="flightPrice" value="${flightPrice-(flightPrice*row[1].pricePercentage/100) }" />
+					</jstl:otherwise>
+				</jstl:choose>
+			</jstl:if>
+		</security:authorize>
+		
+		<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${flightPrice}" />
+	</display:column>  
+	
+	<spring:message code="flight.economyPrice" var="priceHeader" />
+	<display:column title="${priceHeader }" sortable="true" >
+		<jstl:set var="flightPrice" value="${row[0].economyPrice }" />
 		<security:authorize access="!hasRole('MANAGER')">
 			<jstl:if test="${not empty row[1]}">
 				<jstl:choose>
@@ -65,6 +97,7 @@
 		
 		<fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${flightPrice}" />
 	</display:column> 
+	
 	<security:authorize access="hasRole('MANAGER')">
 		<jstl:if test="${not empty manager }">
 			<spring:message code="flight.season" var="seasonHeader" />
@@ -107,4 +140,36 @@
 <security:authorize access="hasRole('MANAGER')">
 	<a href="flight/manager/create.do"><spring:message code="flight.create" /></a>
 </security:authorize>
+
+<script>
+	 var z=[];
+	 var currencyColumn=5;
+	 
+	 function getValorIni(){
+		var iniVal = document.getElementById("row").rows;
+		var j;
+		
+		for(j=0;j<iniVal.length;j++){
+			z[j] = iniVal[j+1].cells[currencyColumn].innerHTML;
+		}
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var x = document.getElementById("row").rows;
+		var i;
+		
+		for(i=0; i<z.length; i++){
+			var y = z[i];
+			
+			y = Math.round(y*value1EUR * 100.0) / 100.0;
+		
+			x[i+1].cells[currencyColumn].innerHTML = y;
+		
+		}
+	
+	}
+</script>
+
 
