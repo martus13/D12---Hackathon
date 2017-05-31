@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.InvoiceService;
 import services.ManagerService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Invoice;
 import domain.Manager;
 
@@ -24,10 +26,13 @@ public class InvoiceManagerController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private ManagerService	managerService;
+	private ManagerService		managerService;
 
 	@Autowired
-	private InvoiceService	invoiceService;
+	private InvoiceService		invoiceService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -43,12 +48,15 @@ public class InvoiceManagerController extends AbstractController {
 		ModelAndView result;
 		Manager principal;
 		Collection<Invoice> invoices;
+		Collection<ExchangeRate> exchangeRates;
 
+		exchangeRates = this.exchangeRateService.findAll();
 		principal = this.managerService.findByPrincipal();
 		invoices = this.invoiceService.findByManager(principal.getId());
 
 		result = new ModelAndView("invoice/list");
 		result.addObject("invoices", invoices);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

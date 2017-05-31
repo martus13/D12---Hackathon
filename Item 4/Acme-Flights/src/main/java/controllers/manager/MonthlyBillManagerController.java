@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.ManagerService;
 import services.MonthlyBillService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Manager;
 import domain.MonthlyBill;
 
@@ -27,6 +29,9 @@ public class MonthlyBillManagerController extends AbstractController {
 	@Autowired
 	private ManagerService		managerService;
 
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
+
 
 	// Constructor --------------------------------------------------------
 
@@ -41,14 +46,17 @@ public class MonthlyBillManagerController extends AbstractController {
 		ModelAndView result;
 		Collection<MonthlyBill> monthlyBills;
 		Manager manager;
+		Collection<ExchangeRate> exchangeRates;
 
 		manager = this.managerService.findByPrincipal();
 
+		exchangeRates = this.exchangeRateService.findAll();
 		monthlyBills = this.monthlyBillService.findByAirlineId(manager.getAirline().getId());
 
 		result = new ModelAndView("monthlyBill/list");
 		result.addObject("monthlyBills", monthlyBills);
 		result.addObject("requestURI", "monthlyBill/manager/list.do");
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}
