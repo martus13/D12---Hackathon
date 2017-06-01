@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="flight/manager/create.do" modelAttribute="flight">
+<form:form action="flight/manager/edit.do" modelAttribute="flight">
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />

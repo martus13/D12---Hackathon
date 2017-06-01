@@ -117,7 +117,20 @@ public class FlightManagerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	// Edition ----------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int flightId) {
+		ModelAndView result;
+		Flight flight;
+
+		flight = this.flightService.findOne(flightId);
+
+		result = this.createEditModelAndView(flight);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Flight flight, final BindingResult binding) {
 
 		ModelAndView result;
@@ -139,19 +152,6 @@ public class FlightManagerController extends AbstractController {
 			}
 		return result;
 
-	}
-
-	// Edition ----------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int flightId) {
-		ModelAndView result;
-		Flight flight;
-
-		flight = this.flightService.findOne(flightId);
-
-		result = this.createEditModelAndView(flight);
-
-		return result;
 	}
 
 	// Delete -----------------------------------------------------------------

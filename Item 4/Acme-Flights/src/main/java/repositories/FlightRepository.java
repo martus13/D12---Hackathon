@@ -46,10 +46,10 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
 	@Query("select f, (select s from Season s where s.airline=f.airline and s.inactive=false and DATE_FORMAT(f.departureDate, '%Y-%m-%d') >= DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.startMonth, '/', s.startDay), '%Y-%m-%d') and DATE_FORMAT(f.departureDate, '%Y-%m-%d')<= DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.endMonth, '/', s.endDay), '%Y-%m-%d')) from Flight f where f.cancelled=false and CURRENT_TIMESTAMP<=f.departureDate and f.id in (select offertable.id from Offer o join o.offertables offertable where o.id=?1)")
 	Collection<Object[]> findNotCancelledNotPassedSeasonByOffer(int offerId);
 
-	@Query("select f.businessSeats-(sum(b.passengersNumber)+sum(b.childrenNumber)) from Book b join b.flights f where f.id=?1 and b.isBusiness=true")
+	@Query("select f.businessSeats-(select coalesce(sum(b.passengersNumber)+sum(b.childrenNumber), 0) from Book b join b.flights f1 where f=f1 and b.isBusiness=true) from Flight f where f.id=?1")
 	Integer findAvailableBusinessSeatByFlightId(int flightId);
 
-	@Query("select f.economySeats-(sum(b.passengersNumber)+sum(b.childrenNumber)) from Book b join b.flights f where f.id=?1 and b.isBusiness=false")
+	@Query("select f.economySeats-(select coalesce(sum(b.passengersNumber)+sum(b.childrenNumber), 0) from Book b join b.flights f1 where f=f1 and b.isBusiness=false) from Flight f where f.id=?1")
 	Integer findAvailableEconomySeatByFlightId(int flightId);
 
 	// 7. El máximo, el mínimo y la media de vuelos por aeropuerto de origen
