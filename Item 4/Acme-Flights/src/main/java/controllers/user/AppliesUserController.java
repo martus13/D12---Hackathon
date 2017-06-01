@@ -2,6 +2,7 @@
 package controllers.user;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -15,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.AppliesService;
 import services.BookService;
+import services.ExchangeRateService;
 import controllers.AbstractController;
 import domain.Applies;
 import domain.Book;
+import domain.ExchangeRate;
 import domain.Flight;
 
 @Controller
@@ -27,10 +30,13 @@ public class AppliesUserController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private AppliesService	appliesService;
+	private AppliesService		appliesService;
 
 	@Autowired
-	private BookService		bookService;
+	private BookService			bookService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -97,8 +103,10 @@ public class AppliesUserController extends AbstractController {
 		ArrayList<Flight> flights;
 		Applies applies1;
 		Applies applies2;
+		Collection<ExchangeRate> exchangeRates;
 
 		flights = new ArrayList<Flight>(book.getFlights());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		if (this.appliesService.findByBookAndPointsCardId(book.getId(), flights.get(0).getId()) == null)
 			applies1 = this.appliesService.create(book, flights.get(0));
@@ -115,6 +123,7 @@ public class AppliesUserController extends AbstractController {
 		result.addObject("applies1", applies1);
 		result.addObject("applies2", applies2);
 		result.addObject("book", book);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

@@ -14,7 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
-import forms.ActorForm;
+import forms.UserForm;
 
 @Service
 @Transactional
@@ -104,7 +104,7 @@ public class ActorService {
 		return result;
 	}
 
-	public Actor reconstructProfile(final ActorForm actorForm) {
+	public Actor reconstructProfile(final UserForm actorForm) {
 		Assert.notNull(actorForm);
 
 		Actor actor;
@@ -125,11 +125,11 @@ public class ActorService {
 		return actor;
 	}
 
-	public ActorForm desreconstructProfile() {
-		ActorForm actorForm;
+	public UserForm desreconstructProfile() {
+		UserForm actorForm;
 		Actor actor;
 
-		actorForm = new ActorForm();
+		actorForm = new UserForm();
 		actor = this.findByPrincipal();
 
 		actorForm.setUsername(actor.getUserAccount().getUsername());

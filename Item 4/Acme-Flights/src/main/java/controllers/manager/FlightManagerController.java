@@ -86,10 +86,12 @@ public class FlightManagerController extends AbstractController {
 		Flight flight;
 		Manager manager;
 		Collection<Book> books;
+		Collection<ExchangeRate> exchangeRates;
 
 		flight = this.flightService.findOne(flightId);
 		manager = this.managerService.findByPrincipal();
 		books = this.bookService.findNotCancelledByFlightId(flightId);
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("flight/display");
 		result.addObject("requestURI", "flight/manager/display.do?flightId=" + flightId);
@@ -97,6 +99,7 @@ public class FlightManagerController extends AbstractController {
 		result.addObject("manager", manager);
 		result.addObject("hasBooks", !books.isEmpty());
 		result.addObject("books", books);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

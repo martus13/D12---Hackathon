@@ -8,6 +8,14 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
 <div>
 	<ul>
 		<li>
@@ -37,7 +45,7 @@
 		
 		<li>
 			<b><spring:message code="flight.economyPrice" />:</b>
-			<jstl:out value="${flight.economyPrice}" />
+			<font id="economyPrice"><jstl:out value="${flight.economyPrice}" /></font>
 		</li>
 		
 		<li>
@@ -47,7 +55,7 @@
 		
 		<li>
 			<b><spring:message code="flight.businessPrice"/>:</b>
-			<jstl:out value="${flight.businessPrice}"/>
+			<font id="businessPrice"><jstl:out value="${flight.businessPrice}"/></font>
 		</li>
 		
 		<security:authorize access="hasRole('MANAGER')">
@@ -94,4 +102,49 @@
 		</jstl:if>
 	</security:authorize>
 </div>
+
+<script>
+	 var z=[];
+	 var w;
+	 var v;
+	 var currencyColumn=4;
+	 
+	 function getValorIni(){
+		var iniVal = document.getElementById("row").rows;
+		var iniVal2 = document.getElementById("economyPrice");
+		var iniVal3 = document.getElementById("businessPrice");
+		var j;
+		
+		w = iniVal2.innerHTML.replace(',', '.');
+		v = iniVal3.innerHTML.replace(',', '.');
+		
+		for(j=0;j<iniVal.length;j++){
+			z[j] = iniVal[j+1].cells[currencyColumn].innerHTML.replace(',', '.');
+		}
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		var x = document.getElementById("row").rows;
+		var vEconomyPrice = document.getElementById("economyPrice");
+		var vBusinessPrice = document.getElementById("businessPrice");
+		var i;
+		
+		var v1 = Math.round(w*value1EUR * 100.0) / 100.0;
+		vEconomyPrice.innerHTML = v1;
+		var v2 = Math.round(v*value1EUR * 100.0) / 100.0;
+		vBusinessPrice.innerHTML = v2;
+		
+		for(i=0; i<z.length; i++){
+			var y = z[i];
+			
+			y = Math.round(y*value1EUR * 100.0) / 100.0;
+		
+			x[i+1].cells[currencyColumn].innerHTML = y;
+		
+		}
+	
+	}
+</script>
 	

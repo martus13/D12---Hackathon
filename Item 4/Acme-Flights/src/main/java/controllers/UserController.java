@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.UserService;
 import domain.User;
-import forms.ActorForm;
+import forms.UserForm;
 
 @Controller
 @RequestMapping("/user")
@@ -34,7 +34,7 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public ModelAndView register() {
 		ModelAndView result;
-		ActorForm actorForm;
+		UserForm actorForm;
 		User user;
 
 		user = this.userService.create();
@@ -46,7 +46,7 @@ public class UserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final UserForm actorForm, final BindingResult binding) {
 
 		ModelAndView result;
 		User user;
@@ -73,7 +73,7 @@ public class UserController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final ActorForm actorForm) {
+	protected ModelAndView createEditModelAndView(final UserForm actorForm) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(actorForm, null);
@@ -81,11 +81,11 @@ public class UserController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
+	protected ModelAndView createEditModelAndView(final UserForm userForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("profile/registerUser");
-		result.addObject("userForm", actorForm);
+		result.addObject("userForm", userForm);
 		result.addObject("actorForm", "userForm");
 		result.addObject("isManager", false);
 		result.addObject("requestURI", "user/register.do");

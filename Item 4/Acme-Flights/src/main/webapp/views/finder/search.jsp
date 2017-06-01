@@ -109,7 +109,8 @@
 			var y = [];
 			
 			for(var j=0;j<iniValLast.length;j++){
-				str = iniValLast[j+1].cells[currencyColumn].innerHTML;
+				str = iniValLast[j+1].cells[currencyColumn].innerHTML.replace(',', '.');
+				
 				y[j]=str;
 				if(j==iniValLast.length-2){
 					z.push(y);
@@ -126,7 +127,7 @@
 				for (var l = 0; row = x[i].rows[l+1]; l++) {
 					v = w[l];
 					
-					v = Math.round(v*value1EUR * 100.0) / 100.0;
+					v = Math.round(v*parseFloat(value1EUR) * 100.0) / 100.0;
 					
 					row.cells[currencyColumn].innerHTML = v;
 					

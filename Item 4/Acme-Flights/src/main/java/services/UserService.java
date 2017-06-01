@@ -14,7 +14,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.User;
-import forms.ActorForm;
+import forms.UserForm;
 
 @Service
 @Transactional
@@ -110,7 +110,7 @@ public class UserService {
 		return result;
 	}
 
-	public User reconstructCreate(final ActorForm actorForm) {
+	public User reconstructCreate(final UserForm actorForm) {
 		Assert.notNull(actorForm);
 
 		User user;
@@ -132,10 +132,10 @@ public class UserService {
 		return user;
 	}
 
-	public ActorForm desreconstructCreate(final User user) {
-		ActorForm actorForm;
+	public UserForm desreconstructCreate(final User user) {
+		UserForm actorForm;
 
-		actorForm = new ActorForm();
+		actorForm = new UserForm();
 
 		actorForm.setUsername(user.getUserAccount().getUsername());
 		actorForm.setName(user.getName());

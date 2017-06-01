@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import controllers.AbstractController;
 import domain.Actor;
-import forms.ActorForm;
+import forms.UserForm;
 
 @Controller
 @RequestMapping("/profile/actor")
@@ -52,7 +52,7 @@ public class ProfileActorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
-		ActorForm actorForm;
+		UserForm actorForm;
 
 		actorForm = this.actorService.desreconstructProfile();
 
@@ -62,7 +62,7 @@ public class ProfileActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ActorForm actorForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final UserForm actorForm, final BindingResult binding) {
 
 		ModelAndView result;
 		Actor actor;
@@ -89,7 +89,7 @@ public class ProfileActorController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final ActorForm actorForm) {
+	protected ModelAndView createEditModelAndView(final UserForm actorForm) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(actorForm, null);
@@ -97,12 +97,12 @@ public class ProfileActorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final ActorForm actorForm, final String message) {
+	protected ModelAndView createEditModelAndView(final UserForm userForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("profile/edit");
-		result.addObject("editProfileForm", actorForm);
-		result.addObject("actorForm", "editProfileForm");
+		result.addObject("userForm", userForm);
+		result.addObject("actorForm", "userForm");
 		result.addObject("isManager", false);
 		result.addObject("requestURI", "profile/actor/edit.do");
 		result.addObject("message", message);

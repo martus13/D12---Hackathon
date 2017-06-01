@@ -65,6 +65,10 @@ public class OfferService {
 
 	public Offer save(Offer offer) {
 		Assert.notNull(offer);
+		final Collection<Offer> offers;
+
+		//offers = this.findOverlappingByOffer(offer);
+		//Assert.isNull(offers);
 
 		offer = this.offerRepository.save(offer);
 
@@ -94,6 +98,16 @@ public class OfferService {
 		Offer result;
 
 		result = this.offerRepository.findByDateAndOffertableId(offertableId, date);
+
+		return result;
+	}
+
+	public Collection<Offer> findOverlappingByOffer(final Offer offer) {
+		Assert.notNull(offer);
+
+		Collection<Offer> result;
+
+		result = this.offerRepository.findOverlappingByOffer(offer.getOffertables(), offer.getStartMoment(), offer.getEndMoment());
 
 		return result;
 	}
