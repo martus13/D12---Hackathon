@@ -71,6 +71,7 @@
     		document.getElementsByName("returnDate")[0].disabled = false;
     	}else{
     		document.getElementsByName("returnDate")[0].disabled = true;
+    		document.getElementsByName("returnDate")[0].value="";
     	}
 	}
 </script>

@@ -122,14 +122,14 @@ public class SeasonService {
 			firstSeason.setEndMonth(12);
 
 			// Comprobamos que no se solapen temporadas
-			Assert.isTrue(this.findOverlappingByAirline(firstSeason.getAirline().getId(), firstSeason.getStartDay(), firstSeason.getStartMonth(), firstSeason.getEndDay(), firstSeason.getEndMonth()).isEmpty());
+			Assert.isNull(this.findOverlappingByAirline(firstSeason.getAirline().getId(), firstSeason.getStartDay(), firstSeason.getStartMonth(), firstSeason.getEndDay(), firstSeason.getEndMonth()));
 
 			season.setStartDay(1);
 			season.setStartMonth(1);
 
 		}
 		// Comprobamos que no se solapen temporadas
-		Assert.isTrue(this.findOverlappingByAirline(season.getAirline().getId(), season.getStartDay(), season.getStartMonth(), season.getEndDay(), season.getEndMonth()).isEmpty());
+		Assert.isNull(this.findOverlappingByAirline(season.getAirline().getId(), season.getStartDay(), season.getStartMonth(), season.getEndDay(), season.getEndMonth()));
 
 		season = this.seasonReporitory.save(season);
 		if (firstSeason != null)
@@ -183,18 +183,10 @@ public class SeasonService {
 		return result;
 	}
 
-	public Collection<Season> findOverlappingByAirline(final int airlineId, final Integer startDay, final Integer startMonth, final Integer endDay, final Integer endMonth) {
-		Collection<Season> result;
+	public Season findOverlappingByAirline(final int airlineId, final Integer startDay, final Integer startMonth, final Integer endDay, final Integer endMonth) {
+		Season result;
 
-		result = this.seasonReporitory.findActiveByAirlineId(airlineId);
-
-		// Recorro todas las temporadas activas de la aerolinea y compruebo si se solapan
-		for (final Season s : result)
-			if ((s.getStartMonth() >= startMonth && s.getStartMonth() <= endMonth) || (s.getEndMonth() >= startMonth && s.getEndMonth() <= endMonth) || (s.getStartMonth() <= startMonth && s.getEndMonth() >= endMonth)) {
-				if (!((s.getStartDay() >= startDay && s.getStartDay() <= endDay) || (s.getEndDay() >= startDay && s.getEndDay() <= endDay) || (s.getStartDay() <= startDay && s.getEndDay() >= endDay)))
-					result.remove(s);
-			} else
-				result.remove(s);
+		result = this.seasonReporitory.findOverlappingByAirline(airlineId, startDay, startMonth, endDay, endMonth);
 
 		return result;
 	}
