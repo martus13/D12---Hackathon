@@ -22,8 +22,13 @@
 	</definition>
 	
 	<definition name="flight/create" extends="master.page">	
-		<put-attribute name="title" value="Flight: Create" />
-		<put-attribute name="body" value="/views/flight/create.jsp" />
+		<put-attribute name="title" value="Vuelo: Create" />
+		<put-attribute name="body" value="/views/flight/edit.jsp" />
+	</definition>
+	
+	<definition name="flight/edit" extends="master.page">	
+		<put-attribute name="title" value="Flight: Edit" />
+		<put-attribute name="body" value="/views/flight/edit.jsp" />
 	</definition>
 	
 	<definition name="flight/display" extends="master.page">	

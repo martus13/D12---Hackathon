@@ -141,6 +141,19 @@ public class FlightManagerController extends AbstractController {
 
 	}
 
+	// Edition ----------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int flightId) {
+		ModelAndView result;
+		Flight flight;
+
+		flight = this.flightService.findOne(flightId);
+
+		result = this.createEditModelAndView(flight);
+
+		return result;
+	}
+
 	// Delete -----------------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
@@ -174,7 +187,11 @@ public class FlightManagerController extends AbstractController {
 
 		airports = this.airportService.findNotDeleted();
 
-		result = new ModelAndView("flight/create");
+		if (flight.getId() == 0)
+			result = new ModelAndView("flight/create");
+		else
+			result = new ModelAndView("flight/edit");
+
 		result.addObject("flight", flight);
 		result.addObject("airports", airports);
 		result.addObject("message", message);

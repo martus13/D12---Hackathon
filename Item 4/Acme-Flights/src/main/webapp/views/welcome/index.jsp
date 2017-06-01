@@ -34,7 +34,7 @@
 
 <img src="${banner.picture }" style="max-height: 200px;" /><br>
 
-<security:authorize access="isAuthenticated()">
+<security:authorize access="hasRole('USER')">
 	<spring:message code="welcome.flightsMostBooked" />:
 	<display:table name="${flightsMostBooked }" id="row" requestURI="${requestURI }" class="displaytag" pagesize="5">
 				
