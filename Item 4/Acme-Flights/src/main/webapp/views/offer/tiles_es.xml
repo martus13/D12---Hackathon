@@ -17,17 +17,17 @@
 <tiles-definitions>
 
 	<definition name="offer/edit" extends="master.page">	
-		<put-attribute name="title" value="Offerta: Editar" />
+		<put-attribute name="title" value="Oferta: Editar" />
 		<put-attribute name="body" value="/views/offer/edit.jsp" />
 	</definition>
 	
 	<definition name="offer/list" extends="master.page">	
-		<put-attribute name="title" value="Offerta: Listar" />
+		<put-attribute name="title" value="Oferta: Listar" />
 		<put-attribute name="body" value="/views/offer/list.jsp" />
 	</definition>
 	
 	<definition name="offer/display" extends="master.page">	
-		<put-attribute name="title" value="Offerta: Mostrar" />
+		<put-attribute name="title" value="Oferta: Mostrar" />
 		<put-attribute name="body" value="/views/offer/display.jsp" />
 	</definition>
 	

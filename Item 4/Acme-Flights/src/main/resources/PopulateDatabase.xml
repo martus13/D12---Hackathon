@@ -411,7 +411,7 @@
 	</bean>
 	
 	<bean id="season7" class="domain.Season">
-		<property name="title" value="Season 1" />
+		<property name="title" value="Season 2" />
 		<property name="startDay" value="27" />
 		<property name="startMonth" value="4" />
 		<property name="endDay" value="25" />
@@ -482,8 +482,8 @@
 	
 	<bean id="flight3" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="09/12/2017 20:05" />
-		<property name="arrivalDate" value="09/12/2017 23:00" />
+		<property name="departureDate" value="12/12/2017 20:05" />
+		<property name="arrivalDate" value="12/12/2017 23:00" />
 		<property name="businessPrice" value="92.8" />
 		<property name="economyPrice" value="49.5" />
 		<property name="businessSeats" value="40" />
@@ -530,8 +530,8 @@
 	
 	<bean id="flight6" class="domain.Flight">
 		<property name="creationMoment" value="01/01/2017 22:15" />
-		<property name="departureDate" value="05/23/2017 11:35" />
-		<property name="arrivalDate" value="05/23/2017 13:35" />
+		<property name="departureDate" value="06/23/2017 11:35" />
+		<property name="arrivalDate" value="06/23/2017 13:35" />
 		<property name="businessPrice" value="70.0" />
 		<property name="economyPrice" value="20.5" />
 		<property name="businessSeats" value="20" />
@@ -562,8 +562,8 @@
 	
 	<bean id="flight8" class="domain.Flight">
 		<property name="creationMoment" value="05/01/2016 22:15" />
-		<property name="departureDate" value="03/28/2017 6:35" />
-		<property name="arrivalDate" value="03/28/2017 8:15" />
+		<property name="departureDate" value="05/25/2017 6:35" />
+		<property name="arrivalDate" value="05/25/2017 8:15" />
 		<property name="businessPrice" value="70.0" />
 		<property name="economyPrice" value="42.18" />
 		<property name="businessSeats" value="20" />
@@ -578,8 +578,8 @@
 	
 	<bean id="flight9" class="domain.Flight">
 		<property name="creationMoment" value="05/01/2016 22:15" />
-		<property name="departureDate" value="04/01/2017 22:35" />
-		<property name="arrivalDate" value="04/01/2017 23:40" />
+		<property name="departureDate" value="05/30/2017 22:35" />
+		<property name="arrivalDate" value="05/30/2017 23:40" />
 		<property name="businessPrice" value="69.9" />
 		<property name="economyPrice" value="36.19" />
 		<property name="businessSeats" value="20" />
@@ -954,7 +954,7 @@
 		<property name="passengersNumber" value="2" />
 		<property name="childrenNumber" value="1" />
 		<property name="isBusiness" value="true" />
-		<property name="totalFee" value="270.47" />
+		<property name="totalFee" value="759.59" />
 		<property name="user" ref="user1" />
 		<property name="flights">
 			<list>
@@ -1005,7 +1005,7 @@
 		<property name="passengersNumber" value="3" />
 		<property name="childrenNumber" value="0" />
 		<property name="isBusiness" value="false" />
-		<property name="totalFee" value="172.91" />
+		<property name="totalFee" value="462.23" />
 		<property name="cancelationMoment" value="08/02/2016 10:34:00" />
 		<property name="user" ref="user2" />
 		<property name="flights">
@@ -1049,6 +1049,28 @@
 		</property>
 	</bean>
 	
+	<bean id="book6" class="domain.Book">
+		<property name="creationMoment" value="04/28/2017 13:29:10" />
+		<property name="passengersNumber" value="1" />
+		<property name="childrenNumber" value="0" />
+		<property name="isBusiness" value="true" />
+		<property name="totalFee" value="134.04" />
+		<property name="user" ref="user3" />
+		<property name="flights">
+			<list>
+				<ref bean="flight9" /> 
+			</list>
+		</property>
+		<property name="offers">
+			<list>
+			</list>
+		</property>
+		<property name="seasons">
+			<list>
+				<ref bean="season7" /> 
+			</list>
+		</property>
+	</bean>
 	<!-- Applies -->
 	
 	<bean id="applies1" class="domain.Applies">
@@ -1072,13 +1094,6 @@
 		<property name="paidMoment" value="04/04/2017 12:40"/>
 		<property name="totalFee" value="305.82"/>
 		<property name="book" ref="book2"/>
-	</bean>
-	
-	<bean id="invoice2" class="domain.Invoice">
-		<property name="creationMoment" value="04/02/2017 23:40"/>
-		<property name="paidMoment" value="04/03/2017 11:28"/>
-		<property name="totalFee" value="274.14"/>
-		<property name="book" ref="book4"/>
 	</bean>
 	
 	<!-- Comments -->
