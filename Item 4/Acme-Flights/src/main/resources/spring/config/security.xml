@@ -129,6 +129,8 @@
 		<security:intercept-url pattern="/season/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/season/manager/delete.do" access="hasRole('MANAGER')" />
 		
+		<security:intercept-url pattern="/book/manager/display.do" access="hasRole('MANAGER')" />
+		
 		
 		<!-- ADMIN -->
 		

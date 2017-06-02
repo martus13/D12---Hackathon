@@ -38,8 +38,21 @@
 		</jstl:choose>
 	</display:column> 
 	<acme:column code="invoice.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
+	<security:authorize access="hasRole('USER')">
+	<display:column>
+		<a href="book/user/display.do?bookId=${row.book.id}">
+			<spring:message code="invoice.displayBook" />
+		</a>
+	</display:column>
+	</security:authorize>
 	
 	<security:authorize access="hasRole('MANAGER')">
+	<display:column>
+		<a href="book/manager/display.do?bookId=${row.book.id}">
+			<spring:message code="invoice.displayBook" />
+		</a>
+	</display:column>
+	
 	<display:column>
 		<jstl:if test="${empty row.paidMoment}">
 			<form:form action="invoice/manager/markAsPaid.do?invoiceId=${row.id}" modelAttribute="invoice">
