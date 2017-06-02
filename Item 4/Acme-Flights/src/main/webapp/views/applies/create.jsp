@@ -7,6 +7,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<spring:message code="book.exchangeRate" />
+<select name="selectExchangeRate" onchange="selectRate(this.value)">
+	<option value="1.0" label="Euros (EUR)" />
+	<jstl:forEach var="exchangeRate" items="${exchangeRates }">
+		<option value="${exchangeRate.value1EUR }" label="${exchangeRate.currency } (${exchangeRate.isoCode })" />
+	</jstl:forEach>
+</select>
+
 <fieldset>
 	<legend>
 		<spring:message code="applies.pointsCard" />1
@@ -79,6 +87,24 @@
 			
 	</form:form>
 </fieldset>
-<b><spring:message code="book.totalFee" />=<jstl:out value="${book.totalFee }"></jstl:out><br></b>
+<font size="5" color="red"><b><spring:message code="book.totalFee" />&nbsp;=&nbsp;<font id="totalFee"><jstl:out value="${book.totalFee }"/></font><br></b></font>
 <acme:cancel url="book/user/listByUser.do" code="applies.terminate" />
+
+<script>
+	 var z;
+	 var currencyColumn=5;
+	 
+	 function getValorIni(){
+		var totalFee = document.getElementById("totalFee").innerHTML;
+		
+		z = totalFee;
+		
+	}
+	document.onload=getValorIni();
+	
+	function selectRate(value1EUR){
+		document.getElementById("totalFee").innerHTML = Math.round(z*value1EUR * 100.0) / 100.0;
+	
+	}
+</script>
 

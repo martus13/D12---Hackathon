@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ExchangeRateService;
 import services.InvoiceService;
 import services.UserService;
 import controllers.AbstractController;
+import domain.ExchangeRate;
 import domain.Invoice;
 import domain.User;
 
@@ -22,10 +24,13 @@ public class InvoiceUserController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private UserService		userService;
+	private UserService			userService;
 
 	@Autowired
-	private InvoiceService	invoiceService;
+	private InvoiceService		invoiceService;
+
+	@Autowired
+	private ExchangeRateService	exchangeRateService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -41,12 +46,15 @@ public class InvoiceUserController extends AbstractController {
 		ModelAndView result;
 		User principal;
 		Collection<Invoice> invoices;
+		Collection<ExchangeRate> exchangeRates;
 
 		principal = this.userService.findByPrincipal();
 		invoices = this.invoiceService.findByUser(principal.getId());
+		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("invoice/list");
 		result.addObject("invoices", invoices);
+		result.addObject("exchangeRates", exchangeRates);
 
 		return result;
 	}

@@ -88,6 +88,14 @@ public class InvoiceService {
 		return this.invoiceRepository.findByManager(managerId);
 	}
 
+	public Invoice findByBook(final int bookId) {
+		Invoice result;
+
+		result = this.invoiceRepository.findByBook(bookId);
+
+		return result;
+	}
+
 	public void markAsPaid(final Invoice invoice) {
 
 		final Calendar paidMoment = Calendar.getInstance();
