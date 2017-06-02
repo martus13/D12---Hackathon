@@ -2,12 +2,17 @@
 package controllers.manager;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +53,36 @@ public class OfferManagerController extends AbstractController {
 		super();
 	}
 
+	
+	 @InitBinder
+	    protected void initBinder(WebDataBinder binder) {
+	        binder.registerCustomEditor(Set.class, "offertables", new CustomCollectionEditor(Set.class)
+	          {
+	            @Override
+	            protected Object convertElement(Object element)
+	            {
+	                Integer id = null;
+
+	                if(element instanceof String && !((String)element).equals("")){
+	                    //From the JSP 'element' will be a String
+	                    try{
+	                        id = Integer.parseInt((String) element);
+	                    }
+	                    catch (NumberFormatException e) {
+	                        System.out.println("Element was " + ((String) element));
+	                        e.printStackTrace();
+	                    }
+	                }
+	                else if(element instanceof Integer) {
+	                    //From the database 'element' will be a Long
+	                    id = (Integer) element;
+	                }
+
+	                return id != null ? offertableService.findOne(id) : null;
+	            }
+	          });
+	    }
+	
 	// Listing ----------------------------------------------------------------		
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -114,7 +149,8 @@ public class OfferManagerController extends AbstractController {
 		Offer offer;
 
 		offer = this.offerService.findOne(offerId);
-
+		
+		offer.setOffertables(offer.getOffertables());
 		result = this.createEditModelAndView(offer);
 
 		return result;
@@ -131,6 +167,7 @@ public class OfferManagerController extends AbstractController {
 
 		} else
 			try {
+				
 				offer = this.offerService.save(offer);
 				result = new ModelAndView("redirect:list.do");
 

@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class OfferService {
 		Collection<Offertable> offertables;
 
 		result = new Offer();
-		offertables = new ArrayList<Offertable>();
+		offertables = new HashSet<Offertable>();
 
 		result.setDiscount(0.0);
 		result.setOffertables(offertables);
@@ -66,7 +67,7 @@ public class OfferService {
 	public Offer save(Offer offer) {
 		Assert.notNull(offer);
 		final Collection<Offer> offers;
-
+		
 		//offers = this.findOverlappingByOffer(offer);
 		//Assert.isNull(offers);
 
