@@ -16,6 +16,9 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	@Query("select c from Campaign c where current_timestamp between c.startDate and c.endDate")
 	Collection<Campaign> findActiveCampaigns();
 
+	@Query("select c from Campaign c where c.airline.id=?1 and current_timestamp between c.startDate and c.endDate")
+	Collection<Campaign> findActiveByAirlineId(int airlineId);
+
 	@Query("select c from Campaign c where c.airline.id=?1")
 	Collection<Campaign> findByAirlineId(int airlineId);
 

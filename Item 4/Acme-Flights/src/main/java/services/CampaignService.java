@@ -100,6 +100,14 @@ public class CampaignService {
 		return campaigns;
 	}
 
+	public Collection<Campaign> findActiveByAirlineId(final int airlineId) {
+		Collection<Campaign> campaigns;
+
+		campaigns = this.campaignRepository.findActiveByAirlineId(airlineId);
+
+		return campaigns;
+	}
+
 	public Collection<Campaign> findByAirlineId(final int airlineId) {
 		Collection<Campaign> campaigns;
 

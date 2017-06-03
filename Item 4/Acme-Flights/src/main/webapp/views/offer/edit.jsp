@@ -17,8 +17,23 @@
 	<acme:input code="offer.discount" path="discount" />
 	
     <display:table name="flights" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+    	
+    	<jstl:set var="checked" value="0" />
+		<jstl:forEach var="offertable" items="${offer.offertables}">
+		  <jstl:if test="${offertable.id==row.id}">
+		    <jstl:set var="checked" value="1" />
+		  </jstl:if>
+		</jstl:forEach>
+    	
   		<display:column>
-			<form:checkbox path="offertables" value="${flights}"/>
+  			<jstl:choose>
+  				<jstl:when test="${checked==1 }">
+  					<form:checkbox path="offertables" value="${row.id}" checked="checked" />
+  				</jstl:when>
+  				<jstl:otherwise>
+  					<form:checkbox path="offertables" value="${row.id}" />
+  				</jstl:otherwise>
+  			</jstl:choose>
    		</display:column>
    		
    		<acme:column code="finder.departureDate" property="departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />

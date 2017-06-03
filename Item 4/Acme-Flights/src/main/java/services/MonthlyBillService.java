@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MonthlyBillRepository;
+import domain.Administrator;
+import domain.Airline;
 import domain.Manager;
 import domain.MonthlyBill;
 
@@ -24,6 +26,15 @@ public class MonthlyBillService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private ManagerService			managerService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private CampaignService			campaignService;
+
+	@Autowired
+	private AirlineService			airlineService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -93,6 +104,33 @@ public class MonthlyBillService {
 		monthlyBill = this.monthlyBillRepository.save(monthlyBill);
 
 		return monthlyBill;
+	}
+
+	public void computeMonthlyBills() {
+		Collection<Airline> airlines;
+		Administrator administrator;
+
+		administrator = this.administratorService.findByPrincipal();
+		Assert.notNull(administrator);
+
+		airlines = this.airlineService.findAll();
+
+		/*
+		 * for (final Airline a : airlines) {
+		 * MonthlyBill monthlyBill;
+		 * Collection<Campaign> campaigns;
+		 * 
+		 * campaigns = this.campaignService.findActiveByAirlineId(a.getId());
+		 * 
+		 * if (!campaigns.isEmpty()) {
+		 * monthlyBill = this.create();
+		 * monthlyBill.setCampaigns(campaigns);
+		 * 
+		 * monthlyBill = this.save(monthlyBill);
+		 * }
+		 * 
+		 * }
+		 */
 	}
 
 	// Other business methods -------------------------------------------------
