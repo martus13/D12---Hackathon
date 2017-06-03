@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.PointsCardRepository;
 import domain.Airline;
+import domain.Manager;
 import domain.PointsCard;
 import domain.User;
 
@@ -21,8 +22,10 @@ public class PointsCardService {
 	@Autowired
 	private PointsCardRepository	pointsCardRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private ManagerService			managerService;
+
 
 	// Constructors -----------------------------------------------------------
 	public PointsCardService() {
@@ -70,6 +73,21 @@ public class PointsCardService {
 		this.pointsCardRepository.delete(pointsCard);
 
 	}
+
+	public void resetExpired() {
+		Collection<PointsCard> pointsCards;
+		Manager manager;
+
+		manager = this.managerService.findByPrincipal();
+		Assert.notNull(manager);
+
+		pointsCards = this.findExpiresByAirlineId(manager.getAirline().getId());
+
+		for (final PointsCard p : pointsCards) {
+			p.setPoints(0);
+			this.save(p);
+		}
+	}
 	// Other business methods -------------------------------------------------
 
 	public Collection<PointsCard> findByUserId(final int userId) {
@@ -80,10 +98,26 @@ public class PointsCardService {
 		return result;
 	}
 
+	public Collection<PointsCard> findByAirlineId(final int airlineId) {
+		Collection<PointsCard> result;
+
+		result = this.pointsCardRepository.findByAirlineId(airlineId);
+
+		return result;
+	}
+
 	public PointsCard findByUserAndAirlineId(final int userId, final int airlineId) {
 		PointsCard result;
 
 		result = this.pointsCardRepository.findByUserAndAirlineId(userId, airlineId);
+
+		return result;
+	}
+
+	public Collection<PointsCard> findExpiresByAirlineId(final int airlineId) {
+		Collection<PointsCard> result;
+
+		result = this.pointsCardRepository.findExpiresByAirlineId(airlineId);
 
 		return result;
 	}

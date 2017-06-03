@@ -11,7 +11,6 @@
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="offertables"/>
 	
 	<acme:input code="offer.startMoment" path="startMoment" placeholder="dd/MM/yyyy HH:mm:ss"/>
 	<acme:input code="offer.endMoment" path="endMoment" placeholder="dd/MM/yyyy HH:mm:ss"/>

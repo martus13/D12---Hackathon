@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,11 +34,21 @@ public class Campaign extends DomainEntity {
 
 	//Attributes-----------------------------------
 
+	private String	name;
 	private Date	startDate;
 	private Date	endDate;
 	private Integer	maxDisplayed;
 	private Boolean	deleted;
 
+
+	@NotBlank
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(final String name) {
+		this.name = name;
+	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)

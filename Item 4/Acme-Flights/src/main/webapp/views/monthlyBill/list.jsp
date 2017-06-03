@@ -25,18 +25,20 @@
 	</jstl:forEach>
 </select>
 
+<jstl:if test="${errorUnpaid }">
+	<br><b><font size="4" color="red"><spring:message code="monthlyBills.unpaid.error" /></font></b>
+</jstl:if>
+
 <display:table name="monthlyBills" id="row" requestURI="${requestURI }" >
 	
-	<acme:column code="monthlyBill.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy}" />
-	<acme:column code="monthlyBill.paidMoment" property="paidMoment" format="{0,date,dd/MM/yyyy}" />
+	<acme:column code="monthlyBill.creationMoment" property="creationMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
+	<acme:column code="monthlyBill.paidMoment" property="paidMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 	<acme:column code="monthlyBill.totalFee" property="totalFee" />
 	<acme:column code="monthlyBill.description" property="description" />
+	<acme:column code="monthlyBill.campaign" property="campaign.name" />
 		
 </display:table>
 <%-- <security:authorize access="hasRole('ADMIN')">
-	<form:form action="message/administrator/bulkMessage.do" modelAttribute="message">
-		<input type="submit" name="bulkMessage" value="<spring:message code="monthlyBill.message.bulkMessage" />" />
-	</form:form>
 	<form:form action="monthlyBill/administrator/create.do" modelAttribute="monthlyBill">
 		<input type="submit" name="monthlyBills" value="<spring:message code="monthlyBill.compute" />" />
 	</form:form>

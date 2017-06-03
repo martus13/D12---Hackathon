@@ -57,6 +57,7 @@ public class MonthlyBillManagerController extends AbstractController {
 		result.addObject("monthlyBills", monthlyBills);
 		result.addObject("requestURI", "monthlyBill/manager/list.do");
 		result.addObject("exchangeRates", exchangeRates);
+		result.addObject("errorUnpaid", false);
 
 		return result;
 	}

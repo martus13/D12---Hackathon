@@ -23,7 +23,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="airline"/>
 	
-
+	<acme:input code="campaign.name" path="name" />
 	<acme:input code="campaign.startDate" path="startDate" disabled="${disabledReturnDate }" placeholder="dd/MM/yyyy HH:mm:ss"/>
 	<acme:input code="campaign.endDate" path="endDate" disabled="${disabledReturnDate }" placeholder="dd/MM/yyyy HH:mm:ss"/>
 	<acme:input code="campaign.maxDisplayed" path="maxDisplayed"/>

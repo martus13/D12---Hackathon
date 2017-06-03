@@ -87,5 +87,6 @@
 		</fieldset>
 		
 		<acme:submit name="save" code="comment.save" />
+		<acme:cancel url="airline/display.do?airlineId=${comment.airline.id }" code="comment.cancel" />
 
 </form:form>

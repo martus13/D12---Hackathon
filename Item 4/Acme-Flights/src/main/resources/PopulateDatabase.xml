@@ -676,6 +676,7 @@
 	<!-- Campaign -->
 	
 	<bean id="campaign1" class="domain.Campaign">
+		<property name="name" value="Campaign 1"/>
 		<property name="startDate" value="02/01/2017 00:00:01" />
 		<property name="endDate" value="06/30/2017 23:59:59" />
 		<property name="maxDisplayed" value="1"/>
@@ -684,6 +685,7 @@
 	</bean>
 	
 	<bean id="campaign2" class="domain.Campaign">
+		<property name="name" value="Campaign 2"/>
 		<property name="startDate" value="04/01/2017 00:00:01" />
 		<property name="endDate" value="08/30/2017 23:59:59" />
 		<property name="maxDisplayed" value="4"/>
@@ -692,6 +694,7 @@
 	</bean>
 	
 	<bean id="campaign3" class="domain.Campaign">
+		<property name="name" value="Campaign 3"/>
 		<property name="startDate" value="12/01/2017 00:00:01" />
 		<property name="endDate" value="12/20/2017 23:59:59" />
 		<property name="maxDisplayed" value="2"/>
@@ -700,6 +703,7 @@
 	</bean>
 	
 	<bean id="campaign4" class="domain.Campaign">
+		<property name="name" value="Campaign 4"/>
 		<property name="startDate" value="05/01/2017 00:00:01" />
 		<property name="endDate" value="06/30/2017 23:59:59" />
 		<property name="maxDisplayed" value="1"/>
@@ -897,7 +901,7 @@
 	
 	<bean id="pointsCard3" class="domain.PointsCard">
 		<property name="expirationMoment" value="02/14/2017 14:02:17" />
-		<property name="points" value="0" />
+		<property name="points" value="10" />
 		<property name="user" ref="user1" />
 		<property name="airline" ref="airline3" />
 	</bean>

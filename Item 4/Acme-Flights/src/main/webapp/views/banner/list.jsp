@@ -10,6 +10,7 @@
 <display:table name="banners" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
 	<acme:columnImages code="banner.picture" properties="${row.picture}" maxHeight="150px" />
+	<acme:column code="banner.campaign" property="campaign.name" />
 	
 	<display:column>
 		<a href="banner/manager/edit.do?bannerId=${row.id}">

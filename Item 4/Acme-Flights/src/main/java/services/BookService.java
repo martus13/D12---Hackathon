@@ -242,9 +242,14 @@ public class BookService {
 		if (book.getId() == 0)
 			for (final Flight f : book.getFlights()) {
 				PointsCard pointsCard;
+				Calendar fechaActualMas1Año;
 
 				// Comprobamos que no haya solapamiento
 				Assert.isNull(this.findOverlappingByUserAndDepartureDate(user.getId(), f.getDepartureDate()));
+
+				fechaActualMas1Año = Calendar.getInstance();
+				fechaActualMas1Año.add(Calendar.MILLISECOND, -10);
+				fechaActualMas1Año.add(Calendar.YEAR, +1);
 
 				if (book.getIsBusiness())
 					Assert.isTrue(f.getAvailableBusinessSeats() >= (book.getChildrenNumber() + book.getPassengersNumber()));
@@ -259,6 +264,8 @@ public class BookService {
 					pointsCard.setPoints(1);
 				} else
 					pointsCard.setPoints(pointsCard.getPoints() + 1);
+
+				pointsCard.setExpirationMoment(fechaActualMas1Año.getTime());
 				this.pointsCardService.save(pointsCard);
 			}
 

@@ -7,7 +7,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="pointsCards" id="row" requestURI="pointsCard/user/listByUser.do" pagesize="5" class="displaytag">
+<security:authorize access="hasRole('MANAGER')">
+	<a href="pointsCard/manager/resetExpired.do"><spring:message code="pointsCard.resetExpired" /></a>
+</security:authorize>
+
+<display:table name="pointsCards" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<acme:column code="pointsCard.user" property="user.name" />
+	</security:authorize>
 	
 	<acme:column code="pointsCard.expirationMoment" property="expirationMoment" format="{0,date,dd/MM/yyyy}" />
 	<acme:column code="pointsCard.points" property="points" />

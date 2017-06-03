@@ -12,6 +12,7 @@ import repositories.CampaignRepository;
 import domain.Banner;
 import domain.Campaign;
 import domain.Manager;
+import domain.MonthlyBill;
 
 @Service
 @Transactional
@@ -76,7 +77,7 @@ public class CampaignService {
 
 	public void delete(final Campaign campaign) {
 		Assert.notNull(campaign);
-		//Assert.isTrue(this.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() == 0);
+		Assert.isTrue(this.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() == 0);
 		Collection<Banner> banners;
 
 		banners = this.bannerService.findByCampaignId(campaign.getId());
@@ -115,8 +116,8 @@ public class CampaignService {
 		return campaigns;
 	}
 
-	public Collection<Campaign> findUnpaidMonthlyBillsByCampaignId(final int campaignId) {
-		Collection<Campaign> campaigns;
+	public Collection<MonthlyBill> findUnpaidMonthlyBillsByCampaignId(final int campaignId) {
+		Collection<MonthlyBill> campaigns;
 
 		campaigns = this.campaignRepository.findUnpaidMonthlyBillsByCampaignId(campaignId);
 

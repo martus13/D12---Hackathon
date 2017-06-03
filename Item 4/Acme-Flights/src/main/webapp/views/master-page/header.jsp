@@ -63,7 +63,8 @@
 					<li><a href="airlineConfiguration/manager/display.do"><spring:message code="master.page.manager.configuration.display" /> </a></li>
 				</ul>
 			</li>
-			<li><a class="fNiv" href="invoice/manager/list.do"><spring:message code="master.page.invoices" /></a></li>	
+			<li><a class="fNiv" href="invoice/manager/list.do"><spring:message code="master.page.invoices" /></a></li>
+			<li><a class="fNiv" href="pointsCard/manager/listByManager.do"><spring:message code="master.page.manager.pointsCard" /></a></li>	
 			
 		</security:authorize>
 		

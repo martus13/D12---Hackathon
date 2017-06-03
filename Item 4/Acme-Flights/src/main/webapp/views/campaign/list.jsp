@@ -19,8 +19,9 @@
 
 <display:table name="campaigns" id="row" requestURI="campaign/manager/list.do">
 
-	<acme:column code="campaign.startDate" property="startDate" format="{0,date,dd/MM/yyyy}" />
-	<acme:column code="campaign.endDate" property="endDate" format="{0,date,dd/MM/yyyy}" />
+	<acme:column code="campaign.name" property="name" />
+	<acme:column code="campaign.startDate" property="startDate" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
+	<acme:column code="campaign.endDate" property="endDate" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 	<acme:column code="campaign.maxDisplayed" property="maxDisplayed" />
 	<acme:column code="campaign.airline" property="airline.name" />
 

@@ -15,6 +15,12 @@ public interface PointsCardRepository extends JpaRepository<PointsCard, Integer>
 	@Query("select p from PointsCard p where p.user.id=?1")
 	Collection<PointsCard> findByUserId(int userId);
 
+	@Query("select p from PointsCard p where p.airline.id=?1")
+	Collection<PointsCard> findByAirlineId(int userId);
+
 	@Query("select p from PointsCard p where p.user.id=?1 and p.airline.id=?2")
 	PointsCard findByUserAndAirlineId(int userId, int airlineId);
+
+	@Query("select p from PointsCard p where p.airline.id=?1 and current_timestamp >= p.expirationMoment")
+	Collection<PointsCard> findExpiresByAirlineId(int airlineId);
 }

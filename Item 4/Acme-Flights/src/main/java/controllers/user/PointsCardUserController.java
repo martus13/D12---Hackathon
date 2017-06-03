@@ -48,6 +48,7 @@ public class PointsCardUserController extends AbstractController {
 		pointsCards = this.pointsCardService.findByUserId(user.getId());
 
 		result = new ModelAndView("pointsCard/list");
+		result.addObject("requestURI", "pointsCard/user/listByUser.do");
 		result.addObject("pointsCards", pointsCards);
 
 		return result;

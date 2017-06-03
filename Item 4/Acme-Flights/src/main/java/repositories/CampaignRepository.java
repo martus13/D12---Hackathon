@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Campaign;
+import domain.MonthlyBill;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
@@ -21,6 +22,6 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	@Query("select c from Campaign c where c.airline.id=?1 and c.deleted=false")
 	Collection<Campaign> findNotDeletedByAirlineId(int airlineId);
 
-	@Query("select m from MonthlyBill m where m.paidMoment=null and m.campaign=?1")
-	Collection<Campaign> findUnpaidMonthlyBillsByCampaignId(int campaignId);
+	@Query("select m from MonthlyBill m where m.paidMoment=null and m.campaign.id=?1")
+	Collection<MonthlyBill> findUnpaidMonthlyBillsByCampaignId(int campaignId);
 }

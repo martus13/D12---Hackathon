@@ -15,7 +15,7 @@
 	
 	
 	<acme:textarea code="banner.picture" path="picture" rows="3" />
-	<acme:select items="${campaigns}" itemLabel="id" code="banner.campaign" path="campaign" />
+	<acme:select items="${campaigns}" itemLabel="name" code="banner.campaign" path="campaign" />
 	
 	<acme:submit name="save" code="banner.save" />
 	<acme:cancel url="banner/manager/list.do" code="banner.cancel" />

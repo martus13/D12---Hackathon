@@ -18,14 +18,12 @@ import services.BookService;
 import services.CreditCardService;
 import services.ExchangeRateService;
 import services.FlightService;
-import services.InvoiceService;
 import services.UserService;
 import controllers.AbstractController;
 import domain.Book;
 import domain.CreditCard;
 import domain.ExchangeRate;
 import domain.Flight;
-import domain.Invoice;
 import domain.User;
 
 @Controller
@@ -48,9 +46,6 @@ public class BookUserController extends AbstractController {
 
 	@Autowired
 	private CreditCardService	creditCardService;
-
-	@Autowired
-	private InvoiceService		invoiceService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -89,7 +84,6 @@ public class BookUserController extends AbstractController {
 		Book book;
 		User user;
 		Collection<Object[]> flights;
-		Invoice invoice;
 		Collection<ExchangeRate> exchangeRates;
 
 		user = this.userService.findByPrincipal();
@@ -98,7 +92,6 @@ public class BookUserController extends AbstractController {
 		book = this.bookService.findOne(bookId);
 		Assert.isTrue(book.getUser().equals(user));
 		flights = this.flightService.findFlightsOfferAndSeasonByFlightsId(book.getFlights());
-		invoice = this.invoiceService.findByBook(bookId);
 		exchangeRates = this.exchangeRateService.findAll();
 
 		result = new ModelAndView("book/display");
@@ -106,7 +99,6 @@ public class BookUserController extends AbstractController {
 		result.addObject("book", book);
 		result.addObject("flights", flights);
 		result.addObject("exchangeRates", exchangeRates);
-		result.addObject("invoice", invoice);
 
 		return result;
 	}
@@ -180,8 +172,11 @@ public class BookUserController extends AbstractController {
 		Integer seasonDeparture;
 		Integer offerFlightDeparture;
 		Integer offerAirlineDeparture;
+		CreditCard creditCard;
+		User user;
 
 		departure = this.flightService.findOne(departureId);
+		user = this.userService.findByPrincipal();
 
 		if (season1 != "")
 			seasonDeparture = Integer.valueOf(season1);
@@ -196,9 +191,18 @@ public class BookUserController extends AbstractController {
 		else
 			offerAirlineDeparture = null;
 
-		book = this.bookService.create(departure, seasonDeparture, offerFlightDeparture, offerAirlineDeparture, null, null, null, null);
+		creditCard = this.creditCardService.findByUser(user.getId());
+		if (!this.creditCardService.checkValidation(creditCard)) {
+			System.out.println("Invalid Credit Card");
+			result = new ModelAndView("creditCard/list");
+			result.addObject("validarionError", true);
 
-		result = this.createEditModelAndView(book);
+		} else {
+
+			book = this.bookService.create(departure, seasonDeparture, offerFlightDeparture, offerAirlineDeparture, null, null, null, null);
+
+			result = this.createEditModelAndView(book);
+		}
 
 		return result;
 	}
@@ -214,8 +218,21 @@ public class BookUserController extends AbstractController {
 
 		} else
 			try {
-				book = this.bookService.save(book);
-				result = new ModelAndView("redirect:../../applies/user/create.do?bookId=" + book.getId());
+				CreditCard creditCard;
+				User user;
+
+				user = this.userService.findByPrincipal();
+				creditCard = this.creditCardService.findByUser(user.getId());
+				if (!this.creditCardService.checkValidation(creditCard)) {
+					System.out.println("Invalid Credit Card");
+					result = new ModelAndView("creditCard/list");
+					result.addObject("validarionError", true);
+
+				} else {
+
+					book = this.bookService.save(book);
+					result = new ModelAndView("redirect:../../applies/user/create.do?bookId=" + book.getId());
+				}
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);
