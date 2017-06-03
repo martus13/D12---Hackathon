@@ -1,0 +1,12 @@
+Caso de uso 1, si envio un mensaje con los campos vacíos, no se envía, pero tampoco muestra ningún error.
+Caso de uso 4: Test 1: el botón asistir no desaparece
+Caso de uso 10: Test 2: si alguno de los 2 campos está vacio al enviar la petición, no se envía, pero no avisa de ningún error y devuelve a la pagina principal
+Caso de uso 10 repetido el nombre
+Caso de uso 11:Test todos: no aparece añadir linea de factura(comprobar con otro)
+Caso de uso 20: Test 12: Permite depedir
+Caso de uso 21: Test 3: No permite editar el perfil
+Caso de uso 22: Test 3: No permite editar el perfil
+Caso de uso 23: Test 3: No permite editar el perfil
+Caso de uso 24: Test 3: No permite editar el perfil
+Caso de uso 27: Si no estoy logueado, e intento darle a display de un hotel de la lista, aparece un panic.
+Caso de uso 29: test 1: Le doy a denegar, pero en estado pone Accepted. Y al contrario con aceptar.
