@@ -117,6 +117,7 @@
 		<security:intercept-url pattern="/monthlyBill/manager/create.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/monthlyBill/manager/edit.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/monthlyBill/manager/delete.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/monthlyBill/manager/pay.do" access="hasRole('MANAGER')" />
 		
 		<security:intercept-url pattern="/offer/manager/list.do" access="hasRole('MANAGER')" /> 
 		<security:intercept-url pattern="/offer/manager/create.do" access="hasRole('MANAGER')" /> 

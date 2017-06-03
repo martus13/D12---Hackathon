@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MonthlyBillRepository;
+import domain.Manager;
 import domain.MonthlyBill;
 
 @Service
@@ -19,8 +21,10 @@ public class MonthlyBillService {
 	@Autowired
 	private MonthlyBillRepository	monthlyBillRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private ManagerService			managerService;
+
 
 	// Constructors -----------------------------------------------------------
 	public MonthlyBillService() {
@@ -68,6 +72,27 @@ public class MonthlyBillService {
 		Assert.notNull(monthlyBill);
 
 		this.monthlyBillRepository.delete(monthlyBill);
+	}
+
+	public MonthlyBill pay(MonthlyBill monthlyBill) {
+		Assert.notNull(monthlyBill);
+
+		Manager manager;
+		Calendar calendar;
+
+		manager = this.managerService.findByPrincipal();
+		Assert.notNull(manager);
+
+		Assert.isTrue(monthlyBill.getAirline().equals(manager.getAirline()));
+
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.MILLISECOND, -10);
+
+		monthlyBill.setPaidMoment(calendar.getTime());
+
+		monthlyBill = this.monthlyBillRepository.save(monthlyBill);
+
+		return monthlyBill;
 	}
 
 	// Other business methods -------------------------------------------------

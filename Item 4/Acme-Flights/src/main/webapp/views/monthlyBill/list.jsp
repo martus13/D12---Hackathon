@@ -36,6 +36,16 @@
 	<acme:column code="monthlyBill.totalFee" property="totalFee" />
 	<acme:column code="monthlyBill.description" property="description" />
 	<acme:column code="monthlyBill.campaign" property="campaign.name" />
+	
+	<security:authorize access="hasRole('MANAGER')">
+		<display:column>
+			<jstl:if test="${empty row.paidMoment}">
+				<form:form action="monthlyBill/manager/pay.do?monthlyBillId=${row.id}" modelAttribute="monthlyBill">
+					<input type="submit" name="pay" value="<spring:message code="monthlyBill.pay" />" />
+				</form:form>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 		
 </display:table>
 <%-- <security:authorize access="hasRole('ADMIN')">

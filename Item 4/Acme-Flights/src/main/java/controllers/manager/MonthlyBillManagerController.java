@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ExchangeRateService;
@@ -67,6 +68,22 @@ public class MonthlyBillManagerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "monthlyBills")
 	public ModelAndView create() {
 		ModelAndView result;
+
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+
+	// Payment ----------------------------------------------------------------
+
+	@RequestMapping(value = "/pay", method = RequestMethod.POST, params = "pay")
+	public ModelAndView close(@RequestParam final int monthlyBillId) {
+		ModelAndView result;
+		MonthlyBill monthlyBill;
+
+		monthlyBill = this.monthlyBillService.findOne(monthlyBillId);
+
+		monthlyBill = this.monthlyBillService.pay(monthlyBill);
 
 		result = new ModelAndView("redirect:list.do");
 
