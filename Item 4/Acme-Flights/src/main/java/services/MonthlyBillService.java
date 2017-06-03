@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.MonthlyBillRepository;
 import domain.Administrator;
 import domain.Airline;
+import domain.Campaign;
 import domain.Manager;
 import domain.MonthlyBill;
 
@@ -115,22 +116,21 @@ public class MonthlyBillService {
 
 		airlines = this.airlineService.findAll();
 
-		/*
-		 * for (final Airline a : airlines) {
-		 * MonthlyBill monthlyBill;
-		 * Collection<Campaign> campaigns;
-		 * 
-		 * campaigns = this.campaignService.findActiveByAirlineId(a.getId());
-		 * 
-		 * if (!campaigns.isEmpty()) {
-		 * monthlyBill = this.create();
-		 * monthlyBill.setCampaigns(campaigns);
-		 * 
-		 * monthlyBill = this.save(monthlyBill);
-		 * }
-		 * 
-		 * }
-		 */
+		for (final Airline a : airlines) {
+			MonthlyBill monthlyBill;
+			Campaign campaign;
+
+			campaign = this.campaignService.findActiveByAirlineId(a.getId());
+
+			if (campaign != null) {
+				monthlyBill = this.create();
+				monthlyBill.setCampaign(campaign);
+
+				monthlyBill = this.save(monthlyBill);
+			}
+
+		}
+
 	}
 
 	// Other business methods -------------------------------------------------

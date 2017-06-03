@@ -704,8 +704,8 @@
 	
 	<bean id="campaign4" class="domain.Campaign">
 		<property name="name" value="Campaign 4"/>
-		<property name="startDate" value="05/01/2017 00:00:01" />
-		<property name="endDate" value="06/30/2017 23:59:59" />
+		<property name="startDate" value="07/01/2017 00:00:01" />
+		<property name="endDate" value="08/30/2017 23:59:59" />
 		<property name="maxDisplayed" value="1"/>
 		<property name="deleted" value="true"/>
 		<property name="airline" ref="airline1"/>

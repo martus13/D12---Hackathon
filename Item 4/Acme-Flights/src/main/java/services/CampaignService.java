@@ -60,19 +60,21 @@ public class CampaignService {
 	public Campaign create() {
 		Campaign result;
 		Manager manager;
+
 		result = new Campaign();
 
 		manager = this.managerService.findByPrincipal();
 
 		result.setAirline(manager.getAirline());
 		result.setMaxDisplayed(0);
+		result.setDeleted(false);
 
 		return result;
 	}
 
 	public Campaign save(Campaign campaign) {
 		Assert.notNull(campaign);
-		Assert.isNull(this.findOverlappingByAirlineAndDates(campaign.getAirline().getId(), campaign.getStartDate(), campaign.getEndDate()));
+		Assert.isNull(this.findOverlappingByCampaign(campaign.getAirline().getId(), campaign.getStartDate(), campaign.getEndDate(), campaign.getId()));
 
 		campaign = this.campaignRepository.save(campaign);
 
@@ -104,8 +106,8 @@ public class CampaignService {
 		return campaigns;
 	}
 
-	public Collection<Campaign> findActiveByAirlineId(final int airlineId) {
-		Collection<Campaign> campaigns;
+	public Campaign findActiveByAirlineId(final int airlineId) {
+		Campaign campaigns;
 
 		campaigns = this.campaignRepository.findActiveByAirlineId(airlineId);
 
@@ -128,10 +130,10 @@ public class CampaignService {
 		return campaigns;
 	}
 
-	public Campaign findOverlappingByAirlineAndDates(final int airlineId, final Date iniDate, final Date finDate) {
+	public Campaign findOverlappingByCampaign(final int airlineId, final Date iniDate, final Date finDate, final int campaignId) {
 		Campaign campaign;
 
-		campaign = this.campaignRepository.findOverlappingByAirlineAndDates(airlineId, iniDate, finDate);
+		campaign = this.campaignRepository.findOverlappingByCampaign(airlineId, iniDate, finDate, campaignId);
 
 		return campaign;
 	}
