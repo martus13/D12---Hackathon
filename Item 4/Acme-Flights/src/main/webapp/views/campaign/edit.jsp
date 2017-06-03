@@ -22,6 +22,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="airline"/>
+	<form:hidden path="deleted"/>
 	
 	<acme:input code="campaign.name" path="name" />
 	<acme:input code="campaign.startDate" path="startDate" disabled="${disabledReturnDate }" placeholder="dd/MM/yyyy HH:mm:ss"/>
