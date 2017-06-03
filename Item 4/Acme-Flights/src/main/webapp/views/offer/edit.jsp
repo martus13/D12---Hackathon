@@ -17,13 +17,38 @@
 	<acme:input code="offer.endMoment" path="endMoment" placeholder="dd/MM/yyyy HH:mm:ss"/>
 	<acme:input code="offer.discount" path="discount" />
 	
-	<jstl:forEach items="${flights}" var="flight">
-		<div class="form-group">
-			<form:checkbox path="offertables" value="${flight}"/>
-			<jstl:out value="${flight.id }" />
-		</div>
-	</jstl:forEach>
+    <display:table name="flights" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
+  		<display:column>
+			<form:checkbox path="offertables" value="${flights}"/>
+   		</display:column>
+   		
+   		<acme:column code="finder.departureDate" property="departureDate" format="{0,date,dd/MM/yyyy HH:mm}" />
+		<acme:column code="finder.arrivalDate" property="arrivalDate" format="{0,date,dd/MM/yyyy HH:mm}" />
+   		
+   		<spring:message code="finder.departure" var="departureHeader" />
+		<display:column title="${departureHeader}" sortable="true" >
+			<jstl:out value="${row.departure.iataCode }" /> - <jstl:out value="${row.departure.city }" />
+		</display:column> 
+   
+   		<spring:message code="finder.destination" var="destinationHeader" />
+		<display:column title="${destinationHeader}" sortable="true" >
+			<jstl:out value="${row.destination.iataCode }" /> - <jstl:out value="${row.destination.city }" />
+		</display:column> 
+   		
+   		<spring:message code="flight.businessPrice" var="priceHeader" />
+		<display:column title="${priceHeader }" sortable="true" >
+			<jstl:out value="${row.businessPrice}" />
+		</display:column> 
+		
+	<spring:message code="flight.economyPrice" var="priceHeader" />
+	<display:column title="${priceHeader}" sortable="true" >
+			<jstl:out value="${row.economyPrice}" />
+		</display:column> 
+   		
+   		
+    </display:table>
 	<form:errors path="offertables" cssClass="error" />
+	
 
 	
 	<acme:submit name="save" code="offer.save" />
