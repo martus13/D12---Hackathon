@@ -133,7 +133,7 @@ public class CampaignManagerController extends AbstractController {
 
 		campaign = this.campaignService.findOne(campaignId);
 
-		if (this.campaignService.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() > 0) {
+		if (this.monthlyBillService.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() > 0) {
 			Collection<MonthlyBill> monthlyBills;
 			Manager manager;
 			Collection<ExchangeRate> exchangeRates;

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import repositories.CampaignRepository;
 import domain.Banner;
 import domain.Campaign;
 import domain.Manager;
-import domain.MonthlyBill;
 
 @Service
 @Transactional
@@ -28,6 +28,9 @@ public class CampaignService {
 
 	@Autowired
 	private ManagerService		managerService;
+
+	@Autowired
+	private MonthlyBillService	monthlyBillService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -69,6 +72,7 @@ public class CampaignService {
 
 	public Campaign save(Campaign campaign) {
 		Assert.notNull(campaign);
+		Assert.isNull(this.findOverlappingByAirlineAndDates(campaign.getAirline().getId(), campaign.getStartDate(), campaign.getEndDate()));
 
 		campaign = this.campaignRepository.save(campaign);
 
@@ -77,7 +81,7 @@ public class CampaignService {
 
 	public void delete(final Campaign campaign) {
 		Assert.notNull(campaign);
-		Assert.isTrue(this.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() == 0);
+		Assert.isTrue(this.monthlyBillService.findUnpaidMonthlyBillsByCampaignId(campaign.getId()).size() == 0);
 		Collection<Banner> banners;
 
 		banners = this.bannerService.findByCampaignId(campaign.getId());
@@ -124,11 +128,12 @@ public class CampaignService {
 		return campaigns;
 	}
 
-	public Collection<MonthlyBill> findUnpaidMonthlyBillsByCampaignId(final int campaignId) {
-		Collection<MonthlyBill> campaigns;
+	public Campaign findOverlappingByAirlineAndDates(final int airlineId, final Date iniDate, final Date finDate) {
+		Campaign campaign;
 
-		campaigns = this.campaignRepository.findUnpaidMonthlyBillsByCampaignId(campaignId);
+		campaign = this.campaignRepository.findOverlappingByAirlineAndDates(airlineId, iniDate, finDate);
 
-		return campaigns;
+		return campaign;
 	}
+
 }

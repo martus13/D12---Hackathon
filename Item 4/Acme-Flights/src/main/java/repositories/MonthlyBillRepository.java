@@ -17,4 +17,7 @@ public interface MonthlyBillRepository extends JpaRepository<MonthlyBill, Intege
 
 	@Query("select m from MonthlyBill m where m.airline.id=?1")
 	Collection<MonthlyBill> findByAirlineId(int airlineId);
+
+	@Query("select m from MonthlyBill m where m.paidMoment=null and m.campaign.id=?1")
+	Collection<MonthlyBill> findUnpaidMonthlyBillsByCampaignId(int campaignId);
 }

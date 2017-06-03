@@ -66,10 +66,10 @@ public class OfferService {
 
 	public Offer save(Offer offer) {
 		Assert.notNull(offer);
-		final Collection<Offer> offers;
-		
-		//offers = this.findOverlappingByOffer(offer);
-		//Assert.isNull(offers);
+		Collection<Offer> offers;
+
+		offers = this.findOverlappingByOffer(offer);
+		Assert.isNull(offers);
 
 		offer = this.offerRepository.save(offer);
 

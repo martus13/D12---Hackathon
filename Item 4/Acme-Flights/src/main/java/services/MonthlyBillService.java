@@ -150,4 +150,12 @@ public class MonthlyBillService {
 
 		return res;
 	}
+
+	public Collection<MonthlyBill> findUnpaidMonthlyBillsByCampaignId(final int campaignId) {
+		Collection<MonthlyBill> campaigns;
+
+		campaigns = this.monthlyBillRepository.findUnpaidMonthlyBillsByCampaignId(campaignId);
+
+		return campaigns;
+	}
 }
