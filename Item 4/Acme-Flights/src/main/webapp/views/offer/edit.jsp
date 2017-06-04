@@ -33,7 +33,7 @@
 	</jstl:if>
 	<jstl:if test="${not isAirline}">
 		<display:table name="flights" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
-    	
+
 	    	<jstl:set var="checked" value="0" />
 			<jstl:forEach var="offertable" items="${offer.offertables}">
 			  <jstl:if test="${offertable.id==row.id}">
@@ -78,6 +78,7 @@
 	   		
 	    </display:table>
 	</jstl:if>
+    
     
 	<form:errors path="offertables" cssClass="error" />
 	

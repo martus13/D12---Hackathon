@@ -152,12 +152,11 @@ public class OfferManagerController extends AbstractController {
 		offer = this.offerService.findOne(offerId);
 
 		result = this.createEditModelAndView(offer, isAirline);
-
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Offer offer, @RequestParam final boolean isAirline, final BindingResult binding) {
+	public ModelAndView save(@RequestParam final boolean isAirline, @Valid Offer offer, final BindingResult binding) {
 
 		ModelAndView result;
 		Manager manager;
@@ -240,13 +239,16 @@ public class OfferManagerController extends AbstractController {
 		Offertable offertable;
 		Collection<Offertable> offertables;
 		Manager manager;
-
+		
+		
+		
 		manager = this.managerService.findByPrincipal();
-		flights = this.flightService.findNotCancelledByAirlineId(manager.getAirline().getId());
+		flights = this.flightService.findNotCancelledNotPassedByAirlineId(manager.getAirline().getId());
 		offertable = this.offertableService.findOne(manager.getAirline().getId());
 		offertables = new ArrayList<Offertable>();
 
 		offertables.add(offertable);
+
 
 		result = new ModelAndView("offer/edit");
 		result.addObject("offer", offer);
