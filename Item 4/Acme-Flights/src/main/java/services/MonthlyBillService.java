@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -77,13 +78,16 @@ public class MonthlyBillService {
 	public MonthlyBill create() {
 		MonthlyBill result;
 		Calendar calendar;
+		Collection<Campaign> campaigns;
 
 		result = new MonthlyBill();
 		calendar = Calendar.getInstance();
 		calendar.add(Calendar.MILLISECOND, -10);
+		campaigns = new ArrayList<Campaign>();
 
 		result.setTotalFee(0.0);
 		result.setCreationMoment(calendar.getTime());
+		result.setCampaigns(campaigns);
 
 		return result;
 	}
@@ -98,6 +102,7 @@ public class MonthlyBillService {
 		Collection<Flight> flights;
 		String description;
 		Collection<Banner> banners;
+		Collection<Campaign> campaigns;
 
 		configuration = this.configurationService.findConfiguration();
 		lastMonthlyBill = this.findLastMonthlyBill(monthlyBill.getAirline().getId());
@@ -105,16 +110,20 @@ public class MonthlyBillService {
 		flightsCost = 0.0;
 		campaignCost = 0.0;
 		description = "";
-		banners = this.bannerService.findByCampaignId(monthlyBill.getCampaign().getId());
+		campaigns = monthlyBill.getCampaigns();
 
-		if (!banners.isEmpty()) {
-			for (final Banner b : banners) {
-				counter += b.getNumDisplayed();
+		for (final Campaign c : campaigns) {
+			banners = this.bannerService.findByCampaignId(c.getId());
 
-				b.setNumDisplayed(0); // Reiniciamos el numero de veces que se ha mostrado un banner
-				this.bannerService.save(b);
+			if (!banners.isEmpty()) {
+				for (final Banner b : banners) {
+					counter += b.getNumDisplayed();
+
+					b.setNumDisplayed(0); // Reiniciamos el numero de veces que se ha mostrado un banner
+					this.bannerService.save(b);
+				}
+				campaignCost += configuration.getCampaignFee() * counter;
 			}
-			campaignCost += configuration.getCampaignFee() * counter;
 		}
 
 		if (lastMonthlyBill != null)
@@ -135,7 +144,11 @@ public class MonthlyBillService {
 
 			monthlyBill.setCreationMoment(calendar.getTime());
 		}
-		monthlyBill = this.monthlyBillRepository.save(monthlyBill);
+
+		if (monthlyBill.getTotalFee() > 0)
+			monthlyBill = this.monthlyBillRepository.save(monthlyBill);
+		else
+			monthlyBill = null;
 
 		return monthlyBill;
 	}
@@ -181,27 +194,33 @@ public class MonthlyBillService {
 			MonthlyBill lastMonthlyBill;
 			long diferenciaDias;
 			Calendar calendar;
-			Calendar calendarLastMonthlyBill;
-			Campaign campaign;
+			Calendar calendarIniDate;
 
-			campaign = this.campaignService.findActiveByAirlineId(a.getId());
 			lastMonthlyBill = this.findLastMonthlyBill(a.getId());
 
 			calendar = Calendar.getInstance();
 			calendar.add(Calendar.MILLISECOND, -10);
 
-			calendarLastMonthlyBill = Calendar.getInstance();
-			calendarLastMonthlyBill.setTime(lastMonthlyBill.getCreationMoment());
+			calendarIniDate = Calendar.getInstance();
 
-			diferenciaDias = calendar.getTimeInMillis() - calendarLastMonthlyBill.getTimeInMillis();
+			if (lastMonthlyBill != null)
+				calendarIniDate.setTime(lastMonthlyBill.getCreationMoment());
+			else
+				calendarIniDate.setTime(this.campaignService.findFirstStartDateByAirline(a.getId()));
+
+			diferenciaDias = calendar.getTimeInMillis() - calendarIniDate.getTimeInMillis();
 			diferenciaDias = diferenciaDias / (24 * 60 * 60 * 1000);
 
-			if (campaign != null && diferenciaDias >= 30) {
-				monthlyBill = this.create();
-				monthlyBill.setCampaign(campaign);
-				monthlyBill.setAirline(campaign.getAirline());
+			if (diferenciaDias >= 30) {
+				final Collection<Campaign> campaigns;
 
-				monthlyBill = this.save(monthlyBill);
+				campaigns = this.campaignService.findByAirlineIdPeriod(a.getId(), calendarIniDate.getTime(), calendar.getTime());
+
+				monthlyBill = this.create();
+				monthlyBill.setCampaigns(campaigns);
+				monthlyBill.setAirline(a);
+
+				this.save(monthlyBill);
 			}
 
 		}

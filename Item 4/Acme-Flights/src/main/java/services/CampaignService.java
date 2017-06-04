@@ -74,7 +74,7 @@ public class CampaignService {
 
 	public Campaign save(Campaign campaign) {
 		Assert.notNull(campaign);
-		Assert.isNull(this.findOverlappingByCampaign(campaign.getAirline().getId(), campaign.getStartDate(), campaign.getEndDate(), campaign.getId()));
+		//Assert.isNull(this.findOverlappingByCampaign(campaign.getAirline().getId(), campaign.getStartDate(), campaign.getEndDate(), campaign.getId()));
 
 		campaign = this.campaignRepository.save(campaign);
 
@@ -120,6 +120,22 @@ public class CampaignService {
 		campaigns = this.campaignRepository.findByAirlineId(airlineId);
 
 		return campaigns;
+	}
+
+	public Collection<Campaign> findByAirlineIdPeriod(final int airlineId, final Date iniDate, final Date finDate) {
+		Collection<Campaign> campaigns;
+
+		campaigns = this.campaignRepository.findByAirlineIdPeriod(airlineId, iniDate, finDate);
+
+		return campaigns;
+	}
+
+	public Date findFirstStartDateByAirline(final int airlineId) {
+		Date result;
+
+		result = this.campaignRepository.findFirstStartDateByAirline(airlineId);
+
+		return result;
 	}
 
 	public Collection<Campaign> findNotDeletedByAirlineId(final int airlineId) {

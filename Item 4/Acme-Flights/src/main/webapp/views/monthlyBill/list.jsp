@@ -35,7 +35,16 @@
 	<acme:column code="monthlyBill.paidMoment" property="paidMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 	<acme:column code="monthlyBill.totalFee" property="totalFee" />
 	<acme:column code="monthlyBill.description" property="description" />
-	<acme:column code="monthlyBill.campaign" property="campaign.name" />
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<acme:column code="monthlyBill.airline" property="airline.name" />
+	</security:authorize>
+	
+	<display:column>
+		<a href="monthlyBill/actor/display.do?monthlyBillId=${row.id}">
+			<spring:message code="monthlyBill.display" />
+		</a>
+	</display:column>
 	
 	<security:authorize access="hasRole('MANAGER')">
 		<display:column>

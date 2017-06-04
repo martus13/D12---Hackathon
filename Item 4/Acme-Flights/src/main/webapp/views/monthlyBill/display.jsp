@@ -6,6 +6,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <div>
 	<ul>
@@ -15,8 +16,8 @@
 		</li>
 		
 		<li>
-			<b><spring:message code="monthlyBill.sponsor" />:</b>
-			<jstl:out value="${monthlyBill.campaigns[0].sponsor.name}" />
+			<b><spring:message code="monthlyBill.airline" />:</b>
+			<jstl:out value="${monthlyBill.airline.name}" />
 		</li>
 		
 		<li>
@@ -25,8 +26,8 @@
 		</li>
 		
 		<li>
-			<b><spring:message code="monthlyBill.cost" />:</b>
-			<jstl:out value="${monthlyBill.cost}" />
+			<b><spring:message code="monthlyBill.totalFee" />:</b>
+			<jstl:out value="${monthlyBill.totalFee}" />
 		</li>
 		
 		<li>
@@ -37,29 +38,14 @@
 		<li>
 			<b><spring:message code="monthlyBill.campaigns" />:</b><br />
 			<display:table name="${monthlyBill.campaigns}" id="row">
-			
-				<spring:message code="monthlyBill.campaign.startDate" var="startDateHeader" />
-				<display:column property="startDate" title="${startDateHeader}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 				
-				<spring:message code="monthlyBill.campaign.endDate" var="endDateHeader" />
-				<display:column property="endDate" title="${endDateHeader}" sortable="true" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
-			
-				<spring:message code="monthlyBill.campaign.maxDisplayed" var="maxDisplayedHeader" />
-				<display:column property="maxDisplayed" title="${maxDisplayedHeader}" sortable="true" />
-				
-				<spring:message code="monthlyBill.campaign.star" var="starHeader" />
-				<display:column property="star" title="${starHeader}" sortable="true" />
-				
-				<spring:message code="monthlyBill.campaign.fee" var="feeHeader" />
-				<display:column property="fee.cost" title="${feeHeader}" sortable="true" />
+				<acme:column code="monthlyBill.campaign.name" property="name" />
+				<acme:column code="monthlyBill.campaign.startDate" property="startDate" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
+				<acme:column code="monthlyBill.campaign.endDate" property="endDate" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
 				
 			</display:table>
 		</li>
 		
 		
 	</ul>
-	
-	<a href="monthlyBill/sponsor/list.do">
-		<button><spring:message code="monthlyBill.goBack" /></button>
-	</a>
 </div>

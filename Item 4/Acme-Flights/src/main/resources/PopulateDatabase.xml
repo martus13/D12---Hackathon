@@ -769,7 +769,12 @@
 		<property name="description" value="description monthlyBill 1" />
 		<property name="totalFee" value="18.76" />
 		<property name="airline" ref="airline1" />
-		<property name="campaign" ref="campaign1" />
+		<property name="campaigns">
+			<list>
+				<ref bean="campaign1" /> 
+			</list>
+		</property>
+		
 	</bean>
 	
 	<bean id="monthlyBill2" class="domain.MonthlyBill">
@@ -777,7 +782,11 @@
 		<property name="description" value="description monthlyBill 2" />
 		<property name="totalFee" value="18.76" />
 		<property name="airline" ref="airline1" />
-		<property name="campaign" ref="campaign1" />
+		<property name="campaigns">
+			<list>
+				<ref bean="campaign1" /> 
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="monthlyBill3" class="domain.MonthlyBill">
@@ -786,7 +795,11 @@
 		<property name="description" value="description monthlyBill 2" />
 		<property name="totalFee" value="26.97" />
 		<property name="airline" ref="airline2" />
-		<property name="campaign" ref="campaign2" />
+		<property name="campaigns">
+			<list>
+				<ref bean="campaign2" /> 
+			</list>
+		</property>
 	</bean>
 	
 	<!-- User -->
@@ -1134,15 +1147,6 @@
 		<property name="type" value="Positive"/>
 		<property name="commentText" value="Todo muy bien, aunque mejoraría la comida que ofrecen en los viajes largos"/>
 		<property name="rating" ref="rating4"/>
-		<property name="airline" ref="airline3"/>
-		<property name="user" ref="user1"/>
-	</bean>
-	
-	<bean id="comment5" class="domain.Comment">
-		<property name="creationMoment" value="04/21/2017 21:36"/>
-		<property name="type" value="Neutral"/>
-		<property name="commentText" value="Tuvieron un poco de retraso en la salida pero luego el servicio fue bastante bueno en general"/>
-		<property name="rating" ref="rating5"/>
 		<property name="airline" ref="airline3"/>
 		<property name="user" ref="user1"/>
 	</bean>

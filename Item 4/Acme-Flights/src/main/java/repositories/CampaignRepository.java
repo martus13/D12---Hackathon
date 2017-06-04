@@ -22,6 +22,12 @@ public interface CampaignRepository extends JpaRepository<Campaign, Integer> {
 	@Query("select c from Campaign c where c.airline.id=?1")
 	Collection<Campaign> findByAirlineId(int airlineId);
 
+	@Query("select c from Campaign c where c.airline.id=?1 and not (?3<c.startDate or ?2>c.endDate)")
+	Collection<Campaign> findByAirlineIdPeriod(int airlineId, Date iniDate, Date finDate);
+
+	@Query("select min(c.startDate) from Campaign c where c.airline.id=?1")
+	Date findFirstStartDateByAirline(int airlineId);
+
 	@Query("select c from Campaign c where c.airline.id=?1 and c.deleted=false")
 	Collection<Campaign> findNotDeletedByAirlineId(int airlineId);
 

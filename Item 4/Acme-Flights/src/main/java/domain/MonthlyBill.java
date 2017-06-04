@@ -1,12 +1,14 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -85,8 +88,8 @@ public class MonthlyBill extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 
-	private Airline		airline;
-	private Campaign	campaign;
+	private Airline					airline;
+	private Collection<Campaign>	campaigns;
 
 
 	@NotNull
@@ -100,15 +103,15 @@ public class MonthlyBill extends DomainEntity {
 		this.airline = airline;
 	}
 
-	@NotNull
+	@NotEmpty
 	@Valid
-	@ManyToOne(optional = false)
-	public Campaign getCampaign() {
-		return this.campaign;
+	@ManyToMany()
+	public Collection<Campaign> getCampaigns() {
+		return this.campaigns;
 	}
 
-	public void setCampaign(final Campaign campaign) {
-		this.campaign = campaign;
+	public void setCampaigns(final Collection<Campaign> campaigns) {
+		this.campaigns = campaigns;
 	}
 
 }
