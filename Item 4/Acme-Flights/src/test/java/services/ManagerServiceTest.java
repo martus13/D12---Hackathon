@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Actor;
+import domain.Airline;
 import domain.Manager;
 
 @ContextConfiguration(locations = {
@@ -28,6 +28,9 @@ public class ManagerServiceTest extends AbstractTest {
 	@Autowired
 	private ManagerService	managerService;
 
+	@Autowired
+	private AirlineService	airlineService;
+
 
 	// Tests ------------------------------------------------------------------
 
@@ -35,13 +38,15 @@ public class ManagerServiceTest extends AbstractTest {
 	public void driverFindandEdit() {
 		final Object testingData[][] = {
 			{
-				146, "MANAGER", null
+				146, "MANAGER", null, 118
+			}, {//managerId y airlineId erróneas
+				135, "MANAGER", IllegalArgumentException.class, 2500
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
 			this.testFindOne((int) testingData[i][0], (Class<?>) testingData[i][2]);
-			this.testEdit((int) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.testEdit((int) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2], (Integer) testingData[i][3]);
 		}
 	}
 
@@ -50,10 +55,10 @@ public class ManagerServiceTest extends AbstractTest {
 
 		caught = null;
 		try {
-			Actor actor;
+			Manager manager;
 
-			actor = this.managerService.findOne(managerId);
-			Assert.notNull(actor);
+			manager = this.managerService.findOne(managerId);
+			Assert.notNull(manager);
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -63,15 +68,19 @@ public class ManagerServiceTest extends AbstractTest {
 
 	}
 
-	protected void testEdit(final int managerId, final String text, final Class<?> expected) {
+	protected void testEdit(final int managerId, final String text, final Class<?> expected, final int airlineId) {
 		Class<?> caught;
 
 		caught = null;
 		try {
 			Manager manager;
+			Airline airline;
 
+			airline = this.airlineService.findOne(airlineId);
+			Assert.notNull(airline);
 			manager = this.managerService.findOne(managerId);
 			manager.setName(text);
+			manager.setAirline(airline);
 
 			manager = this.managerService.save(manager);
 			Assert.isTrue(manager.getName() == text);
