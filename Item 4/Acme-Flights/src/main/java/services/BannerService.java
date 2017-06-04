@@ -133,7 +133,7 @@ public class BannerService {
 			random = new Random();
 			result = bannersCanBeDisplayed.get(random.nextInt(bannersCanBeDisplayed.size()));
 
-			result.setNumDisplayed(result.getNumDisplayed() - 1);
+			result.setNumDisplayed(result.getNumDisplayed() + 1);
 			result = this.save(result);
 		} else
 			result = null;

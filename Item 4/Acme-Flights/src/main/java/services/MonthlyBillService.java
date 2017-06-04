@@ -117,9 +117,12 @@ public class MonthlyBillService {
 
 			if (!banners.isEmpty()) {
 				for (final Banner b : banners) {
-					counter += b.getNumDisplayed();
+					Integer monthDisplays;
 
-					b.setNumDisplayed(0); // Reiniciamos el numero de veces que se ha mostrado un banner
+					monthDisplays = b.getNumDisplayed() - b.getNumDisplayedBilled();
+					counter += monthDisplays;
+
+					b.setNumDisplayedBilled(monthDisplays);
 					this.bannerService.save(b);
 				}
 				campaignCost += configuration.getCampaignFee() * counter;

@@ -32,6 +32,7 @@ public class Banner extends DomainEntity {
 
 	private Integer	numDisplayed;
 	private String	picture;
+	private Integer	numDisplayedBilled;
 
 
 	@NotNull
@@ -51,6 +52,16 @@ public class Banner extends DomainEntity {
 	}
 	public void setPicture(final String picture) {
 		this.picture = picture;
+	}
+
+	@NotNull
+	@Min(0)
+	public Integer getNumDisplayedBilled() {
+		return this.numDisplayedBilled;
+	}
+
+	public void setNumDisplayedBilled(final Integer numDisplayedBilled) {
+		this.numDisplayedBilled = numDisplayedBilled;
 	}
 
 
