@@ -153,6 +153,9 @@
 		
 		<security:intercept-url pattern="/managerUser/administrator/register.do" access="hasRole('ADMIN')" />
 		
+		<security:intercept-url pattern="/monthlyBill/administrator/list.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/monthlyBill/administrator/create.do" access="hasRole('ADMIN')" />
+		
 		<security:intercept-url pattern="/configuration/administrator/display.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/configuration/administrator/edit.do" access="hasRole('ADMIN')" />
 		

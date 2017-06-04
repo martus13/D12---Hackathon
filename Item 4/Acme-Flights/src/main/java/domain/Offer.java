@@ -85,5 +85,11 @@ public class Offer extends DomainEntity {
 	public void setOffertables(final Collection<Offertable> offertables) {
 		this.offertables = offertables;
 	}
+	public void addOffertable(final Offertable offertable) {
+		this.offertables.add(offertable);
+	}
+	public void removeOffertable(final Offertable offertable) {
+		this.offertables.remove(offertable);
+	}
 
 }

@@ -24,8 +24,10 @@ public class OfferService {
 	@Autowired
 	private OfferRepository	offerRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private BookService		bookService;
+
 
 	// Constructors -----------------------------------------------------------
 	public OfferService() {
@@ -69,7 +71,7 @@ public class OfferService {
 		Collection<Offer> offers;
 
 		offers = this.findOverlappingByOffer(offer);
-		Assert.isNull(offers);
+		Assert.isTrue(offers.isEmpty());
 
 		offer = this.offerRepository.save(offer);
 
@@ -78,6 +80,8 @@ public class OfferService {
 
 	public void delete(final Offer offer) {
 		Assert.notNull(offer);
+		// comprobar que no se puede eliminar si ha sido aplicada a alguna reserva
+		Assert.isNull(this.bookService.findByOfferId(offer.getId()));
 
 		this.offerRepository.delete(offer);
 	}
@@ -108,11 +112,10 @@ public class OfferService {
 
 		Collection<Offer> result;
 
-		result = this.offerRepository.findOverlappingByOffer(offer.getOffertables(), offer.getStartMoment(), offer.getEndMoment());
+		result = this.offerRepository.findOverlappingByOffer(offer.getOffertables(), offer.getStartMoment(), offer.getEndMoment(), offer.getId());
 
 		return result;
 	}
-
 	public Collection<Offer> findByDateAndOffertables(final Collection<Offertable> offertables, final Date date) {
 		Assert.notNull(offertables);
 		Assert.notNull(date);

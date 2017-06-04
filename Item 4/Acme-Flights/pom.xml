@@ -29,7 +29,7 @@
 	<!-- Indexing information -->
 
 	<name>Acme-Flights</name>
-	<url>http://www.acme.com</url>
+	<url>http://www.acme.com/</url>
 	<description>This is D&amp;T's Acme-Flights project.</description>
 	
 	<!-- Build commands -->

@@ -149,6 +149,14 @@ public class FlightService {
 		return result;
 	}
 
+	public Collection<Flight> findByAirlineIdPeriod(final int airlineId, final Date startDate) {
+		Collection<Flight> result;
+
+		result = this.flightRepository.findByAirlineIdPeriod(airlineId, startDate);
+
+		return result;
+	}
+
 	public Collection<Object[]> findNotCancelledByAirlineIdOfferAndSeason(final int airlineId) {
 		Collection<Object[]> result;
 

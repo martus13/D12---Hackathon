@@ -1,8 +1,8 @@
 
 package controllers.manager;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -53,36 +53,31 @@ public class OfferManagerController extends AbstractController {
 		super();
 	}
 
-	
-	 @InitBinder
-	    protected void initBinder(WebDataBinder binder) {
-	        binder.registerCustomEditor(Set.class, "offertables", new CustomCollectionEditor(Set.class)
-	          {
-	            @Override
-	            protected Object convertElement(Object element)
-	            {
-	                Integer id = null;
+	@InitBinder
+	protected void initBinder(final WebDataBinder binder) {
+		binder.registerCustomEditor(Set.class, "offertables", new CustomCollectionEditor(Set.class) {
 
-	                if(element instanceof String && !((String)element).equals("")){
-	                    //From the JSP 'element' will be a String
-	                    try{
-	                        id = Integer.parseInt((String) element);
-	                    }
-	                    catch (NumberFormatException e) {
-	                        System.out.println("Element was " + ((String) element));
-	                        e.printStackTrace();
-	                    }
-	                }
-	                else if(element instanceof Integer) {
-	                    //From the database 'element' will be a Long
-	                    id = (Integer) element;
-	                }
+			@Override
+			protected Object convertElement(final Object element) {
+				Integer id = null;
 
-	                return id != null ? offertableService.findOne(id) : null;
-	            }
-	          });
-	    }
-	
+				if (element instanceof String && !((String) element).equals(""))
+					//From the JSP 'element' will be a String
+					try {
+						id = Integer.parseInt((String) element);
+					} catch (final NumberFormatException e) {
+						System.out.println("Element was " + ((String) element));
+						e.printStackTrace();
+					}
+				else if (element instanceof Integer)
+					//From the database 'element' will be a Long
+					id = (Integer) element;
+
+				return id != null ? OfferManagerController.this.offertableService.findOne(id) : null;
+			}
+		});
+	}
+
 	// Listing ----------------------------------------------------------------		
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -97,6 +92,7 @@ public class OfferManagerController extends AbstractController {
 		result = new ModelAndView("offer/list");
 		result.addObject("requestURI", "offer/manager/list.do");
 		result.addObject("offers", offers);
+		result.addObject("manager", manager);
 
 		return result;
 	}
@@ -131,50 +127,64 @@ public class OfferManagerController extends AbstractController {
 	}
 	// Creation ---------------------------------------------------------------		
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView register() {
+	public ModelAndView register(@RequestParam final boolean isAirline) {
 		ModelAndView result;
 		Offer offer;
+		Manager manager;
 
 		offer = this.offerService.create();
+		manager = this.managerService.findByPrincipal();
 
-		result = this.createEditModelAndView(offer);
+		if (isAirline)
+			offer.addOffertable(manager.getAirline());
+
+		result = this.createEditModelAndView(offer, isAirline);
 
 		return result;
 	}
 
 	// Edition ----------------------------------------------------------------		
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int offerId) {
+	public ModelAndView edit(@RequestParam final int offerId, @RequestParam final boolean isAirline) {
 		ModelAndView result;
 		Offer offer;
 
 		offer = this.offerService.findOne(offerId);
-		
-		offer.setOffertables(offer.getOffertables());
-		result = this.createEditModelAndView(offer);
+
+		result = this.createEditModelAndView(offer, isAirline);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Offer offer, final BindingResult binding) {
+	public ModelAndView save(@Valid Offer offer, @RequestParam final boolean isAirline, final BindingResult binding) {
 
 		ModelAndView result;
+		Manager manager;
+		Collection<Offertable> offertables;
+
+		manager = this.managerService.findByPrincipal();
+		offertables = new ArrayList<Offertable>();
+		/*
+		 * if (isAirline) {
+		 * offertables.add(manager.getAirline());
+		 * offer.setOffertables(offertables);
+		 * }
+		 */
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
-			result = this.createEditModelAndView(offer);
+			result = this.createEditModelAndView(offer, isAirline);
 
 		} else
 			try {
-				
 				offer = this.offerService.save(offer);
 				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
 				System.out.println(oops);
 
-				result = this.createEditModelAndView(offer, "offer.commit.error");
+				result = this.createEditModelAndView(offer, isAirline, "offer.commit.error");
 
 			}
 		return result;
@@ -189,9 +199,26 @@ public class OfferManagerController extends AbstractController {
 
 		offer = this.offerService.findOne(offerId);
 
-		this.offerService.delete(offer);
+		try {
 
-		result = new ModelAndView("redirect:list.do");
+			this.offerService.delete(offer);
+
+			result = new ModelAndView("redirect:list.do");
+
+		} catch (final Throwable oops) {
+			Collection<Offer> offers;
+
+			Manager manager;
+
+			manager = this.managerService.findByPrincipal();
+			offers = this.offerService.findByAirlineId(manager.getAirline().getId());
+
+			result = new ModelAndView("offer/list");
+			result.addObject("requestURI", "offer/manager/list.do");
+			result.addObject("offers", offers);
+			result.addObject("deleteError", true);
+
+		}
 
 		return result;
 
@@ -199,27 +226,36 @@ public class OfferManagerController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final Offer offer) {
+	protected ModelAndView createEditModelAndView(final Offer offer, final boolean isAirline) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(offer, null);
+		result = this.createEditModelAndView(offer, isAirline, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Offer offer, final String message) {
+	protected ModelAndView createEditModelAndView(final Offer offer, final boolean isAirline, final String message) {
 		final ModelAndView result;
 		Collection<Flight> flights;
+		Offertable offertable;
+		Collection<Offertable> offertables;
 		Manager manager;
 
 		manager = this.managerService.findByPrincipal();
 		flights = this.flightService.findNotCancelledByAirlineId(manager.getAirline().getId());
+		offertable = this.offertableService.findOne(manager.getAirline().getId());
+		offertables = new ArrayList<Offertable>();
+
+		offertables.add(offertable);
 
 		result = new ModelAndView("offer/edit");
 		result.addObject("offer", offer);
 		result.addObject("flights", flights);
 		result.addObject("airline", manager.getAirline());
+		result.addObject("offertablesCollection", offertables);
+		result.addObject("isAirline", isAirline);
 		result.addObject("message", message);
+		result.addObject("isCreate", offer.getId() == 0);
 
 		return result;
 	}

@@ -382,4 +382,12 @@ public class BookService {
 		return result;
 	}
 
+	public Collection<Book> findByOfferId(final int offerId) {
+		Collection<Book> result;
+
+		result = this.bookRepository.findByOfferId(offerId);
+
+		return result;
+	}
+
 }

@@ -22,6 +22,9 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
 	@Query("select f from Flight f where f.cancelled=false and f.airline.id=?1")
 	Collection<Flight> findNotCancelledByAirlineId(int airlineId);
 
+	@Query("select f from Flight f where f.airline.id=?1 and f.creationMoment between ?2 and current_timestamp")
+	Collection<Flight> findByAirlineIdPeriod(int airlineId, Date startDate);
+
 	@Query("select f, (select s from Season s where s.airline=f.airline and s.inactive=false and DATE_FORMAT(f.departureDate, '%Y-%m-%d') >= DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.startMonth, '/', s.startDay), '%Y-%m-%d') and DATE_FORMAT(f.departureDate, '%Y-%m-%d')<= DATE_FORMAT(CONCAT(YEAR(f.departureDate),'/', s.endMonth, '/', s.endDay), '%Y-%m-%d')), (select ov from Offer ov join ov.offertables ovo where ovo.id=f.id and current_date between ov.startMoment and ov.endMoment), (select oa from Offer oa join oa.offertables oao where oao.id=f.airline.id and current_date between oa.startMoment and oa.endMoment) from Flight f where f.cancelled=false and f.airline.id=?1")
 	Collection<Object[]> findNotCancelledByAirlineIdOfferAndSeason(int airlineId);
 

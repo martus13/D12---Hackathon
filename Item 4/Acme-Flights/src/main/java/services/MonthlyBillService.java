@@ -12,7 +12,10 @@ import org.springframework.util.Assert;
 import repositories.MonthlyBillRepository;
 import domain.Administrator;
 import domain.Airline;
+import domain.Banner;
 import domain.Campaign;
+import domain.Configuration;
+import domain.Flight;
 import domain.Manager;
 import domain.MonthlyBill;
 
@@ -36,6 +39,15 @@ public class MonthlyBillService {
 
 	@Autowired
 	private AirlineService			airlineService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
+
+	@Autowired
+	private BannerService			bannerService;
+
+	@Autowired
+	private FlightService			flightService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -64,17 +76,65 @@ public class MonthlyBillService {
 
 	public MonthlyBill create() {
 		MonthlyBill result;
+		Calendar calendar;
 
 		result = new MonthlyBill();
+		calendar = Calendar.getInstance();
+		calendar.add(Calendar.MILLISECOND, -10);
 
 		result.setTotalFee(0.0);
+		result.setCreationMoment(calendar.getTime());
 
 		return result;
 	}
 
 	public MonthlyBill save(MonthlyBill monthlyBill) {
 		Assert.notNull(monthlyBill);
+		Configuration configuration;
+		Integer counter;
+		Double flightsCost;
+		Double campaignCost;
+		MonthlyBill lastMonthlyBill;
+		Collection<Flight> flights;
+		String description;
+		Collection<Banner> banners;
 
+		configuration = this.configurationService.findConfiguration();
+		lastMonthlyBill = this.findLastMonthlyBill(monthlyBill.getAirline().getId());
+		counter = 0;
+		flightsCost = 0.0;
+		campaignCost = 0.0;
+		description = "";
+		banners = this.bannerService.findByCampaignId(monthlyBill.getCampaign().getId());
+
+		if (!banners.isEmpty()) {
+			for (final Banner b : banners) {
+				counter += b.getNumDisplayed();
+
+				b.setNumDisplayed(0); // Reiniciamos el numero de veces que se ha mostrado un banner
+				this.bannerService.save(b);
+			}
+			campaignCost += configuration.getCampaignFee() * counter;
+		}
+
+		if (lastMonthlyBill != null)
+			flights = this.flightService.findByAirlineIdPeriod(monthlyBill.getAirline().getId(), lastMonthlyBill.getCreationMoment());
+		else
+			flights = this.flightService.findAll();
+
+		description += "Se han ofertado: " + flights.size() + " vuelos.";
+		flightsCost = configuration.getFee() * flights.size();
+
+		monthlyBill.setDescription(description);
+		monthlyBill.setTotalFee(campaignCost + flightsCost);
+		if (monthlyBill.getId() == 0) {
+			Calendar calendar;
+
+			calendar = Calendar.getInstance();
+			calendar.add(Calendar.MILLISECOND, -10);
+
+			monthlyBill.setCreationMoment(calendar.getTime());
+		}
 		monthlyBill = this.monthlyBillRepository.save(monthlyBill);
 
 		return monthlyBill;
@@ -118,13 +178,28 @@ public class MonthlyBillService {
 
 		for (final Airline a : airlines) {
 			MonthlyBill monthlyBill;
+			MonthlyBill lastMonthlyBill;
+			long diferenciaDias;
+			Calendar calendar;
+			Calendar calendarLastMonthlyBill;
 			Campaign campaign;
 
 			campaign = this.campaignService.findActiveByAirlineId(a.getId());
+			lastMonthlyBill = this.findLastMonthlyBill(a.getId());
 
-			if (campaign != null) {
+			calendar = Calendar.getInstance();
+			calendar.add(Calendar.MILLISECOND, -10);
+
+			calendarLastMonthlyBill = Calendar.getInstance();
+			calendarLastMonthlyBill.setTime(lastMonthlyBill.getCreationMoment());
+
+			diferenciaDias = calendar.getTimeInMillis() - calendarLastMonthlyBill.getTimeInMillis();
+			diferenciaDias = diferenciaDias / (24 * 60 * 60 * 1000);
+
+			if (campaign != null && diferenciaDias >= 30) {
 				monthlyBill = this.create();
 				monthlyBill.setCampaign(campaign);
+				monthlyBill.setAirline(campaign.getAirline());
 
 				monthlyBill = this.save(monthlyBill);
 			}
@@ -132,7 +207,6 @@ public class MonthlyBillService {
 		}
 
 	}
-
 	// Other business methods -------------------------------------------------
 
 	public Collection<MonthlyBill> findByCampaignId(final int campaignId) {
@@ -155,6 +229,14 @@ public class MonthlyBillService {
 		Collection<MonthlyBill> campaigns;
 
 		campaigns = this.monthlyBillRepository.findUnpaidMonthlyBillsByCampaignId(campaignId);
+
+		return campaigns;
+	}
+
+	public MonthlyBill findLastMonthlyBill(final int airlineId) {
+		MonthlyBill campaigns;
+
+		campaigns = this.monthlyBillRepository.findLastMonthlyBill(airlineId);
 
 		return campaigns;
 	}

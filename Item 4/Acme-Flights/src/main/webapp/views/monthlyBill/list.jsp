@@ -48,12 +48,11 @@
 	</security:authorize>
 		
 </display:table>
-<%-- <security:authorize access="hasRole('ADMIN')">
+<security:authorize access="hasRole('ADMIN')">
 	<form:form action="monthlyBill/administrator/create.do" modelAttribute="monthlyBill">
 		<input type="submit" name="monthlyBills" value="<spring:message code="monthlyBill.compute" />" />
 	</form:form>
 </security:authorize>
- --%>
  
  <script>
 	 var z=[];

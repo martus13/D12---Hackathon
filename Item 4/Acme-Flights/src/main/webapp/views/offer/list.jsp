@@ -7,6 +7,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<jstl:if test="${deleteError }">
+	<br><b><font size="4" color="red"><spring:message code="offer.commit.error" /></font></b>
+</jstl:if>
+
 <display:table name="offers" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
 	
 	<acme:column code="offer.startMoment" property="startMoment" format="{0,date,dd/MM/yyyy HH:mm:ss}" />
@@ -19,8 +23,12 @@
 		</a>
 	</display:column>
 	
+	<jstl:set var="isAirline" value="false" />
+	<jstl:if test="${empty row.offertables }">
+		<jstl:set var="isAirline" value="true" />
+	</jstl:if>
 	<display:column>
-		<a href="offer/manager/edit.do?offerId=${row.id}">
+		<a href="offer/manager/edit.do?offerId=${row.id}&&isAirline=${isAirline}">
 			<spring:message code="offer.edit" />
 		</a>
 	</display:column>
@@ -33,6 +41,6 @@
 	
 </display:table>
 
-<a href="offer/manager/create.do">
+<a href="offer/manager/create.do?isAirline=false">
 	<spring:message code="offer.create" />
 </a>

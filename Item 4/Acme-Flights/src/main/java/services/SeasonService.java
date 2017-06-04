@@ -115,7 +115,7 @@ public class SeasonService {
 			Assert.isTrue(season.getEndDay() <= 30);
 
 		// Comprobamos que si la fecha de fin es menor que la de inicio, se tiene que dividir:
-		if (season.getStartMonth() > season.getEndMonth() || (season.getStartMonth() == season.getEndMonth() && season.getStartDay() < season.getEndDay())) {
+		if (season.getStartMonth() > season.getEndMonth() || (season.getStartMonth() == season.getEndMonth() && season.getStartDay() > season.getEndDay())) {
 
 			firstSeason = this.create(season);
 			firstSeason.setEndDay(31);

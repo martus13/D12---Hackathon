@@ -30,4 +30,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
 	@Query("select distinct b from Book b join b.flights f where b.id=?1 and f.airline.id=?2")
 	Book findOneWithAirline(int bookId, int airlineId);
+
+	@Query("select distinct b from Book b join b.offers o where o.id=?1")
+	Collection<Book> findByOfferId(int offerId);
 }

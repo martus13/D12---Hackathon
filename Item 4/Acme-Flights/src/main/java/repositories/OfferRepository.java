@@ -20,7 +20,7 @@ public interface OfferRepository extends JpaRepository<Offer, Integer> {
 	@Query("select o from Offer o join o.offertables offert where offert.id=?1 and ?2 between o.startMoment and o.endMoment")
 	Offer findByDateAndOffertableId(int offertableId, Date date);
 
-	@Query("select o from Offer o join o.offertables offert where offert in ?1 and (?2 between o.startMoment and o.endMoment) or (?3 between o.startMoment and o.endMoment) or (?2<=o.startMoment and ?3>=o.endMoment)")
-	Collection<Offer> findOverlappingByOffer(Collection<Offertable> offertables, Date startDate, Date endDate);
+	@Query("select distinct o from Offer o join o.offertables offert where o.id!=?4 and offert in ?1 and (?2 between o.startMoment and o.endMoment) or (?3 between o.startMoment and o.endMoment) or (?2<=o.startMoment and ?3>=o.endMoment)")
+	Collection<Offer> findOverlappingByOffer(Collection<Offertable> offertables, Date startDate, Date endDate, int offerId);
 
 }
