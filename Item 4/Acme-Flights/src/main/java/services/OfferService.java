@@ -73,6 +73,14 @@ public class OfferService {
 		offers = this.findOverlappingByOffer(offer);
 		Assert.isTrue(offers.isEmpty());
 
+		if (offer.getId() != 0) {
+			Offer oldOffer;
+
+			oldOffer = this.findOne(offer.getId());
+			oldOffer.getOffertables().clear();
+			this.offerRepository.save(oldOffer);
+		}
+
 		offer = this.offerRepository.save(offer);
 
 		return offer;
@@ -114,6 +122,8 @@ public class OfferService {
 
 		result = this.offerRepository.findOverlappingByOffer(offer.getOffertables(), offer.getStartMoment(), offer.getEndMoment(), offer.getId());
 
+		if (result.contains(offer))
+			result.remove(offer);
 		return result;
 	}
 	public Collection<Offer> findByDateAndOffertables(final Collection<Offertable> offertables, final Date date) {

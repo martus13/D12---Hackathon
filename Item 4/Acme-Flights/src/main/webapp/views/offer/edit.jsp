@@ -18,6 +18,7 @@
 	
 	<jstl:set var="urlRef" value="offer/manager/edit.do?offerId=${offer.id }&&" />
 	<jstl:set var="isChecked" value="" />
+	<jstl:set var="isDisabled" value="" />
 	<jstl:if test="${isCreate }">
 		<jstl:set var="urlRef" value="offer/manager/create.do?" />
 	</jstl:if>
@@ -25,7 +26,10 @@
 		<jstl:set var="checked" value="checked" />
 	</jstl:if>
 	
-	<input type="checkbox" id="checkboxAiriline" name="checkboxAiriline" onchange="window.location.href = '${urlRef}isAirline='+this.checked;" ${checked} >
+	<jstl:if test="${not isCreate && isAirline}">
+		<jstl:set var="isDisabled" value="disabled" />
+	</jstl:if>
+	<input type="checkbox" id="checkboxAiriline" name="checkboxAiriline" onchange="window.location.href = '${urlRef}isAirline='+this.checked;" ${checked} ${isDisabled } >
 	<spring:message code="offer.applyToAirline" />: <jstl:out value="${airline.name }" /><br>
 	
 	<jstl:if test="${isAirline}">
@@ -33,7 +37,7 @@
 	</jstl:if>
 	<jstl:if test="${not isAirline}">
 		<display:table name="flights" id="row" requestURI="${requestURI }" pagesize="5" class="displaytag">
-
+    	
 	    	<jstl:set var="checked" value="0" />
 			<jstl:forEach var="offertable" items="${offer.offertables}">
 			  <jstl:if test="${offertable.id==row.id}">
@@ -78,7 +82,6 @@
 	   		
 	    </display:table>
 	</jstl:if>
-    
     
 	<form:errors path="offertables" cssClass="error" />
 	

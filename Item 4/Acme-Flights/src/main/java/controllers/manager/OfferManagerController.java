@@ -164,12 +164,12 @@ public class OfferManagerController extends AbstractController {
 
 		manager = this.managerService.findByPrincipal();
 		offertables = new ArrayList<Offertable>();
-		/*
-		 * if (isAirline) {
-		 * offertables.add(manager.getAirline());
-		 * offer.setOffertables(offertables);
-		 * }
-		 */
+
+		if (isAirline) {
+			offertables.add(manager.getAirline());
+			offer.setOffertables(offertables);
+		} else
+			offer.removeOffertable(manager.getAirline());
 
 		if (binding.hasErrors()) {
 			System.out.println(binding.toString());
@@ -239,16 +239,13 @@ public class OfferManagerController extends AbstractController {
 		Offertable offertable;
 		Collection<Offertable> offertables;
 		Manager manager;
-		
-		
-		
+
 		manager = this.managerService.findByPrincipal();
 		flights = this.flightService.findNotCancelledNotPassedByAirlineId(manager.getAirline().getId());
 		offertable = this.offertableService.findOne(manager.getAirline().getId());
 		offertables = new ArrayList<Offertable>();
 
 		offertables.add(offertable);
-
 
 		result = new ModelAndView("offer/edit");
 		result.addObject("offer", offer);
