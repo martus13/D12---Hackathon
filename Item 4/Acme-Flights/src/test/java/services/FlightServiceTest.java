@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Airport;
+import domain.Finder;
 import domain.Flight;
 
 @ContextConfiguration(locations = {
@@ -33,6 +34,9 @@ public class FlightServiceTest extends AbstractTest {
 	@Autowired
 	private AirportService	airportService;
 
+	@Autowired
+	private FinderService	finderService;
+
 
 	// Tests ------------------------------------------------------------------
 
@@ -46,15 +50,17 @@ public class FlightServiceTest extends AbstractTest {
 	public void driverFind() {
 		final Object testingData[][] = {
 			{
-				163, null
+				170, null
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
 			this.testFindNotCancelledNotPassedOfferAndSeason((Class<?>) testingData[i][1]);
 			this.testFindFlightsOfferAndSeasonNotCancelledMostBook((Class<?>) testingData[i][1]);
+			this.testFindByFinder((int) testingData[i][0], (Class<?>) testingData[i][1]);
 		}
 	}
+
 	// Crear vuelos:
 	@Test
 	public void driveCreateAndSave() {
@@ -132,6 +138,25 @@ public class FlightServiceTest extends AbstractTest {
 			Collection<Object[]> flights;
 
 			flights = this.flightService.findFlightsOfferAndSeasonNotCancelledMostBook();
+			Assert.notNull(flights);
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
+	protected void testFindByFinder(final int finderId, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			Collection<Object[]> flights;
+			Finder finder;
+
+			finder = this.finderService.findOne(finderId);
+			flights = this.flightService.findByFinder(finder);
 			Assert.notNull(flights);
 
 		} catch (final Throwable oops) {

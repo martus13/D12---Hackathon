@@ -35,9 +35,9 @@ public class ActorServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				165, "USER", null
-			},   {
+			}, {
 				146, "MANAGER", null
-			},{
+			}, {
 				104, "ADMIN", null
 			}
 		};

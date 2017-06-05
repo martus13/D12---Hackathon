@@ -12,6 +12,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="numDisplayed" />
+	<form:hidden path="numDisplayedBilled" />
 	
 	
 	<acme:textarea code="banner.picture" path="picture" rows="3" />
