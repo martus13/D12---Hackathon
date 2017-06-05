@@ -28,7 +28,7 @@ public class AirportServiceTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
-	// A continuación se van a realizar pruebas para comprobar el correcto funcionamiento de los casos de uso relacionados con Flight.
+	// A continuación se van a realizar pruebas para comprobar el correcto funcionamiento de los casos de uso relacionados con Airport.
 
 	// Crear vuelos:
 	@Test
@@ -47,7 +47,7 @@ public class AirportServiceTest extends AbstractTest {
 			this.testCreateAndSave((String) testingData[i][0], (Class<?>) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Double) testingData[i][6],
 				(Boolean) testingData[i][7]);
 	}
-	// Eliminar vuelos:
+	// Eliminar aeropuertos:
 	@Test
 	public void driveDelete() {
 		final Object testingData[][] = {
