@@ -113,12 +113,14 @@ public class FlightService {
 		calendar = Calendar.getInstance();
 		calendar.add(Calendar.MILLISECOND, -10);
 
-		Assert.isTrue(flight.getDepartureDate().after(calendar.getTime()));
+		//Assert.isTrue(flight.getDepartureDate().after(calendar.getTime()));
 
-		books = this.bookService.findNotCancelledByFlightId(flight.getId());
+		if (flight.getDepartureDate().after(calendar.getTime())) {
+			books = this.bookService.findNotCancelledByFlightId(flight.getId());
 
-		for (final Book b : books)
-			this.bookService.delete(b);
+			for (final Book b : books)
+				this.bookService.delete(b);
+		}
 
 		flight.setCancelled(true);
 		this.save(flight);

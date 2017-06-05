@@ -112,6 +112,8 @@ public class BookService {
 
 		user = this.userService.findByPrincipal();
 		Assert.notNull(user);
+		// Comprobamos que el vuelo de ida y el de vuelta no sean el mismo
+		Assert.isTrue(!departure.equals(destination));
 
 		// Comprobamos la validez de la tarjeta de credito
 		Assert.isTrue(this.creditCardService.checkValidation(this.creditCardService.findByUser(user.getId())));
@@ -121,6 +123,11 @@ public class BookService {
 
 		finder = this.finderService.findByUserId(user.getId());
 		Assert.notNull(finder);
+
+		// Comprobamos que los vuelos no hayan pasado:
+		Assert.isTrue(departure.getDepartureDate().after(calendar.getTime()) || departure.getDepartureDate() == calendar.getTime());
+		if (finder.getReturnFlight())
+			Assert.isTrue(destination.getDepartureDate().after(calendar.getTime()) || destination.getDepartureDate() == calendar.getTime());
 
 		// Comprobamos que para la ida hayan asientos libres:
 		if (finder.getIsBusiness())
@@ -251,6 +258,7 @@ public class BookService {
 				fechaActualMas1Año.add(Calendar.MILLISECOND, -10);
 				fechaActualMas1Año.add(Calendar.YEAR, +1);
 
+				// Comprobamos disponibilidad asientos
 				if (book.getIsBusiness())
 					Assert.isTrue(f.getAvailableBusinessSeats() >= (book.getChildrenNumber() + book.getPassengersNumber()));
 				else
@@ -304,7 +312,7 @@ public class BookService {
 				expirationDate.setTime(f.getDepartureDate());
 				expirationDate.add(Calendar.DAY_OF_MONTH, -airlineConfiguration.getMaxCancellationDays());
 
-				Assert.isTrue(calendar.getTime().after(expirationDate.getTime()) || calendar.getTime() == expirationDate.getTime());
+				Assert.isTrue(calendar.getTime().before(expirationDate.getTime()) || calendar.getTime() == expirationDate.getTime());
 			}
 		} else if (this.actorService.checkAuthority(actor, "MANAGER")) {
 			Manager manager;
