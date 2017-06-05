@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "departureDate"), @Index(columnList = "arrivalDate"), @Index(columnList = "cancelled"), @Index(columnList = "availableEconomySeats"), @Index(columnList = "availableBusinessSeats")
+	@Index(columnList = "departureDate"), @Index(columnList = "arrivalDate"), @Index(columnList = "cancelled"), @Index(columnList = "availableEconomySeats"), @Index(columnList = "availableBusinessSeats"), @Index(columnList = "creationMoment")
 
 })
 public class Flight extends Offertable {

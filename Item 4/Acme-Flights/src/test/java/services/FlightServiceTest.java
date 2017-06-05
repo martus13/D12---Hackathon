@@ -106,6 +106,7 @@ public class FlightServiceTest extends AbstractTest {
 		for (int i = 0; i < testingData.length; i++)
 			this.testDelete((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
+
 	protected void testFindNotCancelledNotPassedOfferAndSeason(final Class<?> expected) {
 		Class<?> caught;
 
