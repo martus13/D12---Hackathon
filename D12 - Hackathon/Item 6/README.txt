@@ -1,0 +1,1 @@
+A performance test suite that fulfils the following requirements: a) There must be at least one jMeter test case per use case; b) There must be a report in which you ana-lyse what the maximum performance of your system is. The report must include screenshots where appropriate.
