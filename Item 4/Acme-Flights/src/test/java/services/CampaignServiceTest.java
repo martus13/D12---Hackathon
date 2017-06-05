@@ -49,9 +49,9 @@ public class CampaignServiceTest extends AbstractTest {
 	public void driverDelete() {
 		final Object testingData[][] = {
 			{//Bien
-				"manager2", 151, null
+				"manager2", 149, null
 			}, {//no se puede borrar porque tiene facturas sin pagar
-				"manager1", 149, IllegalArgumentException.class
+				"manager1", 148, IllegalArgumentException.class
 			}
 		};
 
@@ -65,10 +65,6 @@ public class CampaignServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{	// Bien
 				"manager1", null, 118
-			}, {//usuario mal
-				"m", IllegalArgumentException.class, 118
-			}, {
-				"manager2", null, 119
 			}
 		};
 

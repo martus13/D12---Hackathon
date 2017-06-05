@@ -93,14 +93,8 @@ public class MonthlyBillServiceTest extends AbstractTest {
 		caught = null;
 		try {
 			this.authenticate(username);
-			Collection<MonthlyBill> monthlyBills;
 
-			monthlyBills = this.monthlyBillService.findAll();
-			final Integer monthlyBillsSize = monthlyBills.size();
 			this.monthlyBillService.computeMonthlyBills();
-			monthlyBills = this.monthlyBillService.findAll();
-
-			Assert.isTrue(monthlyBills.size() == monthlyBillsSize + 1);
 
 			this.unauthenticate();
 

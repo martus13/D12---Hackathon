@@ -89,7 +89,7 @@ public class OfferService {
 	public void delete(final Offer offer) {
 		Assert.notNull(offer);
 		// comprobar que no se puede eliminar si ha sido aplicada a alguna reserva
-		Assert.isNull(this.bookService.findByOfferId(offer.getId()));
+		Assert.isTrue(this.bookService.findByOfferId(offer.getId()).isEmpty());
 
 		this.offerRepository.delete(offer);
 	}
