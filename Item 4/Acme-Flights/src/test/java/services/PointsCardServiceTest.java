@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -11,11 +10,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Airline;
-import domain.Manager;
 import domain.PointsCard;
 import domain.User;
 
@@ -37,9 +34,6 @@ public class PointsCardServiceTest extends AbstractTest {
 	@Autowired
 	private UserService			userService;
 
-	@Autowired
-	private ManagerService		managerService;
-
 
 	// Tests ------------------------------------------------------------------
 
@@ -56,53 +50,44 @@ public class PointsCardServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 
 			{ // Bien:
-				"manager", expirationMoment.getTime(), 25, 163, 117, null
+				164, 119, null
+			}, { // Error! ya existia una tarjeta de ese usuario y esa aerolinea:
+				163, 119, IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.testCreateAndSave((String) testingData[i][0], (Date) testingData[i][1], (Integer) testingData[i][2], (Integer) testingData[i][3], (Integer) testingData[i][4], (Class<?>) testingData[i][5]);
+			this.testCreateAndSave((int) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
-	// Eliminar puntos de PointsCard:
+	// Ejecutar un procedimiento para borrar los puntos de las tarjetas cuya ultima reserva se realizo hace mas de un año:
 	@Test
 	public void driveDelete() {
 		final Object testingData[][] = {
-			{ // 
-				"manager1", 163, IllegalArgumentException.class
+			{ // Bien:
+				"manager1", null
+			}, { // Error! manager no logueado:
+				null, IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.testDelete((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.testDelete((String) testingData[i][0], (Class<?>) testingData[i][1]);
 	}
 
-	protected void testCreateAndSave(final String username, final Date expirationMoment, final Integer points, final Integer userId, final Integer airlineId, final Class<?> expected) {
+	protected void testCreateAndSave(final int userId, final int airlineId, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
 		try {
-			this.authenticate(username);
-
 			PointsCard pointsCard;
 			User user;
 			Airline airline;
 
-			user = this.userService.create();
-			user.getUserAccount().setUsername("prueba1");
-			user.getUserAccount().setPassword(this.userService.encryptPassword("prueba"));
-			user.setName("prueba");
-			user.setSurname("prueba");
-			user.setContactPhone("666777888");
-			user.setEmail("p@r.com");
-
-			user = this.userService.save(user);
-
+			user = this.userService.findOne(userId);
 			airline = this.airlineService.findOne(airlineId);
 
 			pointsCard = this.pointsCardService.create(user, airline);
-
 			pointsCard = this.pointsCardService.save(pointsCard);
-			this.unauthenticate();
 
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -111,23 +96,16 @@ public class PointsCardServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	protected void testDelete(final String username, final int userId, final Class<?> expected) {
+	protected void testDelete(final String username, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
 		try {
 			this.authenticate(username);
-			Airline airline;
-			Manager manager;
-			PointsCard pointsCard;
 
-			manager = this.managerService.findByPrincipal();
-			airline = this.airlineService.findOne(manager.getAirline().getId());
+			this.pointsCardService.resetExpired();
 
-			pointsCard = this.pointsCardService.findByUserAndAirlineId(userId, airline.getId());
-			this.pointsCardService.delete(pointsCard);
 			this.unauthenticate();
-			Assert.isTrue(pointsCard.getPoints() == 0);
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}

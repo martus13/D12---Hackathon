@@ -4,8 +4,10 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -120,10 +122,13 @@ public class MonthlyBillService {
 					Integer monthDisplays;
 
 					monthDisplays = b.getNumDisplayed() - b.getNumDisplayedBilled();
-					counter += monthDisplays;
+					if (monthDisplays > 0) {
+						counter += monthDisplays;
+						description += "Banner num:" + b.getId() + ", ";
 
-					b.setNumDisplayedBilled(monthDisplays);
-					this.bannerService.save(b);
+						b.setNumDisplayedBilled(b.getNumDisplayed());
+						this.bannerService.save(b);
+					}
 				}
 				campaignCost += configuration.getCampaignFee() * counter;
 			}
@@ -184,51 +189,102 @@ public class MonthlyBillService {
 	}
 
 	public void computeMonthlyBills() {
-		Collection<Airline> airlines;
 		Administrator administrator;
+		int i = 0;
+		Integer pageSize;
+		Page<Airline> pagesAirlines;
 
 		administrator = this.administratorService.findByPrincipal();
 		Assert.notNull(administrator);
 
-		airlines = this.airlineService.findAll();
+		pageSize = Math.min(1000, Math.max(1, this.airlineService.find10percentAirlines()));
+		pagesAirlines = this.airlineService.findAllPaged(i, pageSize);
 
-		for (final Airline a : airlines) {
-			MonthlyBill monthlyBill;
-			MonthlyBill lastMonthlyBill;
-			long diferenciaDias;
-			Calendar calendar;
-			Calendar calendarIniDate;
+		while (pagesAirlines.hasNextPage()) {
+			Page<Airline> nextPagAirlinesPages;
+			List<Airline> nextPageAirlinesList;
 
-			lastMonthlyBill = this.findLastMonthlyBill(a.getId());
+			nextPagAirlinesPages = this.airlineService.findAllPaged(i, pageSize);
+			nextPageAirlinesList = nextPagAirlinesPages.getContent();
 
-			calendar = Calendar.getInstance();
-			calendar.add(Calendar.MILLISECOND, -10);
+			if (!nextPageAirlinesList.isEmpty())
+				for (final Airline a : nextPageAirlinesList) {
+					MonthlyBill monthlyBill;
+					MonthlyBill lastMonthlyBill;
+					long diferenciaDias;
+					Calendar calendar;
+					Calendar calendarIniDate;
 
-			calendarIniDate = Calendar.getInstance();
+					lastMonthlyBill = this.findLastMonthlyBill(a.getId());
 
-			if (lastMonthlyBill != null)
-				calendarIniDate.setTime(lastMonthlyBill.getCreationMoment());
+					calendar = Calendar.getInstance();
+					calendar.add(Calendar.MILLISECOND, -10);
+
+					calendarIniDate = Calendar.getInstance();
+
+					if (lastMonthlyBill != null)
+						calendarIniDate.setTime(lastMonthlyBill.getCreationMoment());
+					else
+						calendarIniDate.setTime(this.campaignService.findFirstStartDateByAirline(a.getId()));
+
+					diferenciaDias = calendar.getTimeInMillis() - calendarIniDate.getTimeInMillis();
+					diferenciaDias = diferenciaDias / (24 * 60 * 60 * 1000);
+
+					if (diferenciaDias >= 30) {
+						final Collection<Campaign> campaigns;
+
+						campaigns = this.campaignService.findByAirlineIdPeriod(a.getId(), calendarIniDate.getTime(), calendar.getTime());
+
+						monthlyBill = this.create();
+						monthlyBill.setCampaigns(campaigns);
+						monthlyBill.setAirline(a);
+
+						this.save(monthlyBill);
+					}
+				}
 			else
-				calendarIniDate.setTime(this.campaignService.findFirstStartDateByAirline(a.getId()));
-
-			diferenciaDias = calendar.getTimeInMillis() - calendarIniDate.getTimeInMillis();
-			diferenciaDias = diferenciaDias / (24 * 60 * 60 * 1000);
-
-			if (diferenciaDias >= 30) {
-				final Collection<Campaign> campaigns;
-
-				campaigns = this.campaignService.findByAirlineIdPeriod(a.getId(), calendarIniDate.getTime(), calendar.getTime());
-
-				monthlyBill = this.create();
-				monthlyBill.setCampaigns(campaigns);
-				monthlyBill.setAirline(a);
-
-				this.save(monthlyBill);
-			}
+				break;
+			i++;
 
 		}
 
+		//				for (final Airline a : airlines) {
+		//					MonthlyBill monthlyBill;
+		//					MonthlyBill lastMonthlyBill;
+		//					long diferenciaDias;
+		//					Calendar calendar;
+		//					Calendar calendarIniDate;
+		//		
+		//					lastMonthlyBill = this.findLastMonthlyBill(a.getId());
+		//		
+		//					calendar = Calendar.getInstance();
+		//					calendar.add(Calendar.MILLISECOND, -10);
+		//		
+		//					calendarIniDate = Calendar.getInstance();
+		//		
+		//					if (lastMonthlyBill != null)
+		//						calendarIniDate.setTime(lastMonthlyBill.getCreationMoment());
+		//					else
+		//						calendarIniDate.setTime(this.campaignService.findFirstStartDateByAirline(a.getId()));
+		//		
+		//					diferenciaDias = calendar.getTimeInMillis() - calendarIniDate.getTimeInMillis();
+		//					diferenciaDias = diferenciaDias / (24 * 60 * 60 * 1000);
+		//		
+		//					if (diferenciaDias >= 30) {
+		//						final Collection<Campaign> campaigns;
+		//		
+		//						campaigns = this.campaignService.findByAirlineIdPeriod(a.getId(), calendarIniDate.getTime(), calendar.getTime());
+		//		
+		//						monthlyBill = this.create();
+		//						monthlyBill.setCampaigns(campaigns);
+		//						monthlyBill.setAirline(a);
+		//		
+		//						this.save(monthlyBill);
+		//					}
+		//		
+		//				}
 	}
+
 	// Other business methods -------------------------------------------------
 
 	public Collection<MonthlyBill> findByCampaignId(final int campaignId) {

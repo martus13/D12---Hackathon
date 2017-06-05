@@ -679,7 +679,7 @@
 		<property name="name" value="Campaign 1"/>
 		<property name="startDate" value="02/01/2017 00:00:01" />
 		<property name="endDate" value="06/30/2017 23:59:59" />
-		<property name="maxDisplayed" value="1"/>
+		<property name="maxDisplayed" value="3"/>
 		<property name="deleted" value="false"/>
 		<property name="airline" ref="airline1"/>
 	</bean>
@@ -706,7 +706,7 @@
 		<property name="name" value="Campaign 4"/>
 		<property name="startDate" value="07/01/2017 00:00:01" />
 		<property name="endDate" value="08/30/2017 23:59:59" />
-		<property name="maxDisplayed" value="1"/>
+		<property name="maxDisplayed" value="5"/>
 		<property name="deleted" value="true"/>
 		<property name="airline" ref="airline1"/>
 	</bean>
@@ -715,7 +715,7 @@
 	
 	<bean id="banner1" class="domain.Banner">
 		<property name="numDisplayed" value="2" />
-		<property name="numDisplayedBilled" value="2" />
+		<property name="numDisplayedBilled" value="1" />
 		<property name="picture" value="http://ultimallamada.com/wp-content/uploads/2016/09/Vueling-680x350.jpg" />
 		<property name="campaign" ref="campaign1"/>
 	</bean>
@@ -728,7 +728,7 @@
 	</bean>
 	
 	<bean id="banner3" class="domain.Banner">
-		<property name="numDisplayed" value="3" />
+		<property name="numDisplayed" value="0" />
 		<property name="numDisplayedBilled" value="0" />
 		<property name="picture" value="http://img.net-v.ca/images/en/flights_banner.jpg" />
 		<property name="campaign" ref="campaign3"/>
@@ -736,7 +736,7 @@
 	
 	<bean id="banner4" class="domain.Banner">
 		<property name="numDisplayed" value="2" />
-		<property name="numDisplayedBilled" value="2" />
+		<property name="numDisplayedBilled" value="1" />
 		<property name="picture" value="http://recursos.anuncios.com/files/781/55.jpg" />
 		<property name="campaign" ref="campaign1"/>
 	</bean>

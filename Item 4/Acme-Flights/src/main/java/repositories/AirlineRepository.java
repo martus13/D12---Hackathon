@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,12 @@ public interface AirlineRepository extends JpaRepository<Airline, Integer> {
 
 	@Query("select m.airline from Manager m where m.id=?1")
 	Airline findByManager(int managerId);
+
+	@Query("select a from Airline a")
+	Page<Airline> findAllPaged(Pageable pageRequest);
+
+	@Query("select 0.1*count(a) from Airline a")
+	Double find10percentAirlines();
 
 	// 1. Las aeorlíneas con más reservas 
 	@Query("select f.airline, count(b) from Book b join b.flights f where b.cancelationMoment is null group by f.airline having count(b)>=ALL(select count(b1) from Book b1 join b1.flights f1 where b1.cancelationMoment is null group by f1.airline)")

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -50,6 +52,17 @@ public class AirlineService {
 		Collection<Airline> result;
 
 		result = this.airlineRepository.findAll();
+
+		return result;
+	}
+
+	public Page<Airline> findAllPaged(final Integer pageNumber, final Integer pageSize) {
+		Page<Airline> result;
+		PageRequest request;
+
+		request = new PageRequest(pageNumber, pageSize);
+
+		result = this.airlineRepository.findAllPaged(request);
 
 		return result;
 	}
@@ -103,6 +116,16 @@ public class AirlineService {
 
 	}
 
+	public Integer find10percentAirlines() {
+
+		Double result;
+
+		result = this.airlineRepository.find10percentAirlines();
+
+		return (int) Math.round(result);
+
+	}
+
 	public Collection<Object[]> findMinMaxAvgRatingByAirline() {
 		Collection<Object[]> result;
 
@@ -119,52 +142,52 @@ public class AirlineService {
 
 		return result;
 	}
-	
-	public Airline findByManager(int managerId){
-		
+
+	public Airline findByManager(final int managerId) {
+
 		return this.airlineRepository.findByManager(managerId);
 	}
-	
-	public Collection<Object[]> findAirlineLessBooks(){
-		
+
+	public Collection<Object[]> findAirlineLessBooks() {
+
 		return this.airlineRepository.findAirlineLessBooks();
 	}
-	
-	public Collection<Object[]> findAirlineMostBooks(){
+
+	public Collection<Object[]> findAirlineMostBooks() {
 		return this.airlineRepository.findAirlineMostBooks();
 	}
-	
-	public Collection<Object[]> findAirlineMostFlights(){
-		
+
+	public Collection<Object[]> findAirlineMostFlights() {
+
 		return this.airlineRepository.findAirlineMostFlights();
 	}
-	
-	public Collection<Object[]> findAirlineLessFlights(){
-		
+
+	public Collection<Object[]> findAirlineLessFlights() {
+
 		return this.airlineRepository.findAirlineLessFlights();
 	}
-	
-	public Collection<Object[]> findAirlinesOrderByNumberOfBills(){
+
+	public Collection<Object[]> findAirlinesOrderByNumberOfBills() {
 		return this.airlineRepository.findAirlinesOrderByNumberOfBills();
 	}
 
-	public Collection<Object[]> findPercentagePaidBills(){
+	public Collection<Object[]> findPercentagePaidBills() {
 		return this.airlineRepository.findPercentagePaidBills();
 	}
-	
-	public Collection<Object[]> findMostPercentageDiscount(){
+
+	public Collection<Object[]> findMostPercentageDiscount() {
 		return this.airlineRepository.findMostPercentageDiscount();
 	}
-	
-	public Collection<Object[]> findLessPercentageDiscount(){
+
+	public Collection<Object[]> findLessPercentageDiscount() {
 		return this.airlineRepository.findLessPercentageDiscount();
-	
+
 	}
-	 public Collection<Object[]> findPositiveComments(){
-		 return this.airlineRepository.findPositiveComments();
-	 }
-	 
-	 public Collection<Object[]> findMinMaxAvgServiceRatingByAirline(){
-		 return this.airlineRepository.findMinMaxAvgServiceRatingByAirline();
-	 }
+	public Collection<Object[]> findPositiveComments() {
+		return this.airlineRepository.findPositiveComments();
+	}
+
+	public Collection<Object[]> findMinMaxAvgServiceRatingByAirline() {
+		return this.airlineRepository.findMinMaxAvgServiceRatingByAirline();
+	}
 }

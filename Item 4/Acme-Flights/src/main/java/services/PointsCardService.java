@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +53,20 @@ public class PointsCardService {
 
 	public PointsCard create(final User user, final Airline airline) {
 		PointsCard result;
+		PointsCard overlappingPointsCard;
+		Calendar calendar;
+
+		overlappingPointsCard = this.findByUserAndAirlineId(user.getId(), airline.getId());
+		Assert.isNull(overlappingPointsCard);
+
+		calendar = Calendar.getInstance();
+		calendar.add(Calendar.YEAR, +1);
 
 		result = new PointsCard();
 		result.setUser(user);
 		result.setAirline(airline);
 		result.setPoints(0);
+		result.setExpirationMoment(calendar.getTime());
 
 		return result;
 	}
